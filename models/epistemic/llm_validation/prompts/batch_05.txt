@@ -1,0 +1,65 @@
+You're labeling sentences for epistemic certainty in news/encyclopedia text.
+Pick exactly one label per sentence:
+
+- asserted: the writer states the content as fact, with confidence.
+  Example: "The company reported a 12% increase in revenue."
+- hedged: the writer signals partial uncertainty or qualification,
+  but is making a claim. Example: "The policy may have contributed to the decline."
+- speculative: the writer presents the content as unverified, hypothetical,
+  attributed-but-unconfirmed, or conditional on something unknown.
+  Example: "Reportedly, the suspect fled the country."
+
+Output one JSON object per sentence, on its own line:
+{"id": 1, "label": "asserted"}
+
+Sentences:
+201. When at a time in which you are distant, at which you will exchange blows of the sword, it will be rather easy to attain closeness towards your opponent.
+202. In 2006, Royce Millar of The Age referred to it as a "wasted opportunity".
+203. According to the manual, this is used to test if the printer is functioning properly.
+204. Petronas Twin Towers
+205. Because of many deaths of officers in the hands of firearms in the outer districts of the Metropolis, and after much press coverage debating whether Peel's service should be fully armed, the Commissioner applied to the Home Secretary to supply all officers on the outer districts with revolvers.
+206. Today it is very likely to find at least one chapter on the ER Model when a person randomly picks up a textbook on information system design or databases.
+207. Southworth was considered to be the best light heavy weight on the show by Chuck LIddell, Rnady Couture,and Dana White, due to his Pre fighting experience he had at the time.
+208. Armed constabulary are usually not in contact with the public until they are assigned to VIP duty or assigned to maintain order during fairs, festivals, athletic events, elections, and natural disasters.
+209. No evidence has been found to support this hypothesis, nor has any explanation been offered of why, if that was so, the words were later inserted in the midst of the words of Text and rubrics of the consecration of the wine, not at the end.
+210. The process can be done in open trays but is much more effective if the etchant (often ferric chloride) is sprayed onto the metal.
+211. The Act also created a national General Assembly consisting of the Legislative Council appointed by the Governor and the directly-elected House of Representatives.
+212. Some believe that the FSB will prove to be the weak link for Intel, as the Core microarchitecture uses a shared bus, unlike AMD's HyperTransport.
+213. There are conflicting studies, and it is unclear if phytoestrogens have any effect on the cause or prevention of cancer in females.
+214. Such complexes are used to analyze mechanistic aspects of homogenous catalysts.
+215. As mentioned in the review under the 'unanswered questions/further research' section, very few studies assessed the effectiveness of "interventions for children and young people and for severely affected patients."
+216. Abraham Lincoln Battle Group
+217. Most Pravic words in the book are proper names (said to be generated randomly by a computer), and they are two-syllable words with five or six phonemes (of the form CVCVC, where C = consonant, V = vowel), if one counts the groups 'sh', 'gv' and 'kv' as single consonants, which they probably are.
+218. China's generally perceived pandemic overpopulation problem, with the associated social and environmental problems, forced the government to take strong unique measures in population planning policy.
+219. Some people define the term 'polyamory' as referring to romantic or sexual relationships involving multiple partners at once, regardless of whether they involve marriage.
+220. The first incarnation was the son of Professor Hardwich, and appeared in most issues between #1-29 and was essentially an outer space version of Tarzan, where Auro was "befriended by a saber tooth tiger," stranded on Jupiter with "muscles... as strong as steel" thanks to the higher gravitational pull of the planet.
+221. It is unclear whether the division between OS/MFT and OS/MVT arose because MVT required too much memory to be usable on mid-range machines or because IBM needed to release a multiprogramming version of OS (MFT) as soon as possible.
+222. In September 1101, his entire army was destroyed by the Seljuk Turks at Heraclea; William himself barely escaped, and, according to Orderic Vitalis, he reached Antioch with only six surviving companions.
+223. Two other usurpers, Marcus Silbannacus and Sponsianus, are reported to have started rebellions without much success.
+224. Since the discovery of the cosmic microwave background in 1965 it has been regarded as the best theory of the origin and evolution of the cosmos.
+225. Scientists now think that dromaeosaurs date back to Jurassic times, when all the continents were much closer together.
+226. The company also secretly creates "Can-D", an illegal but widely available hallucinogenic drug allowing the user to "translate" into Perky Pat (if the drug user is a woman) or Pat's boyfriend, Walt (if the drug user is a man).
+227. After they had been running for a while they found themselves near Central Park and nearly out of money, Beth was working on some artistic sketches when both came upon a sidewalk Santa Claus (who preferred to be called Nick) who asked if they needed help.
+228. Most sociologists, criminologists and even some psychologists believe the disorder is caused by social conflicts, and thus prefer the term 'sociopath.'
+229. Specifically, Dworkin scholars and students question whether Dworkin's legacy will suffer because he has not explicitly discussed, for example, the substantial amount of U.S. citizens who are excluded from participating in its national electoral process.
+230. Scientists comment that 'the biggest hurdle is regulatory', whereas an official view is that individual phages would need proof individually because it would be too complicated to do as a combination, with many variables.
+231. Some people speculate that endocrine disrupting compounds may be linked to many health concerns, such as cancer, diabetes, obesity, learning disabilities and behavioural problems.
+232. She also possesses a gifted intellect, and as a former pupil of Merlin, she possesses a great deal of magical lore, considered one of the greatest sorceresses in Earth's history.
+233. PETA is also alleged to have donated $1.3 million to the Physicians Committee for Responsible Medicine (PCRM), an organization that promotes the use of alternatives to animal testing, but which has been criticized for its links with the ALF, and in particular with Dr. Jerry Vlasak, a trauma surgeon who runs the North American Animal Liberation Press Office.
+234. During his infancy, Paul was taken from the care of his mother by the Empress Elizabeth, whose ill-judged fondness allegedly injured his health.
+235. Hampton died in Columbia and is buried there in Trinity Cathedral Churchyard.
+236. In addition, many of the world's largest oil-producing countries do not follow normal industry standards in estimating their oil reserves and do not publish any data which would allow their estimates to be verified.
+237. In 'Child's Play 2', Andy has been sent to a foster home while his mother, who was considered mentally unstable, has been undergoing psychiatric testing, Mike Norris is also absent from the film as he, according to a comic based on the series, under the threat of being fired, has been forced to abandon the "chucky is alive" case and hench leave Andy to his fate (though he did help Mrs Barclay be put in a mental institute and not a Prison (she was believed to be responsible for the murders of the first film)).
+238. But this difficulty vanishes, says Socrates, if we are prepared to make the distinction between sensibles on the one hand and Forms, in which sensibles participate, on the other.
+239. The CIA has been accused of having played a key role of engineering the regime change against Ali Bhutto by former Attorney General Ramsey Clark.
+240. Baron Petre
+241. Some observers wondered whether hard line elements in the north would allow the treaty to proceed.
+242. It is rarely discussed whether the effort would be to make the United States into a net neutral/net exporter of energy, wherein the U.S. would produce and consume equivalent or less energy than it produces, or instead to make the United States completely self-feeding, wherein U.S. consumers would purchase energy solely from U.S. producers, enforced by wide embargos/autarkies or tariffs.
+243. Similarly, it is possible that a famous wildlife photographer, inspired by a cheap snapshot of cheetah at the zoo, on Flikr, would be infringing copyright if he went exploring the Okovango Delta in search of a cheetah in a similar pose.
+244. Additionally, the representation of the caucus has been questioned due to traditionally low turnout.
+245. Therefore, Carr purports that the neural circuitry shaped by regular Internet usage can also be expected to be different from that shaped by the reading of books and other page-based written material.
+246. He gave to the king's disposal 10 ships, a few of them were carrying small caliber cannons.
+247. For example, it is possible that Vogue Magazine would be infringing copyright if they, inspired by a picture taken by a drunk boyfriend of his girlfriend posing provocatively on a motorcycle, attempted to recreate the photograph.
+248. The Bush presidency has also been marked by diplomatic tensions with the People's Republic of China and North Korea, the latter of which admitted in 2003 to having been in the process of building nuclear weapons and threatened to use them if provoked by the U.S.
+249. It is perhaps the most ethnically and socially diverse new housing development in the city of Pittsburgh.
+250. The name 'Artemia salina' should not be used anymore.
