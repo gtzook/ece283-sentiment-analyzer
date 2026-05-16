@@ -71,9 +71,8 @@ _reg(DatasetMeta(
             col="label",
             task_type=TaskType.BINARY_CLS,
             num_classes=2,
-            # Raw: 1=biased, 2=not biased → canonical 0=not biased, 1=biased
-            label_map={"1": 1, "2": 0},
-            sentiment_polarity=-1,  # biased = bad/negative framing
+            label_map={"0": 0, "1": 1},  # 0=not biased, 1=biased
+            sentiment_polarity=-1,
         )
     ],
 ))
