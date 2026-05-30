@@ -4,3 +4,12 @@
 # LDC licenced data -- do not commit
 **/factbank_ldc/
 **/*.tgz
+
+# Virtual environment
+.venv/
+
+# Model checkpoints and training artifacts (large files -- store externally)
+runs/
+
+# HuggingFace model cache
+.cache/
