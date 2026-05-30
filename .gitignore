@@ -1,2 +1,7 @@
 checkpoints/
-*.py
+wandb/
+__pycache__/
+*.pyc
+*.pt
+*.safetensors
+*.pth
