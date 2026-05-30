@@ -1,0 +1,6 @@
+**/__pycache__/*
+*.py[cod]
+
+# LDC licenced data -- do not commit
+**/factbank_ldc/
+**/*.tgz
