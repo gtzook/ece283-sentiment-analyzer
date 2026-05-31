@@ -20,7 +20,7 @@ from sklearn.metrics import (
 )
 from transformers import EvalPrediction
 
-from config import EMOTION_LABELS
+from models.emotion.config import EMOTION_LABELS
 
 
 def _apply_threshold(logits: np.ndarray, threshold: float = 0.5) -> np.ndarray:

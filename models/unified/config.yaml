@@ -1,0 +1,52 @@
+model:
+  name: roberta-base
+  dropout: 0.1
+  lambda_token: 0.3        # weight of epistemic token-head loss relative to sentence-head loss
+  bias_task_type: binary_classification
+  bias_num_classes: 2
+  bias_dataset: 10_BABE
+  bias_label_col: label
+  emotion_num_labels: 11
+
+data:
+  # Epistemic corpora (same paths as models/epistemic/config.yaml)
+  wiki_xml:            /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/wiki.xml
+  szeged_factbank_xml: /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/factbank.xml
+  factbank_ldc_ann:    /mldata/ece283-sentiment-analyzer/epistemic/raw/factbank_ldc/data/annotation
+  # Bio corpora omitted — out-of-domain for news-focused unified model
+  bio_xmls:      []
+  bioscope_xmls: []
+  bio_token_weight: 0.0
+
+  # Shared
+  magpie_data_dir: /mldata/ece283-sentiment-analyzer
+  cache_dir: /mldata/ece283-sentiment-analyzer
+  hf_cache_dir: /mldata/ece283-sentiment-analyzer/hf_cache
+  max_len: 128
+  seed: 42
+  train_frac: 0.80
+  val_frac: 0.10
+
+training:
+  seed: 42
+  batch_size: 16
+  encoder_lr: 2.0e-5
+  head_lr: 1.0e-4
+  weight_decay: 0.01
+  epochs: 5
+  warmup_frac: 0.10
+  fp16: true
+  grad_clip: 1.0
+  grad_accum_steps: 2      # effective batch size = 32
+
+  # Per-task loss weights — emotion down-weighted due to ~10x dataset size
+  task_weights:
+    epistemic: 1.0
+    bias:      1.0
+    emotion:   0.5
+
+  checkpoint_dir: runs/unified/
+
+logging:
+  wandb_project: ece283-unified
+  wandb_entity: null

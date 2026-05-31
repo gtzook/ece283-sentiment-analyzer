@@ -42,7 +42,7 @@ sys.path.insert(0, str(Path(__file__).parents[2]))
 from src.data.dataset import MAGPIEDataset
 from src.data.splits import stratified_split
 from src.data.registry import REGISTRY, TaskType
-from models.political_bias.classifier import RoBERTaClassifier
+from models.political_bias.model import RoBERTaClassifier
 
 _DEFAULT_CACHE = "/mldata/ece283-sentiment-analyzer"
 _DEFAULT_AUX   = "25_FakeNewsNet"   # 21k news headlines, same domain as BABE

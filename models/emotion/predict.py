@@ -22,9 +22,8 @@ from typing import Union
 import numpy as np
 import torch
 
-sys.path.insert(0, str(Path(__file__).parent))
-from config import EMOTION_LABELS, EmotionalFramingConfig
-from model.classifier import EmotionalFramingClassifier
+from models.emotion.config import EMOTION_LABELS, EmotionalFramingConfig
+from models.emotion.model import EmotionalFramingClassifier
 
 from transformers import AutoTokenizer, RobertaConfig
 

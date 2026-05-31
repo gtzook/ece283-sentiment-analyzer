@@ -1,0 +1,24 @@
+model:
+  name: roberta-base
+  dropout: 0.1
+  num_labels: 11
+
+data:
+  magpie_data_dir: /mldata/ece283-sentiment-analyzer
+  hf_cache_dir: /mldata/ece283-sentiment-analyzer/hf_cache
+  max_len: 128
+  seed: 42
+
+training:
+  encoder_lr: 2.0e-5
+  head_lr: 1.0e-4
+  weight_decay: 0.01
+  batch_size: 32
+  epochs: 10
+  patience: 3
+  warmup_ratio: 0.06
+  fp16: true
+  threshold: 0.5
+
+logging:
+  wandb_project: emotional-framing-floor

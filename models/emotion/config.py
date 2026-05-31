@@ -51,7 +51,7 @@ class EmotionalFramingConfig:
     # ── I/O ───────────────────────────────────────────────────────────────────
     output_dir: str = "./checkpoints/emotional_framing_floor"
     magpie_data_dir: str = "/mldata/ece283-sentiment-analyzer"
-    hf_cache_dir: str = "./hf_cache"
+    hf_cache_dir: str = "/mldata/ece283-sentiment-analyzer/hf_cache"
 
     # ── Logging ───────────────────────────────────────────────────────────────
     wandb_project: str = "emotional-framing-floor"

@@ -20,13 +20,10 @@ from pathlib import Path
 import numpy as np
 import torch
 
-# ── resolve package imports regardless of working directory ──────────────────
-sys.path.insert(0, str(Path(__file__).parent))
-
-from config import EmotionalFramingConfig, EMOTION_LABELS
-from data.loader import load_and_split
-from evaluate import full_report, make_compute_metrics, tune_threshold
-from model.classifier import EmotionalFramingClassifier
+from models.emotion.config import EmotionalFramingConfig, EMOTION_LABELS
+from models.emotion.data import load_and_split
+from models.emotion.eval import full_report, make_compute_metrics, tune_threshold
+from models.emotion.model import EmotionalFramingClassifier
 
 import torch.optim
 

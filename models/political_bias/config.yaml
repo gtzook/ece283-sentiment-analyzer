@@ -1,0 +1,25 @@
+model:
+  name: roberta-base
+  dropout: 0.1
+
+data:
+  cache_dir: /mldata/ece283-sentiment-analyzer
+  max_len: 128
+  train_frac: 0.80
+  val_frac: 0.10
+  seed: 42
+
+training:
+  seed: 42
+  batch_size: 32
+  lr: 2.0e-5
+  weight_decay: 0.01
+  epochs: 15
+  patience: 4
+  fp16: true
+  grad_clip: 1.0
+  checkpoint_dir: runs/
+
+logging:
+  wandb_project: ece283-political-bias
+  wandb_entity: null

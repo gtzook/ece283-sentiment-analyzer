@@ -41,8 +41,7 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import EmotionalFramingConfig, EMOTION_LABELS, MAGPIE_LABEL_TO_SEMEVAL_IDX
+from models.emotion.config import EmotionalFramingConfig, EMOTION_LABELS, MAGPIE_LABEL_TO_SEMEVAL_IDX
 
 logger = logging.getLogger(__name__)
 
@@ -149,7 +148,7 @@ def _load_magpie_emotion(data_dir: str) -> Optional[Tuple[list, list, list]]:
     return texts, labels, sources
 
 
-def _load_goemotion() -> Optional[Tuple[list, list, list]]:
+def _load_goemotion(cache_dir: Optional[str] = None) -> Optional[Tuple[list, list, list]]:
     """
     Load GoEmotions simplified from HF Hub (~35k after filtering).
 
@@ -158,7 +157,7 @@ def _load_goemotion() -> Optional[Tuple[list, list, list]]:
     """
     try:
         from datasets import load_dataset
-        ds = load_dataset("google-research-datasets/go_emotions", "simplified")
+        ds = load_dataset("google-research-datasets/go_emotions", "simplified", cache_dir=cache_dir)
     except Exception as e:
         logger.warning("Could not load GoEmotions: %s — skipping", e)
         return None
@@ -192,7 +191,7 @@ def _load_goemotion() -> Optional[Tuple[list, list, list]]:
     return texts, labels, sources
 
 
-def _load_dairai_emotion() -> Optional[Tuple[list, list, list]]:
+def _load_dairai_emotion(cache_dir: Optional[str] = None) -> Optional[Tuple[list, list, list]]:
     """
     Load dair-ai/emotion from HF Hub (~20k).
 
@@ -201,7 +200,7 @@ def _load_dairai_emotion() -> Optional[Tuple[list, list, list]]:
     """
     try:
         from datasets import load_dataset
-        ds = load_dataset("dair-ai/emotion")
+        ds = load_dataset("dair-ai/emotion", cache_dir=cache_dir)
     except Exception as e:
         logger.warning("Could not load dair-ai/emotion: %s — skipping", e)
         return None
@@ -221,7 +220,7 @@ def _load_dairai_emotion() -> Optional[Tuple[list, list, list]]:
     return texts, labels, sources
 
 
-def _load_tweet_eval_emotion() -> Optional[Tuple[list, list, list]]:
+def _load_tweet_eval_emotion(cache_dir: Optional[str] = None) -> Optional[Tuple[list, list, list]]:
     """
     Load TweetEval emotion from HF Hub (~5k).
 
@@ -230,7 +229,7 @@ def _load_tweet_eval_emotion() -> Optional[Tuple[list, list, list]]:
     """
     try:
         from datasets import load_dataset
-        ds = load_dataset("cardiffnlp/tweet_eval", "emotion")
+        ds = load_dataset("cardiffnlp/tweet_eval", "emotion", cache_dir=cache_dir)
     except Exception as e:
         logger.warning("Could not load tweet_eval emotion: %s — skipping", e)
         return None
@@ -314,9 +313,10 @@ def load_and_split(cfg: EmotionalFramingConfig) -> "DatasetDict":  # noqa: F821
     _extend(magpie)
 
     # ── 2–4. Supplementary sources (optional — HF Hub) ───────────────────────
-    _extend(_load_goemotion())
-    _extend(_load_dairai_emotion())
-    _extend(_load_tweet_eval_emotion())
+    hf_cache = cfg.hf_cache_dir or None
+    _extend(_load_goemotion(hf_cache))
+    _extend(_load_dairai_emotion(hf_cache))
+    _extend(_load_tweet_eval_emotion(hf_cache))
 
     logger.info("Total before filtering: %d examples", len(all_texts))
 

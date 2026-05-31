@@ -83,7 +83,7 @@ class UnifiedSentimentAnalyzer:
 
         self._bias = None
         if bias_checkpoint is not None:
-            from models.political_bias.infer import BiasPredictor
+            from models.political_bias.predict import BiasPredictor
             self._bias = BiasPredictor(
                 checkpoint=bias_checkpoint,
                 dataset_id=bias_dataset_id,
