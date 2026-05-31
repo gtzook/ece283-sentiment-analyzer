@@ -354,6 +354,8 @@ def train(cfg: dict) -> None:
     best_val_f1  = -1.0
     global_step  = 0
 
+    step_log_path = run_dir / "step_losses.jsonl"
+
     print(
         f"\nTraining on {device}  |  fp16={use_fp16}  |  "
         f"total_steps={total_steps}  |  warmup={warmup_steps}"
@@ -363,7 +365,10 @@ def train(cfg: dict) -> None:
 
     for epoch in range(1, tc["epochs"] + 1):
         model.train()
-        epoch_loss = 0.0
+        epoch_loss           = 0.0
+        epoch_sent_losses    = []
+        epoch_tok_news_losses = []
+        epoch_tok_bio_losses  = []
 
         pbar = tqdm(
             sent_train_dl,
@@ -379,18 +384,21 @@ def train(cfg: dict) -> None:
 
             with torch.amp.autocast("cuda", enabled=use_fp16):
                 # Sentence head loss
-                sent_out = model(**sent_batch)
-                loss     = sent_out["loss"]
+                sent_out   = model(**sent_batch)
+                sent_loss  = sent_out["loss"]
+                loss       = sent_loss
 
                 # News token head loss (full weight)
-                tok_out = model(
+                tok_out      = model(
                     input_ids=tok_news_batch["input_ids"],
                     attention_mask=tok_news_batch["attention_mask"],
                     token_labels=tok_news_batch["token_labels"],
                 )
-                loss = loss + tok_out["loss"]
+                tok_news_loss = tok_out["loss"]
+                loss = loss + tok_news_loss
 
                 # Bio token head loss (down-weighted)
+                tok_bio_loss = None
                 if tok_bio_iter is not None and bio_weight > 0.0:
                     tok_bio_batch = {k: v.to(device) for k, v in next(tok_bio_iter).items()}
                     bio_out = model(
@@ -398,7 +406,8 @@ def train(cfg: dict) -> None:
                         attention_mask=tok_bio_batch["attention_mask"],
                         token_labels=tok_bio_batch["token_labels"],
                     )
-                    loss = loss + bio_weight * bio_out["loss"]
+                    tok_bio_loss = bio_out["loss"]
+                    loss = loss + bio_weight * tok_bio_loss
 
             scaler.scale(loss).backward()
             scaler.unscale_(optimizer)
@@ -414,17 +423,41 @@ def train(cfg: dict) -> None:
             if scaler.get_scale() >= scale_before:
                 scheduler.step()
 
-            epoch_loss  += loss.item()
+            sent_loss_val     = sent_loss.item()
+            tok_news_loss_val = tok_news_loss.item()
+            tok_bio_loss_val  = tok_bio_loss.item() if tok_bio_loss is not None else None
+            total_loss_val    = loss.item()
+
+            epoch_sent_losses.append(sent_loss_val)
+            epoch_tok_news_losses.append(tok_news_loss_val)
+            if tok_bio_loss_val is not None:
+                epoch_tok_bio_losses.append(tok_bio_loss_val)
+
+            step_record = {
+                "step": global_step, "epoch": epoch,
+                "sent_loss": sent_loss_val,
+                "tok_news_loss": tok_news_loss_val,
+                "total_loss": total_loss_val,
+            }
+            if tok_bio_loss_val is not None:
+                step_record["tok_bio_loss"] = tok_bio_loss_val
+            with open(step_log_path, "a") as _f:
+                _f.write(json.dumps(step_record) + "\n")
+
+            epoch_loss  += total_loss_val
             global_step += 1
-            pbar.set_postfix(loss=f"{loss.item():.4f}", lr=f"{scheduler.get_last_lr()[0]:.2e}")
+            pbar.set_postfix(loss=f"{total_loss_val:.4f}", lr=f"{scheduler.get_last_lr()[0]:.2e}")
 
         pbar.close()
         avg_loss = epoch_loss / max(len(sent_train_dl), 1)
 
         val_metrics = validate(model, sent_val_dl, tok_news_val_dl, device, mc.get("lambda_token", 0.3))
-        val_metrics["epoch"]       = epoch
-        val_metrics["train_loss"]  = avg_loss
-        val_metrics["step"]        = global_step
+        val_metrics["epoch"]              = epoch
+        val_metrics["train_loss"]         = avg_loss
+        val_metrics["train_sent_loss"]    = float(np.mean(epoch_sent_losses)) if epoch_sent_losses else 0.0
+        val_metrics["train_tok_news_loss"] = float(np.mean(epoch_tok_news_losses)) if epoch_tok_news_losses else 0.0
+        val_metrics["train_tok_bio_loss"] = float(np.mean(epoch_tok_bio_losses)) if epoch_tok_bio_losses else 0.0
+        val_metrics["step"]               = global_step
 
         print(
             f"Epoch {epoch}/{tc['epochs']}  "

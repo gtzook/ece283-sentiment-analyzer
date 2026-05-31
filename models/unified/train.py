@@ -449,9 +449,12 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     logger.info("Run dir: %s", run_dir)
 
+    step_log_path = run_dir / "step_losses.jsonl"
+
     wb_run = _init_wandb(cfg, run_dir, dry_run)
 
     log_every  = cfg.get("logging", {}).get("log_every_n_steps", 50)
+    
     best_composite = -1.0
     history        = []
     global_step    = 0
@@ -489,6 +492,9 @@ def train(cfg: dict, dry_run: bool = False) -> None:
             loss.backward()
             epoch_losses[task].append(raw_loss)
             recent_losses[task] = raw_loss
+
+            with open(step_log_path, "a") as _f:
+                _f.write(json.dumps({"step": global_step, "epoch": epoch, "task": task, "loss": raw_loss}) + "\n")
 
             if (global_step + 1) % grad_accum_steps == 0:
                 nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
