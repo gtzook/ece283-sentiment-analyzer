@@ -46,6 +46,46 @@ LABEL_NAMES = {
 }
 
 
+class BiasPredictor:
+    """Loadable inference wrapper for a trained political-bias checkpoint.
+
+    Usage:
+        from infer import BiasPredictor
+        predictor = BiasPredictor("runs/10_BABE/label/best.pt")
+        result = predictor.predict("Left-wing activists demand sweeping reforms")
+        # {"prediction": "biased", "confidence": 0.94, "probabilities": {...}}
+    """
+
+    def __init__(
+        self,
+        checkpoint: str | Path,
+        dataset_id: str = DEFAULT_DATASET,
+        label_col: str = DEFAULT_LABEL_COL,
+        model_name: str = DEFAULT_MODEL_NAME,
+        max_length: int = DEFAULT_MAX_LENGTH,
+        device: str | None = None,
+    ) -> None:
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = torch.device(device)
+        self.max_length = max_length
+        self.label_names = LABEL_NAMES.get(dataset_id, {})
+
+        self.model, self.lc = load_model(
+            checkpoint, dataset_id, label_col, model_name, self.device
+        )
+        self.tokenizer = RobertaTokenizerFast.from_pretrained(model_name)
+
+    def predict(self, text: str) -> dict:
+        return predict(
+            text, self.model, self.tokenizer,
+            self.lc, self.device, self.label_names, self.max_length,
+        )
+
+    def predict_batch(self, texts: list[str]) -> list[dict]:
+        return [self.predict(t) for t in texts]
+
+
 def load_model(checkpoint, dataset_id, label_col, model_name, device):
     meta  = REGISTRY[dataset_id]
     lc    = next(lc for lc in meta.label_columns if lc.col == label_col)
