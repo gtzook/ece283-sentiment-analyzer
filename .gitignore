@@ -1,0 +1,24 @@
+**/__pycache__/
+**/__pycache__/*
+*.py[cod]
+*.pyc
+
+# LDC licenced data -- do not commit
+**/factbank_ldc/
+**/*.tgz
+
+# Virtual environment
+.venv/
+
+# Model checkpoints and training artifacts (large files -- store externally)
+runs/
+checkpoints/
+*.pt
+*.safetensors
+*.pth
+
+# HuggingFace model cache
+.cache/
+
+# W&B
+wandb/

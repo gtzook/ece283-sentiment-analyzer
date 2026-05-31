@@ -1,0 +1,21 @@
+# Core ML
+torch>=2.1
+transformers>=4.40
+datasets>=2.18
+
+# Encoder
+sentencepiece>=0.1.99   # needed by some RoBERTa tokenizer variants
+
+# Multi-label stratification
+scikit-multilearn>=0.2.0
+scipy>=1.11             # required by scikit-multilearn
+
+# Metrics
+scikit-learn>=1.4
+
+# Logging
+wandb>=0.16
+
+# Data
+pandas>=2.0
+numpy>=1.26

@@ -1,0 +1,51 @@
+
+============================================================
+1. Cohen's κ: each LLM vs rule labels
+============================================================
+  deepseek                   κ = +0.282  (fair)  raw agreement = 48.4%  n = 250
+  gemini3                    κ = +0.313  (fair)  raw agreement = 50.8%  n = 250
+  gpt4o                      κ = +0.228  (fair)  raw agreement = 44.8%  n = 250
+  kimik2_6                   κ = +0.149  (slight/poor)  raw agreement = 36.4%  n = 250
+  sonnet4_6                  κ = +0.265  (fair)  raw agreement = 47.2%  n = 250
+
+============================================================
+2. Fleiss' κ across all LLMs (inter-LLM agreement ceiling)
+============================================================
+  Fleiss' κ (n_raters=5) = +0.545  (moderate)  n = 250
+
+  Interpretation: this is the task difficulty ceiling.
+  Rule labels cannot be expected to exceed this agreement.
+
+============================================================
+3. Confusion matrix: rule labels (rows) vs LLM majority vote (cols)
+============================================================
+Predicted →
+                    asserted         hedged    speculative
+     asserted             49              0              1
+       hedged             45             41             14
+  speculative             67             11             22
+
+  κ(rule vs majority) = +0.243  (fair)
+
+============================================================
+4. Per-cue-type breakdown: rule label vs LLM majority vote
+============================================================
+  Cue type                                          n   agree%       κ  LLM dist
+  no_ccue (→ asserted)                             50    98.0%  +0.000  asserted:49 hedged:0 speculative:1
+  modal_probable (→ hedged)                        50    58.0%  +0.000  asserted:11 hedged:29 speculative:10
+  hypo_doxastic  (→ hedged)                        50    24.0%  +0.000  asserted:34 hedged:12 speculative:4
+  hypo_condition (→ speculative??)                 50    40.0%  +0.000  asserted:25 hedged:5 speculative:20
+  hypo_investigation (→ speculative)               50     4.0%  +0.000  asserted:42 hedged:6 speculative:2
+
+  !! hypo_condition detail: LLMs labeled asserted=25, hedged=5, speculative=20
+  !! LLM majority label for conditionals = 'asserted' (rule says 'speculative') — consider revising mapping.
+
+============================================================
+5. Decision recommendation
+============================================================
+  Average LLM-vs-rule κ:  +0.247
+  Conditionals consistent: False
+
+  RECOMMENDATION: DO NOT SHIP — revisit mapping.
+  Overall κ = 0.247 is below the 0.70 threshold.
+  Review the confusion matrix for systematic error patterns.

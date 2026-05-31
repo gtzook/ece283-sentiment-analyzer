@@ -1,0 +1,87 @@
+=== hypo_investigation (rule: speculative) ===
+  cue=[whether]  These critics have asked <<whether>> Dworkin goes out of his way to avoid applying his theories to obviously difficult questions of the "'here and now'".
+  cue=[whether]  Whereas evolutionary game theory studies the behavior of large populations of agents, the theory of 'learning in games' focuses on <<whether>> the actions of a small group of players end up conforming to some notion of equilibrium.
+  cue=[studying]  There have been no randomized clinical trials <<studying>> the effects of toxoplasma on human behavior.
+  cue=[assess]  It is precisely the function of predispositions to <<assess>> the impact of an intermediate state upon the future course of development.”
+  cue=[whether]  The new Management Guidelines are composed of Maturity Models, to help determine the stages and expectation levels of control and compare them against industry norms; Critical Success Factors, to identify the most important actions for achieving control over the IT processes; Key Goal Indicators, to define target levels of performance; and Key Performance Indicators, to measure <<whether>> an IT control process is meeting its objective.
+  cue=[if]  The surface scanner can tell <<if>> the ground ahead moves up or down, which information is transmitted to the arrow, which then tilts forward or backward accordingly.
+  cue=[if]  One question that pet owners argue about is <<if>> cats are smarter than dogs.
+  cue=[whether]  In the first three months of 2004, the sculpture was twice vandalised by pouring paint over it and a poll in the local paper was held to decide <<whether>> it should be moved, although the result was 2,163 to 738 in favour of keeping the sculpture.
+  cue=[assessed]  As mentioned in the review under the 'unanswered questions/further research' section, very few studies <<assessed>> the effectiveness of "interventions for children and young people and for severely affected patients."
+  cue=[whether]  Those who fit a 2003 ME/ICD-CFS definition with post exertional malaise may wish to consider <<whether>> graded exercise is recommended in their case because it can cause serious deterioration in the exertional intolerant, and the 25% ME Grouppoint out that many severe cases were in fact mild cases before undergoing such therapy.
+  cue=[whether]  His early fundraising was hindered by the question as to <<whether>> he would complete the project, and once the project was completed, public attention quickly turned to other matters.
+  cue=[whether, whether]  The question <<whether>> popular culture or mass culture is inherently conservative, or <<whether>> it can be used in a subversive strategy as well, is equally hotly debated.
+  cue=[whether]  Some people define the term 'polyamory' as referring to romantic or sexual relationships involving multiple partners at once, regardless of <<whether>> they involve marriage.
+  cue=[whether]  Book II:' Satan and the rebel angels debate <<whether>> to wage another war on Heaven, and Beelzebub tells them of a new world being built which is to be the home of Man.
+  cue=[whether]  The Netherlands' law concerning registered partnerships provides that:#A person may be involved in one only registered partnership with one other person <<whether>> of the same or of opposite sex at any one time.
+  cue=[whether]  Because of many deaths of officers in the hands of firearms in the outer districts of the Metropolis, and after much press coverage debating <<whether>> Peel's service should be fully armed, the Commissioner applied to the Home Secretary to supply all officers on the outer districts with revolvers.
+  cue=[if]  In the evening, the Pope and Balducci arrive to see <<if>> the statue is completed.
+  cue=[whether]  A 'pun' (or 'paronomasia') is a phrase that deliberately exploits confusion between similar words for rhetorical effect, <<whether>> houmorous or serious.
+  cue=[whether]  This led to some later confusion as to <<whether>> unearthed bombs were unexploded mortar projectiles ("Duds") or undetonated mines.
+  cue=[whether]  Previous court proceedings had included discussions about <<whether>> the defendants had liability insurance.
+
+=== hypo_doxastic (rule: hedged) ===
+  cue=[regarded]  The term refers to a species of monkey, and is <<regarded>> by some as an ethnic slur.
+  cue=[believe]  Therefore it would be a mistake to <<believe>> that covering the breasts, or even wearing a bra like garment was a usual part of Minoan life.
+  cue=[considered]  Russian art is <<considered>> by some to be very interesting and unique.
+  cue=[regarded, alleged]  On the other hand, the Philippists <<regarded>> themselves as the faithful guardians of learning over against the <<alleged>> "barbarism," and as the mean between the extremes.
+  cue=[considered]  With internet culture rising to prominence in Hong Kong, there emerges a habit where netizens simply do not participate in Internet events, feuds and arguments, which are at many times <<considered>> plain silly, but just watch as the "show" goes on.
+  cue=[consider]  Some people <<consider>> the storage as an essential part of securing the food chain in the event of a poor harvest.
+  cue=[believed]  Despite Lavrov’s historical analysis, he still <<believed>> a socialist revolution was possible in Russia.
+  cue=[believed]  #And last of all that it is also <<believed>> in by some that the brain is essentially mindless, most of what takes place are chemical reactions and that human intelligent behaviour is analogous to the intelligent behaviour displayed for example by ant colonies.
+  cue=[considered]  The Starwood Festival is generally <<considered>> to be the largest annual Neo-pagan gathering and festival on the East Coast of the United States.
+  cue=[believe]  Some Muslims <<believe>> hijab covering for women should be compulsory as part of Sharia law.
+  cue=[theorised]  The ruling aristocracy from 1500 until the mid 19th Century was of Turkic', (Central Asian), and Persian origin, and it was they who introduced paneer to India, although some have <<theorised>> that paneer came to the Persians, Indians and Greeks much earlier.
+  cue=[believed]  The Public Enemy song "A Letter to the 'New York Post'" from their album 'Apocalypse '91...The Enemy Strikes Black' is a complaint about what they <<believed>> to be negative and inaccurate coverage African-Americans received from the paper.
+  cue=[considered]  He was best known as the lead singer and lyricist of the popular American rock band The Doors, and is <<considered>> to be one of the most charismatic and influential frontmen in the history of rock music."
+  cue=[considered]  It is also important to note that the particle nature of light cannot explain the dependence on polarization with regard to the direction electrons are emitted, a phenomenon that has been <<considered>> useful in gathering polarization data from black holes and neutron stars.
+  cue=[see]  Some <<see>> him as having "abruptly turned his back on the environmental movement" and "being a mouthpiece for some of the very interests Greenpeace was founded to counter".
+  cue=[regarded]  Unlike the Workers World Party, which never maintained a formal position in the A.N.S.W.E.R. Coalition despite its clear influence (the International Action Center, an organization which is <<regarded>> to have ties with the WWP, was the organization that ANSWER had formally suspended from the coalition), the PSL’s role within A.N.S.W.E.R. is overt.
+  cue=[seen]  Video games have in the past generally been <<seen>> as an ad-free medium by gamers.
+  cue=[belief]  Probe Ministries seeks to maintain humility in its positions on controversial issues: it is "agnostic" on the age of the earth; complementarian in its <<belief>> that the Bible supports male leadership in the church and in the family: Should Women Be Pastors? What Does It Mean for a Wife to Submit?
+  cue=[considered]  Spiritual LSD is <<considered>> an entheogen because it can catalyze intense spiritual experiences where users feel they have come into contact with a greater spiritual or cosmic order.
+  cue=[allegedly]  Panto's murder was <<allegedly>> carried out by Mendy Weiss of Murder Inc.
+
+=== hypo_condition (rule: speculative) ===
+  cue=[if]  The only way to "keep" them is <<if>> they are transformed into other Pikmin species with Candypop Buds.
+  cue=[If, would]  <<If>> this is true, over thousands of years only good impersonators <<would>> survive, encouraging the evolution of mimicry.
+  cue=[if]  However, stores commonly offer to give purchasers a discount <<if>> the purchaser does not take a receipt, thereby allowing the stores to falsify their VAT tax reports.
+  cue=[If, if]  <<If>> the other says: "Yes", play continues, <<if>> not he throws his hand in, play ceases and the challenger scores whatever it was worth before he offered to raise.
+  cue=[if, would]  Ovulation may also be confirmed by testing for serum progesterone in mid-luteal phase, approximately seven days after ovulation (<<if>> ovulation occurred on the average cycle day of fourteen, seven days later <<would>> be cycle day 21).
+  cue=[if]  On June 13, 1948, Shah Wali Khan, the Afghan envoy to Pakistan, at a party in his honor by the Aligarh Old Boys' Association, declared: "Our King has already stated, and I, as the representative of Afghanistan, declare that Afghanistan has no claims on frontier territory, and even <<if>> there were any, they have been given up in favor of Pakistan.
+  cue=[if, would]  However, <<if>> there had been pronouns at an earlier stage of Piraha, this <<would>> not affect Everett's claim of the significance of the system's simplicity today.
+  cue=[could]  La Follette's platform called for government ownership of the railroads and electric utilities, cheap credit for farmers, the outlawing of child labor, stronger laws to help labor unions, more protection of civil liberties, an end to American imperialism in Latin America, and a referendum before any president <<could>> again lead the nation into war.
+  cue=[would]  Satellite television has been far more successful in Africa than cable, primarily because the infrastructure for cable television does not exist and <<would>> be expensive to install since majority of Africans cannot afford paid cable television.
+  cue=[until]  However, Prokhorov's spokesman denied he was the purchaser, and said he refuses to do business in France <<until>> he receives an apology for being investigated in a prostitution probe.
+  cue=[provided]  While enrolled, students are free to pursue whatever discipline they want, <<provided>> they meet the credit requirements for graduation at their high-school.
+  cue=[If, could]  <<If>> placed on a wall, for example, the user <<could>> crawl through the hole and come out on the other side of the surface.
+  cue=[If]  <<If>> the propulsion system must produce large amounts of thrust, or have a high specific impulse, as on the main motor of an interplanetary spacecraft, othertechnologies are used.
+  cue=[will]  The perception of these people <<will>> be that they are not supportive in the company and are very petty.
+  cue=[would, if]  It <<would>> be handed to the States Department on August 15 only <<if>> the Nawab did not change his mind before then, which he was free to do.
+  cue=[should, if]  Aristotle, in "Politics", claims that he made changes to land reforms “family plots and the number of citizens <<should>> be kept equal, even <<if>> the citizens had all started with plots of unequal size.”
+  cue=[if]  In Pennsylvania, a peace officer may arrest a person, without warrant, <<if>> a crime is committed in their presence.'
+  cue=[if]  Their incest - and all manner of other sexual activity and taboos, such as sodomy, adultery, and homosexuality - are justified by Dolmancé in a series of energetic arguments that ultimately boil down to '<<if>> it feels good, do it.'
+  cue=[If]  <<If>> the batsman fails to hit the ball, and the ball does not hit the stumps, the second bowler (at the end to which the ball has just been bowled) collects the ball and may then bowl it back to the second batsman at the opposite end.
+  cue=[if]  However, <<if>> the salt is long enough, there are too many possibilities and the attacker must repeat the encryption of every guess for each user.
+
+=== modal_probable (rule: hedged) ===
+  cue=[may]  Undifferentiated plastids ('proplastids') <<may>> develop into any of the following plastids:
+  cue=[implies, may]  Furthermore, it <<implies>> that the legislative body <<may>> change or repeal any prior legislative acts.
+  cue=[seemingly]  While the schedule is <<seemingly>> mundane, the experience is anything but because for one day you are forced to separate from friends, school, and everything else and focus for 25 hours on Shabbas.
+  cue=[suggesting]  Also, the modern diversity of pinniped and cetacean genera evolved largely around the Mio-Pliocene boundary, <<suggesting>> that many ecological niches emerged or became vacant.
+  cue=[possibly]  A statue was erected of him, <<possibly>> at a 'Mouseion' at Cos, and his work was explicitly acknowledged as a classic by both Theocritus and Callimachus.
+  cue=[probably]  After meeting him you will <<probably>> be left with a gaping asshole, due to his fixation with male anus's.
+  cue=[unconfirmed]  This is <<unconfirmed>> and, most would agree, unimportant as Barat's backing vocals and guitar playing add much to both songs.
+  cue=[seems, may]  Thus it <<seems>> that, though PA and DAG are interconvertible, the different species of lipid can have different biological activities; and this <<may>> enable the two lipids to maintain separate signaling pathways.
+  cue=[may]  Practice pad implements can be constructed in a variety of shapes and sizes, and by typical design, <<may>> be adequately compact (thin) and lightweight for ease in transport.
+  cue=[may]  In the summer the top of the permafrost <<may>> be covered with water due to melting in the area (Stonehouse, 69).
+  cue=[may]  Polk Library, UW Oshkosh Having a pet <<may>> help people achieve health goals, such as lowered blood pressure, or mental goals, such as decreased stress.
+  cue=[may]  He <<may>> have ancestors among Florentine stock to which belonged the Ghibelline leader Farinata degli Uberti, celebrated in Dante's 'Divina Commedia'.
+  cue=[concerns]  A short-lived constitutional crisis developed after the parliamentary election of March 1977, when the Indian-led National Federation Party (NFP) won a narrow majority of seats in the House of Representatives, but failed to form a government due to internal leadership problems, as well as <<concerns>> among some of its members that indigenous Fijians would not accept Indo-Fijian leadership.
+  cue=[probably]  He was the second son of Duke Bolko III of Strzelce by his wife Anna, <<probably>> daughter of Duke Jan I of Oświęcim.
+  cue=[possibility]  The <<possibility>> of not applying the principle is granted in the cure.
+  cue=[may, could]  Given enough run time, a sufficiently large and diverse user community, or other factors, an input which <<may>> be dismissed as pathological <<could>> in fact occur (as seen in the first test flight of the Ariane 5).
+  cue=[may]  Some people prefer not to use shaving cream at all, and <<may>> shave simply with water, for example, after a hot shower.
+  cue=[imply]  The use of psychological therapies such as CBT does not <<imply>> that CFS is a psychiatric condition or that physical symptoms are not real.
+  cue=[probably]  Female lead, Edwina Booth, became infected, <<probably>> with malaria, during filming.
+  cue=[may]  The players <<may>> decide to try and take all the tricks in a hand.

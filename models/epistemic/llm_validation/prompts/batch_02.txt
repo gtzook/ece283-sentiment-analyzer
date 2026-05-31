@@ -1,0 +1,65 @@
+You're labeling sentences for epistemic certainty in news/encyclopedia text.
+Pick exactly one label per sentence:
+
+- asserted: the writer states the content as fact, with confidence.
+  Example: "The company reported a 12% increase in revenue."
+- hedged: the writer signals partial uncertainty or qualification,
+  but is making a claim. Example: "The policy may have contributed to the decline."
+- speculative: the writer presents the content as unverified, hypothetical,
+  attributed-but-unconfirmed, or conditional on something unknown.
+  Example: "Reportedly, the suspect fled the country."
+
+Output one JSON object per sentence, on its own line:
+{"id": 1, "label": "asserted"}
+
+Sentences:
+51. Should, for example, oil production be stopped entirely, or becomes depleted, the U.S. would have only a single year of resources to fall back upon.
+52. The government and the safety service is trying to suppress every possible knowledge of physics, which could lead to verify if the statements about what Paradise is, explained to Paradisians, are true.
+53. However in recent years this interpretation has been doubted by scholars such as Nigel Davies See Davies (1968) for an advancement of this interpretation and Ross Hassig Hassig (1988)., who argues that "the mutual arrangement" of the flower war institution is dubious, and suggest that Flowery War was in fact a low-intensity, sustained conflict with the Aztec side trying to fatigue the Tlaxcalteca in order to later conquer them entirely.
+54. Opinions differ among Middle East experts and former government officials about the pre-Iraqi tilt, and whether Washington could have done more to stop the flow to Baghdad of technology for building weapons of mass destruction.
+55. Should the oil and fuel escape from their caves, the Ministry of Environment deems it probable that the underground freshwater lens would be contaminated and undrinkable.
+56. Finally, layered on top of this was a popular ideological view of the time that property, wealth and inequality was against the teachings of God, as expressed through the teachings of the Franciscans.
+57. A 'pun' (or 'paronomasia') is a phrase that deliberately exploits confusion between similar words for rhetorical effect, whether houmorous or serious.
+58. If a man has a black eye or bruise, it would be assumed that it happened from too much contact sport, getting into a brawl with another man, or even getting hurt at work.
+59. PCLinuxOS appears to have a fiercely evangelical and unusually helpful userbase.
+60. In the evening, the Pope and Balducci arrive to see if the statue is completed.
+61. First-party developer Rare had two games at launch: 'Perfect Dark Zero', which was Rare's first major commercial success after their acquisition by Microsoft; and was believed by some to be the console's flagship launch title; and 'Kameo: Elements of Power'.
+62. If one speaks and acts with a pure mind, surely happiness will follow like one's own shadow!"
+63. There have been no randomized clinical trials studying the effects of toxoplasma on human behavior.
+64. If the other says: "Yes", play continues, if not he throws his hand in, play ceases and the challenger scores whatever it was worth before he offered to raise.
+65. Some people speculate the reason why Zoroastrians tend to discourage homosexuality is not simply because of a scriptural prohibition, but from perceived tradition.
+66. Accounts of Trungmase and the traditional hierarchy of Surmang differ somewhat.
+67. Methods that confirm ovulation may be used to evaluate the effectiveness of treatments to stimulate ovulation.
+68. Both became painters, but as they were very young children when their father died, it is believed neither received any training from him.
+69. If it clearly rolls off to one side, a player may be inclined to stuff folded paper beneath the legs on the lower side to level the playfield.
+70. They are considered a leader in the manufacturing of both jet engine airfoils and gas turbines used for generating electricity.
+71. This throws up an anomaly: Groups get money and seats on Committees which Independent members do not get, but the total amount of Independent members may be greater than the members of the smaller Groups.
+72. Concerns were also raised by a law professor on whether it was realistically possible to enforce such a code, whether it would lead to dangers of entrapment, and whether the informal position of the government not to enforce the code would reverse overnight.
+73. The 2540p mode features 4520 vertical lines of resolution, although sometime in the future may be changed for technical reasons.
+74. The catalyst for the defections was reported to be Duncan's allegedly heavy-handed and secretive leadership style.
+75. At the Riverside Studios, Peter Gill (who is in charge of the whole enterprise) has directed 'The Cherry Orchard' with a cast so astonishingly suitable that I began, hallucinatorily, to believe that they had been assembled first, and that Chekhov had then written the play round them.
+76. Perhaps metrosexuality is a reaction against this shift, as some men feel too confined within the gender roles.
+77. Some people still suspect that the School Board is still considering closing the Center and it is unclear whether renovations to the Ridge Avenue building will be completed before the next school year.
+78. In children, this type of hearing loss can lead to social isolation for several reasons.
+79. From a national security standpoint, such a situation is untenable, and calls for the immediate incubation of long term energy solutions prior to a 'peak oil' scenario which would force the economy to grinding halt.
+80. He also reportedly abused and killed neighborhood pets, which is widely considered an early sign of antisocial personality disorder.
+81. Because Napoleon exaggerated this incident in his report of the battle, the low numbers may be more accurate, although doubt remain as to whether they are fully correct.
+82. Then in clearness's third grade (the pragmatic grade), he defines the truth as that which would be reached, sooner or later but still inevitably, by research adequately prolonged, such that the real does depend on that final opinion — a dependence to which he appeals in theoretical arguments elsewhere, for instance for the long-term validity of the rule of induction "That the rule of induction will hold good in the long run may be deduced from the principle that reality is only the object of the final opinion to which sufficient investigation would lead", and, given the final ineradicability of error from measurement, not only for the view that space will never be found to be exactly Euclidean "I think we may feel confident that the parallax of the farthest star lies somewhere between -0.'05 and +0.'15, and within another century our grandchildren will surely know whether the three angles of a triangle are greater or less than 180° — that they are exactly that amount is what nobody ever can be justified in concluding." —, but also for the reality of chance and the real's lack of positive exactness.
+83. It is most likely that the toxins come from the 'Choresine' genus of beetles, part of the bird's diet.
+84. Heinz Kohut is the main introducer of the principle of empathy in psychoanalysis.
+85. Since the story emerged in the media, Bowers has vowed to pay all the money back if he is found to be in the wrong.
+86. Calderón excelled above all others in the genre of the "auto sacramental", in which he showed a seemingly inexhaustible capacity to giving new dramatic forms to a given set of theological constructs.
+87. Engaging in such policies today, under the ICC Statute, could be grounds for prosecution.
+88. It may have a grated coconut and jaggery/sugar filling or a cottage chese ('chenna') filling.'
+89. Homosexuality and Zoroastrianism
+90. It is argued between the characters whether these "shadows" even exist before they're imagined by a member of the royal family of Amber, or if the "shadows'" existence can be seen as an act of godlike creation.
+91. A risk exists that the "power of suggestion" may worsen symptoms and cause long-term disabilities; therefore, when counseling is indicated, the therapist must take a psychological origin of symptoms into account and not assume that all symptoms are a direct result of neurological damage from the injury.
+92. Critics consider that its fine qualities are marred by leaden effects.
+93. Nguza was regarded by other members of the Sacred Union (of which his party was a member) as a "traitor" because of this, and he subsequently left the Sacred Union.
+94. If viewers do not hear a laugh track they may assume that the show is a drama and may flip over to the next channel to search for a comedy.
+95. Thus, the position in which he portrays himself could be considered a reflex reaction typical of anyone struggling to keep out distressing noise, whether actual or imagined.
+96. Adam Goodes
+97. The battle broke the power of Ghent only temporarily, as in 1539 there would be another revolt against the high taxes under Charles V, Holy Roman Emperor (see Revolt of Ghent).
+98. In another instance, if the hole was placed on the ground, the user might be able to insert objects into it or allow others to fall in, as if he or she had dug a hole.
+99. He believes Putin is probably "being set up" for the poisoning of Alexander Litvinenko, and that Litvenko's death was likely either a suicide or the work of one of Putin's enemies trying to "put a cloud of suspicion over Putin and a chill over Russian relations with the West."
+100. Since its toxic effects are due to its activity as a cholinesterase inhibitor it is considered a neurotoxic pesticide.
