@@ -1,4 +1,18 @@
-torch>=2.0
+# Core ML
+torch>=2.1
 transformers>=4.40
 pandas>=2.0
 requests>=2.31
+numpy>=1.26
+
+# Data / splits
+datasets>=2.18
+scikit-learn>=1.4
+scikit-multilearn>=0.2.0
+scipy>=1.11
+
+# Tokenizer (some RoBERTa tokenizer variants)
+sentencepiece>=0.1.99
+
+# Logging
+wandb>=0.16
