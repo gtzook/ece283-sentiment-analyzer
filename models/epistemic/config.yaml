@@ -1,0 +1,49 @@
+# Epistemic certainty model — training configuration
+
+model:
+  name: roberta-base
+  dropout: 0.1
+  lambda_token: 0.3          # weight of token head loss in joint objective
+
+data:
+  # Paths are relative to the raw data root or absolute
+  wiki_xml:            /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/wiki.xml
+  szeged_factbank_xml: /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/factbank.xml
+  factbank_ldc_ann:    /mldata/ece283-sentiment-analyzer/epistemic/raw/factbank_ldc/data/annotation
+  bio_xmls:
+    - /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/bio_bmc.xml
+    - /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/bio_fly.xml
+    - /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/bio_hbc.xml
+  bioscope_xmls:
+    - /mldata/ece283-sentiment-analyzer/epistemic/raw/bioscope/abstracts.xml
+    - /mldata/ece283-sentiment-analyzer/epistemic/raw/bioscope/full_papers.xml
+
+  max_len: 128
+  # Document-level split to prevent sentence leakage across splits
+  split_seed: 42
+  train_frac: 0.80
+  val_frac:   0.10
+  # test_frac is the remainder (0.10)
+
+  # Loss multiplier for biomedical token examples (out-of-domain).
+  # Ablate over [0.0, 0.25, 0.5, 1.0]; pick by val macro-F1 on token head.
+  bio_token_weight: 0.5
+
+training:
+  seed:          42
+  batch_size:    16
+  lr:            2.0e-5
+  weight_decay:  0.01
+  epochs:        3
+  warmup_frac:   0.10        # fraction of total steps used for linear warmup
+  fp16:          true        # set false if GPU does not support it
+  grad_clip:     1.0
+
+  # Checkpoint: save the model with best validation macro-F1 (sentence head)
+  checkpoint_dir: runs/
+
+logging:
+  # W&B used if wandb package is importable and WANDB_API_KEY is set,
+  # otherwise falls back to JSON in runs/<timestamp>/metrics.json
+  wandb_project: ece283-epistemic
+  wandb_entity:  null        # set to your W&B username/team or leave null

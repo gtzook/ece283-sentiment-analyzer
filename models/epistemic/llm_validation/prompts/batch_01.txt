@@ -1,0 +1,65 @@
+You're labeling sentences for epistemic certainty in news/encyclopedia text.
+Pick exactly one label per sentence:
+
+- asserted: the writer states the content as fact, with confidence.
+  Example: "The company reported a 12% increase in revenue."
+- hedged: the writer signals partial uncertainty or qualification,
+  but is making a claim. Example: "The policy may have contributed to the decline."
+- speculative: the writer presents the content as unverified, hypothetical,
+  attributed-but-unconfirmed, or conditional on something unknown.
+  Example: "Reportedly, the suspect fled the country."
+
+Output one JSON object per sentence, on its own line:
+{"id": 1, "label": "asserted"}
+
+Sentences:
+1. Even if a man would report domestic abuse, people would be skeptical of his claim.
+2. It is initially unclear if he works at inciting a truly positive revolution or has much darker, harmful plans for the people of Heavenside, until the sixth issue where he outright states he plans to bring down the apocalypse and Heavenside is just a testing ground.
+3. In 1952 he joined the Swedish Experimental Film Studio, where he made films for several years.
+4. No set ever surrounds a building, though its members may.
+5. 'In vitro' studies concluded that females with current or past breast cancer should be aware of the risks of potential tumor growth when taking soy products, as they can stimulate the growth of estrogen receptor-positive cells in vitro.
+6. It may be indicative that multiculturalism may not be very useful without larger forces avoiding conflict.
+7. Phylogenetic analysis suggests that 'Hericiaceae' belongs to the russuloid clade of homobasidiomycetes, and morphological and molecular evidence links it with the families Auriscalpiaceae, Bondarzewiaceae and Echinodontiaceae.
+8. Some of its methods, however, have come under question, viewed by the cannabis community as overt propaganda.
+9. A Nyingma monastic college or shedra, Do-ngag Tösam Rabgayling, has been established above the village.
+10. This nicety of law did not always save the individuals concerned, however, as whether one was considered a pirate or a legally operating privateer often depended on whose custody the individual found himself in-that of the country that had issued the commission, or that of the object of attack.
+11. The influence by the work of French painter, Jean-Francois Millet, who was widely admired among the artists in the Worpswede group, may be seen in such pieces as her 1900 'Peat Cutters'.
+12. The study concluded that it was impossible to determine whether prosauropods had a bird-like flow-through lung, but that the air sacs were almost certainly present.
+13. Although crossing over from sales into editorial was considered a conflict of interest in the Marvel offices, Owsley, whom David describes as a "maverick", was impressed with how David had not previously hesitated to work with him when Owsley was an assistant editor under Larry Hama, and thus, when he became an editor, he purchased a Spider-Man story from David, which appeared in 'Spectacular Spider-Man' #103 in 1985.
+14. If you do away with the sacrosanctity of the law then crime will disappear, because in reality a crime is nothing more than an act desecrating that which was hallowed by the state.
+15. Leopold's Maneuvers may find the fetus in an oblique or breech position or lying transverse as a result of the abnormal position of the placenta.
+16. Two sequels were made ('Blade II' & 'Blade: Trinity') but the first film is widely considered the best of the series.
+17. Alongside the "winged primate" theory, an accepted theory is that these creatures are a new species of fruit bat; despite reports depicting the animal as carnivorous, and assumed to be at fault for the disappearance of many farm animals in the region.
+18. Paramedics in Canada
+19. A count of the vocabulary of "best sellers" and a summary of it in terms of our list would thus be very instructive.
+20. Or it may be that certain cultural differences are intractable.
+21. In this regard, the study of 'philosophy' is considered important because it both equips students with meta-tools such as the ability to reason rigorously and logically, and facilitates ethical reflection.
+22. In fact, a 1952 memorandum submitted to the League of Arab States by the Higher Arab Committee reveals that Arab states officially agreed to take responsibility for these refugees at the height of the Palestinian exodus, until such time as Israel would be destroyed::
+23. There are situations where the original gum 'should' have been washed off; bright fresh gum on the 1933 WIPA souvenir sheet of Austria would probably be false since the acidic nature of the original gum would cause the paper to deteriorate.
+24. On the other hand, the Philippists regarded themselves as the faithful guardians of learning over against the alleged "barbarism," and as the mean between the extremes.
+25. Shah attempted to escape from United States custody and failed.
+26. Assuming the warrior was armed and expert, it might almost be an even match, but Dachande would put his wager on the female.
+27. Today the term "populism" is often used, especially outside academia, as a vague, frequently pejorative description, whether to describe vote-grabbing measures and rhetoric used by mainstream parties or in connection with new right-wing nationalist movements as well as many left-wing socialist movements in Latin America.
+28. These limitations make least privilege substantially less effective than the enforcement or the precise set of least privileges would suggest.
+29. The possibility of Korčula being Polo's birthplace has raised the issue of wether he was an Italian (Venetian) or Croat, since the town (and, indeed, the entire Dalmatian region) was predominantly Croat (in modern times Dalmatia, including Korčula, is part of Croatia).
+30. At the time the book is based, 1950, many people would have frowned upon Jenny, a white girl, becoming friends with a black skinned girl.
+31. If one would question himself or think about what is going on one may begin to notice something not right.
+32. His early fundraising was hindered by the question as to whether he would complete the project, and once the project was completed, public attention quickly turned to other matters.
+33. Voegelin's definition of Eschaton would be more toward the idea that Gnostics are really rejecting "Christianity's" eschaton of Heaven and Hell and replacing it with a human form of salvation through revelation by mystical ritual or practice.
+34. These critics have asked whether Dworkin goes out of his way to avoid applying his theories to obviously difficult questions of the "'here and now'".
+35. The letters patent directed that, if the holder of the barony ever succeeded to the earldom, then he would be automatically deprived of the barony as if he died naturally without issue, the barony being diverted to another line.
+36. In fact in the single year 1997, US military aid to Turkey was greater than in the entire period of 1950 to 1983 when there were allegedly Cold War issues.
+37. How many depends on the size vocabulary from which they are chosen 'and' if those words are selected randomly.
+38. Because of these, some consider Emeryville an exclave of the Silicon Valley region, the northern reaches of which are about south of Emeryville.
+39. The arms show five yellow hazelnuts on a red background.
+40. "Teleculturology" emerged in international telecommunication influenced by the work of Marshall McLuhan to describe studies of participation in cultural and medical practices at a distance.
+41. Along with other armed factions, the Khmer Rouge launched a relentless military campaign against the newly-established People's Republic of Kampuchea state from the refugee camps and from hidden military outposts along the Thai border.
+42. Chris Raschka
+43. Some followers suggest that homosexuality should be discouraged as celibacy is.
+44. When a freed dislocation runs through thr crystal it disturbs other locked dislocations, and may cause an avalanche-like freeing of dislocations.
+45. We also believe that economic conditions in Puerto Rico call for effective and equitable programs to maximize job creation and financial investment.
+46. Forced landings in water are extremely dangerous, for pilot and/or passenger may become entangled in the parachute lines of a sinking powered parachute.
+47. Early in his career he was successful at both 100 and 200 metre distances, winning English Schools and European Junior titles at both, but in recent years he has concentrated mostly on the longer distance.
+48. Either test the lens first alongside a functional EF lens e.g. 28-105 USM and/or 70-300; if the Err99 occurs with the 18-55, the lens are likely to be defective from the factory.
+49. Hastings is the principal city of the Hastings, Nebraska Micropolitan Statistical Area, which consists of Adams and Clay counties.
+50. Little is known of his childhood.

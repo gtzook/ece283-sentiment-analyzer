@@ -1,0 +1,65 @@
+You're labeling sentences for epistemic certainty in news/encyclopedia text.
+Pick exactly one label per sentence:
+
+- asserted: the writer states the content as fact, with confidence.
+  Example: "The company reported a 12% increase in revenue."
+- hedged: the writer signals partial uncertainty or qualification,
+  but is making a claim. Example: "The policy may have contributed to the decline."
+- speculative: the writer presents the content as unverified, hypothetical,
+  attributed-but-unconfirmed, or conditional on something unknown.
+  Example: "Reportedly, the suspect fled the country."
+
+Output one JSON object per sentence, on its own line:
+{"id": 1, "label": "asserted"}
+
+Sentences:
+101. It is believed that if the attendance level drops below 14,000 per night, the team's owner's (the team will probably be sold), will be able to exit the lease for a penalty.
+102. It also pointed out that at the time of the shooting of the plane, the French military was in control of Kigali Airport; although that point, and the possible attempt to imply that the French shot down the plane, is irrelevant as the plane was shot down on approach to the airport and not from the zone controlled by French forces.
+103. This gives support to the view that 'black' does not refer only to the colour of the handle but implies 'covert' - as in (as stated previously) blackmail or black market.
+104. It is still unknown whether Christus visited Italy, and brought style and technical accomplishments of the greatest Northern European painters directly to Antonello da Messina and other Italian artists, or whether his paintings were purchased by Italians.
+105. The authenticity of that quote has never been verified, and the special effects technicians who allegedly said it have never come forward.
+106. Then a bird came to the stranger and said, that if he were to hit the ball lightly the bird would take the ball across the line (commonly known as a goal).
+107. There were a number of tribunals of the Papal Inquisition in various European kingdoms during the Middle Ages.
+108. Rabbi 'Aharon (or Ahroyn, Aaron, Aron) Kotler' (1891 - 1962) was a prominent leader of Orthodox Judaism in Lithuania, and later the United States of America, where he built one of the first yeshivas in the US.
+109. A polka band of drums, a singer, accordion, and trumpet, entertained the people, as they danced traditional dances, such as the oberek, "Polish Hop" and the waltz.
+110. Alleged punishments may include amputation of genitals and forced sterilization.
+111. The first round, for instance, where the Aztec is running for the pyramid while dodging arrows, is all about learning to push forward or back almost instinctively depending on whether the arrow was high or low.
+112. As a result, many consider the name "adult stem cell" a misnomer.
+113. However, in an earlier 1973 interview to the Romanian-Israeli magazine "Viata noastra," Michael stated that he had "prefered" to work as an ex-king rather than continue to sit on a permanently threatened throne, casting some doubt over his later accounts of Communist blackmail.
+114. If your manager got a group of people to testify against you, by disputing the PIP, you will make it a heavy burden for them for this wasted effort.
+115. Pilots were advised to avoid use of the cut out switch as it would eventually damage the engine.
+116. Despite being kept off the scoresheet in his NHL debut, Bure showcased his talent and speed with several end-to-end rushes, carrying the puck past several defenders from near his defensive zone to the opposing net.
+117. 'Pretribulationists' believe that all Christians then alive will be taken bodily up to Heaven (called the rapture) before the Tribulation begins.
+118. Selection usually depends on whether his or her sport is organised on an all-Ireland, a Northern Ireland, or a UK basis.
+119. The species status in the New World is uncertain: it is generally considered an exotic weed; however, there is evidence that the species was in Crawford Lake deposits (Ontario) in 1430-89, suggesting that it reached North America in the pre-Columbian era.
+120. The Union law is more powerful compared to the State law, but, if the president has given assent to the State law, then it prevails over the Union Law.
+121. The move may be known as grinding, but similar basic grinding moves are well known around the globe within genres such as Dancehall, Rhythm and Blues, and even Hip hop.
+122. Under a common 'house rule', a player who lands on this space wins a jackpot consisting of a collection of fines and taxes that have been placed in the center of the board (rather than having been paid to the Banker, as they would under the official rules).
+123. Streeter's fight for what he considered his land continued until his death on January 22, 1921, although he and his second wife had left Streeterville to move to East Chicago, Indiana, in 1918.
+124. They also allege that the experiments were a covert military project connected to the development of new weapons and surveillance techniques.
+125. One major reason to use inlets is that all the inlets of a procedure are guaranteed to operate atomically with regards to each other and to the parent procedure, thus avoiding the bugs that could occur if the multiple returning procedures tried to update the same variables in the parent frame at the same time.
+126. The Netherlands' law concerning registered partnerships provides that:#A person may be involved in one only registered partnership with one other person whether of the same or of opposite sex at any one time.
+127. A mere twenty years later, the island was uninhabited.
+128. The island is populated with private homes and the remains of the once popular Windermere Island Club which is now closed.
+129. d'Alembert claims that it would be ignorant to perceive that everything could be known about a particular subject.
+130. As for ALA-T inhibition, though the consequences of disabling this enzyme are currently not well understood, there is some evidence to suggest that it is this action of the hydrazines (including phenelzine) which may be responsible for the occasional incidence of hepatitis and liver failure.
+131. Sister Hilaria is presumably safe with Druel.
+132. With Discordianism, it may be hard to tell if even these "serious" followers are not just taking part in an even bigger joke.
+133. As with other molecules, a polymer's size may also be expressed in terms of molecular weight.
+134. Whether or not he watched the sketch, his behavior was noticeably subdued in the second debate.
+135. These badges were inherited from one generation to other.
+136. Any limb or combination of limbs may be affected—one leg, one arm, or both legs and both arms.
+137. Whereas evolutionary game theory studies the behavior of large populations of agents, the theory of 'learning in games' focuses on whether the actions of a small group of players end up conforming to some notion of equilibrium.
+138. The Patient Advocate has a responsibility to keep a keen awareness for contiguity of care, with initial oversight for potentially conflicting treatment modalities and medications, which should be promptly discussed with Patient and Primary Care Provider and all treatments entered into the health care record, which should be provided to the patient on an annual basis or more often if the treatment is intensive, prolonged or with several health care providers.
+139. The question whether popular culture or mass culture is inherently conservative, or whether it can be used in a subversive strategy as well, is equally hotly debated.
+140. The Gospel of John suggests that it was probably used as a mikvah (ritual bath), although mikvah are usually much smaller in size; if the pool were a mikvah, it would be the largest ever found, by a substantial margin, and mentioned in Byzantine works such as the 7th century 'Chronicon Paschale'; other nymphaeum built by Hadrian, such as that at Sagalassos, have a very similar appearancefor example, see .
+141. The Streeters' heirs continued to lay claim on the land until April 1928, when the courts ruled in favor of Chicago Title and Trust.
+142. In December 1943, Reder was transferred to the newly formed 16.SS-Panzergrenadier-Division 'Reichsführer-SS'.
+143. It is precisely the function of predispositions to assess the impact of an intermediate state upon the future course of development.”
+144. When Creole men reached an age when they were expected to marry, some were content to keep their relationships with their placées.
+145. Tribunals are established to deal with allegations of misconduct and to determine whether a health professional should be suspended or de-registered.
+146. There is, however, reason to believe that greater ease of reading in respect to vocabulary, construction, and facts, is a very important cause of preference.
+147. There is an ongoing debate about whether Hugo Chávez has rescued Venezuela from the corruption of the Pacto de Punto Fijo, or if he has damaged the very foundations of the nation’s democracy.
+148. Guests may bring in any form of food, ranging from the main course to desserts.
+149. An associate of a senior Hezbollah operative is thought to have been on the same flight, although this may have been a coincidence.
+150. The new Management Guidelines are composed of Maturity Models, to help determine the stages and expectation levels of control and compare them against industry norms; Critical Success Factors, to identify the most important actions for achieving control over the IT processes; Key Goal Indicators, to define target levels of performance; and Key Performance Indicators, to measure whether an IT control process is meeting its objective.

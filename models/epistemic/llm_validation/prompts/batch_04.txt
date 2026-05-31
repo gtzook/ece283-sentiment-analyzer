@@ -1,0 +1,65 @@
+You're labeling sentences for epistemic certainty in news/encyclopedia text.
+Pick exactly one label per sentence:
+
+- asserted: the writer states the content as fact, with confidence.
+  Example: "The company reported a 12% increase in revenue."
+- hedged: the writer signals partial uncertainty or qualification,
+  but is making a claim. Example: "The policy may have contributed to the decline."
+- speculative: the writer presents the content as unverified, hypothetical,
+  attributed-but-unconfirmed, or conditional on something unknown.
+  Example: "Reportedly, the suspect fled the country."
+
+Output one JSON object per sentence, on its own line:
+{"id": 1, "label": "asserted"}
+
+Sentences:
+151. Rather like the lesser punishment called the stocks, the pillory consisted of hinged wooden boards that formed holes through which the head and/or various limbs were inserted; then the boards were locked together to secure the captive.
+152. There have been recent findings by lay people--and if they're not experts, why should their accounts be trusted--to suggest that the Istro-Romanian people were already present in certain regions of nearby Friuli going back to the 1200s.
+153. Before or especially after being fed, they may seem to have a seizure that ends in falling unconscious; the reason is not clearly known.
+154. 'Maqam Sikah' (or 'Siga'), containing many three-quarter-tone intervals, is used for the cantillation of the Torah.
+155. There is a specific reference to class divisions and that death is an equalizer: '"If religion was a thing that money could buy,/The rich would live and the poor would die"'.
+156. The idea that it constitutes an ancient artificial edifice was publicised by Bosnian author and metalworker Semir Osmanagić who currently is based in Houston, USA.
+157. This tournament is generally viewed as a precursor national tournament to the TOC, because the same teams generally qualify to both tournaments.
+158. John le Carré
+159. Book II:' Satan and the rebel angels debate whether to wage another war on Heaven, and Beelzebub tells them of a new world being built which is to be the home of Man.
+160. How the plant arrived on the island is not clear; it might have brought there by drifting plants or by birds bearing seeds, but neither do the ocean currents run in a way that makes the former likely, nor are sedge seeds normally dispersed by birds.
+161. When Rossington miscarried, Watson asked her if she would mind if the pregnancy storyline went ahead, as they had had such a positive response from the audience.
+162. In March of 2009, Peoria's Superintendent announced that up to 900 teachers may lose their positions in the district.
+163. DOM events
+164. While sporting advanced graphics and sound capabilities above and beyond the existing 8-bit console market, some think it was underpowered compared to competing 16-bit consoles such as the Sega Genesis and Super Nintendo, however, various games released for the Turbo Grafx-16, especially on the CD format, showed that it had both strengths and weaknesses in comparison to those competitors.
+165. An additional twelve people were injured.
+166. Goaltenders never go to the penalty box, even though they are assessed penalty minutes, and would either have their penalty time served by proxy, usually being taken by the team captain, or face a penalty shot in the case of a 5-minute major penalty.
+167. Those who fit a 2003 ME/ICD-CFS definition with post exertional malaise may wish to consider whether graded exercise is recommended in their case because it can cause serious deterioration in the exertional intolerant, and the 25% ME Grouppoint out that many severe cases were in fact mild cases before undergoing such therapy.
+168. Thibaud concluded that Einaudi's work made it possible to give an estimate of 300 Algerian victims of murder (whether by police or others) between 1 September and 31 December 1961.
+169. They can be pricey, if compared to other towns, but they are also an easier, safer and more dependable option than buses in some cases.
+170. Moreover, at the current rate of IPv4 address consumption, even if all of these could be reclaimed, it would result in only extending the address exhaustion date back a year or two.
+171. In an unusual decision, Dumesnil de Glapion passed as a man of color in order to live with her under respectable circumstances--thus explaining the confusion many historians have had whether he was truly white or black.
+172. Probably the most famous musical setting of the Passion narrative is Part II of 'Messiah', an oratorio by George Frideric Handel.
+173. In the first three sections, we will consider general fiber bundles in the category of topological spaces.
+174. In the first three months of 2004, the sculpture was twice vandalised by pouring paint over it and a poll in the local paper was held to decide whether it should be moved, although the result was 2,163 to 738 in favour of keeping the sculpture.
+175. The main hero discovered this, when he was trying to verify if the forces really differ on every floor: all things that would be used to make such an experiment (even such as a spring from his ballpen) have been taken from him by the customs officers and there are no other things for that accessible.
+176. Alleged punishments may include amputation of genitals and forced sterilization.
+177. A child who uses sign language, or identifies with the Deaf culture does not generally experience this isolation, particularly if he/she attends a school for the deaf, but may conversely experience isolation from his parents if they do not know, or make an effort to learn sign language.
+178. His own sexual hypocrisy was alleged by Hustler publisher Larry Flynt who claims Barr's second wife daid he was cheaating on her with Barr's soon to be third wife.
+179. Flory correctly identified that the chain dimension in polymer melts would have the size computed for a chain in ideal solution if excluded volume interactions were neutralized by experimenting at the theta point.
+180. Given enough run time, a sufficiently large and diverse user community, or other factors, an input which may be dismissed as pathological could in fact occur (as seen in the first test flight of the Ariane 5).
+181. In addition, it is maintained CBT may teach patients various "coping strategies" to help them deal with cognitive impairments such as a deterioration of short-term memory or abbreviated attention span, although it is uncertain how changing one's schemas, as CBT theory contends, would cause improvement in these serious pathological symptoms.
+182. Despite Lavrov’s historical analysis, he still believed a socialist revolution was possible in Russia.
+183. If the pawnshop owner believes that there are "too many used TVs around these days in town", they may fear that they will only get $100 for the TV if they have to unload it to a wholesaler.
+184. A 2006 review article stated the opinion that not enough information is available, and that even if isoflavones have mechanisms to inhibit tumor growth, 'in vitro' results justify the need to evaluate, at cellular level, the impact of isoflavones on breast tissue in females at high risk for breast cancer.
+185. However, if the right kind of people begin to believe it was arson, caused by deliberate action, the threat that more arsons will be committed increases drastically.
+186. Then in clearness's third grade (the pragmatic grade), he defines the truth as that which would be reached, sooner or later but still inevitably, by research adequately prolonged, such that the real does depend on that final opinion — a dependence to which he appeals in theoretical arguments elsewhere, for instance for the long-term validity of the rule of induction "That the rule of induction will hold good in the long run may be deduced from the principle that reality is only the object of the final opinion to which sufficient investigation would lead", and, given the final ineradicability of error from measurement, not only for the view that space will never be found to be exactly Euclidean "I think we may feel confident that the parallax of the farthest star lies somewhere between -0.'05 and +0.'15, and within another century our grandchildren will surely know whether the three angles of a triangle are greater or less than 180° — that they are exactly that amount is what nobody ever can be justified in concluding." —, but also for the reality of chance and the real's lack of positive exactness.
+187. He supports adoption of the National Academy of Science's recommendations for measuring poverty, which he claims would add 1 million people to the "poverty" class.
+188. If two races are moved, bettors who pick the other four winners will win or share in that day's six-winner pool, but 'no' carryover, and the previous carryover pool only goes to the next program.
+189. In June 2003, an Israeli, Avi Mizrahi, was accused by the Israeli Police of the offense of attempting to the unauthorized access of computer material.
+190. However, results from large population-based studies are not always applicable to the individual, and physicians generally take into account specific characteristics, such as age, gender, height/weight, diet, and environment, when evaluating an individual patient.
+191. Tribunals are established to deal with allegations of misconduct and to determine whether a health professional should be suspended or de-registered.
+192. Even though the building's symmetrical layout with a frontal clock tower rising amidships is typical of legislative institutions of British heritage, the architectural style is believed to be unique among parliament buildings found in other Canadian provincial capitals.
+193. The band was past their time limit and the technical crew starting removing Faster Pussycat's equipment.
+194. This probably followed their return to Saudi Arabia to get "clean" passports.
+195. Certain patients suffering from phagophobia may fly into mild seizures and/or irrational rages if deprived of their water while eating.
+196. Counties can include a number of cities, towns, villages, or hamlets, or sometimes just a part of a city.
+197. Less fortunate people infected with the parasite are repelled by which they once loved and are turned cannibalistic, and, unless contained, will spread the parasite to other unfortunate victims.
+198. (The revolutionaries thought him no better; Leon Trotsky, on more than one occasion, levelled high-profile criticism at Thomas.)
+199. In a few cases, however, muscular pumps analogous to a heart are found in various parts of the system.
+200. "'Despite alternative possible sources for lineages' ascribed a Sephardic Jewish origin'", "They are really assuming that they are looking at this migration of Jewish immigrants, but the same lineages could have been introduced in the Neolithic" said Stephen Oppenheimer.
