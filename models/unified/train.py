@@ -26,6 +26,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
 import yaml
 from transformers import RobertaTokenizerFast, get_linear_schedule_with_warmup
 
@@ -399,24 +400,39 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     history        = []
     global_step    = 0
 
+    total_steps_per_epoch = iterator.epoch_steps * len(task_loaders)
+
     for epoch in range(1, epochs + 1):
         model.train()
-        epoch_losses = {TASK_EPISTEMIC: [], TASK_BIAS: [], TASK_EMOTION: []}
+        epoch_losses   = {TASK_EPISTEMIC: [], TASK_BIAS: [], TASK_EMOTION: []}
+        recent_losses  = {TASK_EPISTEMIC: 0.0, TASK_BIAS: 0.0, TASK_EMOTION: 0.0}
+
+        bar = tqdm(
+            total     = total_steps_per_epoch,
+            desc      = f"Epoch {epoch}/{epochs}",
+            unit      = "step",
+            dynamic_ncols = True,
+            leave     = True,
+        )
 
         for step_in_epoch, (task, batch) in enumerate(iterator, 1):
             if dry_run and step_in_epoch > 2 * len(task_loaders):
                 logger.info("Dry-run: stopping early after %d steps", step_in_epoch)
+                bar.close()
                 break
 
             kwargs = _batch_to_kwargs(task, batch, device)
             out    = model(**kwargs)
 
             if "loss" not in out:
-                continue  # batch had no labels (shouldn't happen in training)
+                bar.update(1)
+                continue
 
+            raw_loss = out["loss"].item()
             loss = task_weights.get(task, 1.0) * out["loss"] / grad_accum_steps
             loss.backward()
-            epoch_losses[task].append(out["loss"].item())
+            epoch_losses[task].append(raw_loss)
+            recent_losses[task] = raw_loss
 
             if (global_step + 1) % grad_accum_steps == 0:
                 nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
@@ -425,6 +441,17 @@ def train(cfg: dict, dry_run: bool = False) -> None:
                 optimizer.zero_grad()
 
             global_step += 1
+            bar.update(1)
+            bar.set_postfix({
+                "task": task[:3],
+                "ep":   f"{recent_losses[TASK_EPISTEMIC]:.3f}",
+                "bi":   f"{recent_losses[TASK_BIAS]:.3f}",
+                "em":   f"{recent_losses[TASK_EMOTION]:.3f}",
+                "lr":   f"{scheduler.get_last_lr()[0]:.1e}",
+            })
+
+        else:
+            bar.close()
 
         avg_losses = {t: (float(np.mean(v)) if v else 0.0) for t, v in epoch_losses.items()}
         logger.info(
