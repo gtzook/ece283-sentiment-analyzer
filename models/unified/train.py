@@ -30,6 +30,11 @@ from tqdm import tqdm
 import yaml
 from transformers import RobertaTokenizerFast, get_linear_schedule_with_warmup
 
+try:
+    import wandb as _wandb_module
+except ImportError:
+    _wandb_module = None
+
 sys.path.insert(0, str(Path(__file__).parents[2]))
 from models.unified.model import UnifiedModel, TASK_EPISTEMIC, TASK_BIAS, TASK_EMOTION
 from models.epistemic.data import SentDataset, TokenDataset, load_szeged_wiki, load_szeged_factbank
@@ -124,6 +129,22 @@ def build_optimizer(
 
 # ── Data loading ──────────────────────────────────────────────────────────────
 
+def _epistemic_sent_sampler(examples) -> torch.utils.data.WeightedRandomSampler:
+    """
+    Inverse-frequency sampler so each batch sees minority classes
+    (hedged, speculative) at roughly equal frequency to the majority (asserted),
+    rather than at their natural ~2% / <1% rates.
+    """
+    from collections import Counter
+    from torch.utils.data import WeightedRandomSampler
+
+    labels       = [ex.label for ex in examples]
+    class_counts = Counter(labels)
+    total        = len(labels)
+    weights      = [total / class_counts[lbl] for lbl in labels]
+    return WeightedRandomSampler(weights, num_samples=total, replacement=True)
+
+
 def _load_epistemic_loaders(cfg: dict, tokenizer, batch_size: int, workers: int) -> dict:
     """Return {'sent': DataLoader, 'tok': DataLoader} for the epistemic task."""
     ep_data = load_all_data(cfg)
@@ -136,9 +157,13 @@ def _load_epistemic_loaders(cfg: dict, tokenizer, batch_size: int, workers: int)
         max_len=cfg["data"]["max_len"],
     )
 
+    # Balanced sampler: over-samples hedged/speculative so every batch has
+    # a representative mix rather than ~85% asserted examples.
+    sent_sampler = _epistemic_sent_sampler(ep_data["sent_train"])
+
     return {
-        "sent": DataLoader(sent_train, batch_size=batch_size, shuffle=True, num_workers=workers),
-        "tok":  DataLoader(tok_train,  batch_size=batch_size, shuffle=True, num_workers=workers),
+        "sent": DataLoader(sent_train, batch_size=batch_size, sampler=sent_sampler, num_workers=workers),
+        "tok":  DataLoader(tok_train,  batch_size=batch_size, shuffle=True,         num_workers=workers),
         "sent_class_weights": sent_class_weights,
     }
 
@@ -303,6 +328,34 @@ def validate(
     return results
 
 
+# ── W&B helpers ───────────────────────────────────────────────────────────────
+
+def _init_wandb(cfg: dict, run_dir: Path, dry_run: bool):
+    """
+    Initialize a W&B run. Returns the active run object, or None if wandb is
+    unavailable, not logged in, or this is a dry-run.
+    """
+    if dry_run or _wandb_module is None:
+        return None
+    log_cfg = cfg.get("logging", {})
+    project = log_cfg.get("wandb_project", "ece283-unified")
+    entity  = log_cfg.get("wandb_entity") or None
+    try:
+        run = _wandb_module.init(
+            project = project,
+            entity  = entity,
+            name    = run_dir.name,
+            config  = cfg,
+            dir     = str(run_dir),
+            resume  = "allow",
+        )
+        logger.info("W&B run started: %s", run.url)
+        return run
+    except Exception as exc:
+        logger.warning("W&B init failed (%s) — training without W&B logging.", exc)
+        return None
+
+
 # ── Training loop ─────────────────────────────────────────────────────────────
 
 def train(cfg: dict, dry_run: bool = False) -> None:
@@ -396,6 +449,9 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     logger.info("Run dir: %s", run_dir)
 
+    wb_run = _init_wandb(cfg, run_dir, dry_run)
+
+    log_every  = cfg.get("logging", {}).get("log_every_n_steps", 50)
     best_composite = -1.0
     history        = []
     global_step    = 0
@@ -440,6 +496,14 @@ def train(cfg: dict, dry_run: bool = False) -> None:
                 scheduler.step()
                 optimizer.zero_grad()
 
+            # ── Per-step W&B logging ──────────────────────────────────────────
+            if wb_run is not None and global_step % log_every == 0:
+                wb_run.log({
+                    f"train/{task}_loss": raw_loss,
+                    "train/lr":           scheduler.get_last_lr()[0],
+                    "train/epoch":        epoch,
+                }, step=global_step)
+
             global_step += 1
             bar.update(1)
             bar.set_postfix({
@@ -478,13 +542,30 @@ def train(cfg: dict, dry_run: bool = False) -> None:
                 torch.save(model.state_dict(), ckpt)
                 logger.info("  ✓ New best checkpoint → %s", ckpt)
 
-            history.append({"epoch": epoch, **avg_losses, **val_metrics})
+            epoch_record = {"epoch": epoch, **avg_losses, **val_metrics}
+
+            # ── Per-epoch W&B logging ─────────────────────────────────────────
+            if wb_run is not None:
+                wb_run.log({
+                    "epoch/epistemic_loss":     avg_losses[TASK_EPISTEMIC],
+                    "epoch/bias_loss":          avg_losses[TASK_BIAS],
+                    "epoch/emotion_loss":       avg_losses[TASK_EMOTION],
+                    "epoch/epistemic_macro_f1": val_metrics["epistemic_macro_f1"],
+                    "epoch/bias_macro_f1":      val_metrics["bias_macro_f1"],
+                    "epoch/emotion_macro_f1":   val_metrics["emotion_macro_f1"],
+                    "epoch/composite":          val_metrics["composite"],
+                }, step=global_step)
         else:
-            history.append({"epoch": epoch, **avg_losses})
+            epoch_record = {"epoch": epoch, **avg_losses}
+
+        history.append(epoch_record)
+        # Flush after every epoch so a crash doesn't lose prior data
+        with open(run_dir / "history.json", "w") as f:
+            json.dump(history, f, indent=2)
 
     torch.save(model.state_dict(), run_dir / "last.pt")
-    with open(run_dir / "history.json", "w") as f:
-        json.dump(history, f, indent=2)
+    if wb_run is not None:
+        wb_run.finish()
     logger.info("Training complete. Outputs in %s", run_dir)
 
 

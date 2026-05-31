@@ -37,7 +37,7 @@ training:
   warmup_frac: 0.10
   fp16: true
   grad_clip: 1.0
-  grad_accum_steps: 2      # effective batch size = 32
+  grad_accum_steps: 4      # effective batch size = 64
 
   # Per-task loss weights — emotion down-weighted due to ~10x dataset size
   task_weights:
@@ -49,4 +49,5 @@ training:
 
 logging:
   wandb_project: ece283-unified
-  wandb_entity: null
+  wandb_entity: ece283-sentiment-analyzer # set to your W&B username or team name
+  log_every_n_steps: 50     # how often to push step-level metrics to W&B
