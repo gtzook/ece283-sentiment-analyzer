@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import Optional
 
 # Ensure repo root is on sys.path when imported as a module
-_ROOT = Path(__file__).resolve().parents[2]
+_ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
@@ -83,7 +83,7 @@ class UnifiedSentimentAnalyzer:
 
         self._bias = None
         if bias_checkpoint is not None:
-            from infer import BiasPredictor
+            from models.political_bias.infer import BiasPredictor
             self._bias = BiasPredictor(
                 checkpoint=bias_checkpoint,
                 dataset_id=bias_dataset_id,
@@ -93,7 +93,7 @@ class UnifiedSentimentAnalyzer:
 
         self._emotion = None
         if emotion_checkpoint is not None:
-            from emotional_framing.predict import EmotionalFramingPredictor
+            from models.emotion.predict import EmotionalFramingPredictor
             self._emotion = EmotionalFramingPredictor(
                 checkpoint_dir=emotion_checkpoint,
                 device=device,

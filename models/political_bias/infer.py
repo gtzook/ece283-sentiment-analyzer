@@ -26,9 +26,9 @@ from transformers import RobertaTokenizerFast
 
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parents[2]))
 from src.data.registry import REGISTRY, TaskType
-from src.models.roberta_classifier import RoBERTaClassifier
+from models.political_bias.classifier import RoBERTaClassifier
 
 DEFAULT_CHECKPOINT = "runs/10_BABE/label/best.pt"
 DEFAULT_DATASET    = "10_BABE"
