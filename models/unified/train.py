@@ -463,9 +463,14 @@ def train(cfg: dict, dry_run: bool = False) -> None:
 
     log_every  = cfg.get("logging", {}).get("log_every_n_steps", 50)
     
-    best_composite = -1.0
-    history        = []
-    global_step    = 0
+    best_composite    = -1.0
+    history           = []
+    global_step       = 0
+
+    es_cfg         = cfg["training"].get("early_stopping", {})
+    es_patience    = es_cfg.get("patience", 0)   # 0 = disabled
+    es_min_delta   = es_cfg.get("min_delta", 0.0)
+    epochs_no_improve = 0
 
     total_steps_per_epoch = iterator.epoch_steps * len(task_loaders)
 
@@ -550,11 +555,19 @@ def train(cfg: dict, dry_run: bool = False) -> None:
                 val_metrics["composite"],
             )
 
-            if val_metrics["composite"] > best_composite:
-                best_composite = val_metrics["composite"]
+            if val_metrics["composite"] > best_composite + es_min_delta:
+                best_composite    = val_metrics["composite"]
+                epochs_no_improve = 0
                 ckpt = run_dir / "best.pt"
                 torch.save(model.state_dict(), ckpt)
                 logger.info("  ✓ New best checkpoint → %s", ckpt)
+            else:
+                epochs_no_improve += 1
+                logger.info(
+                    "  No improvement for %d/%d epoch(s) (best composite=%.4f)",
+                    epochs_no_improve, es_patience if es_patience > 0 else "∞",
+                    best_composite,
+                )
 
             epoch_record = {"epoch": epoch, **avg_losses, **val_metrics}
 
@@ -576,6 +589,13 @@ def train(cfg: dict, dry_run: bool = False) -> None:
         # Flush after every epoch so a crash doesn't lose prior data
         with open(run_dir / "history.json", "w") as f:
             json.dump(history, f, indent=2)
+
+        if not dry_run and es_patience > 0 and epochs_no_improve >= es_patience:
+            logger.info(
+                "Early stopping after epoch %d — no composite improvement for %d epoch(s).",
+                epoch, es_patience,
+            )
+            break
 
     torch.save(model.state_dict(), run_dir / "last.pt")
     if wb_run is not None:

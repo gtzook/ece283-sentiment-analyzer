@@ -34,7 +34,10 @@ training:
   encoder_lr: 2.0e-5
   head_lr: 1.0e-4
   weight_decay: 0.01
-  epochs: 5
+  epochs: 20           # ceiling; early stopping will usually halt sooner
+  early_stopping:
+    patience: 3        # epochs without composite improvement before stopping
+    min_delta: 0.001   # minimum composite gain to count as improvement
   warmup_frac: 0.10
   fp16: true
   grad_clip: 1.0

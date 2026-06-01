@@ -54,14 +54,14 @@ _EMOTION_LABELS = [
 
 @dataclass
 class UnifiedPredictor:
-    model:          UnifiedModel
-    tokenizer:      object
-    device:         torch.device
-    max_len:        int
-    threshold:      float = 0.5
-    bias_dataset:   str = "10_BABE"
-    bias_task_type: TaskType = TaskType.BINARY_CLS
-    bias_label_names: dict = field(default_factory=dict)
+    model:              UnifiedModel
+    tokenizer:          object
+    device:             torch.device
+    max_len:            int
+    emotion_thresholds: list = field(default_factory=lambda: [0.5] * 11)
+    bias_dataset:       str = "10_BABE"
+    bias_task_type:     TaskType = TaskType.BINARY_CLS
+    bias_label_names:   dict = field(default_factory=dict)
 
 
 def load_unified_predictor(
@@ -70,7 +70,11 @@ def load_unified_predictor(
     device: Optional[str] = None,
     emotion_threshold: float = 0.5,
 ) -> UnifiedPredictor:
-    """Load a trained UnifiedModel checkpoint and return an inference-ready predictor."""
+    """Load a trained UnifiedModel checkpoint and return an inference-ready predictor.
+
+    If emotion_thresholds.json exists alongside the checkpoint it is loaded
+    automatically; otherwise every class uses emotion_threshold (default 0.5).
+    """
     with open(config) as f:
         cfg = yaml.safe_load(f)
 
@@ -95,19 +99,29 @@ def load_unified_predictor(
         emotion_num_labels = cfg["model"].get("emotion_num_labels", 11),
     ).to(dev)
     model.load_state_dict(
-        torch.load(checkpoint, map_location=dev, weights_only=True)
+        torch.load(checkpoint, map_location=dev, weights_only=True),
+        strict=False,
     )
     model.eval()
 
+    # Load per-class thresholds if available, otherwise fall back to fixed threshold
+    import json as _json
+    thresholds_path = Path(checkpoint).parent / "emotion_thresholds.json"
+    if thresholds_path.exists():
+        emotion_thresholds = _json.loads(thresholds_path.read_text())["thresholds"]
+    else:
+        num_labels = cfg["model"].get("emotion_num_labels", 11)
+        emotion_thresholds = [emotion_threshold] * num_labels
+
     return UnifiedPredictor(
-        model            = model,
-        tokenizer        = tokenizer,
-        device           = dev,
-        max_len          = cfg["data"]["max_len"],
-        threshold        = emotion_threshold,
-        bias_dataset     = bias_dataset,
-        bias_task_type   = bias_lc.task_type,
-        bias_label_names = _DEFAULT_BIAS_LABEL_NAMES.get(bias_dataset, {}),
+        model              = model,
+        tokenizer          = tokenizer,
+        device             = dev,
+        max_len            = cfg["data"]["max_len"],
+        emotion_thresholds = emotion_thresholds,
+        bias_dataset       = bias_dataset,
+        bias_task_type     = bias_lc.task_type,
+        bias_label_names   = _DEFAULT_BIAS_LABEL_NAMES.get(bias_dataset, {}),
     )
 
 
@@ -173,11 +187,12 @@ def predict_bias(predictor: UnifiedPredictor, texts: list[str]) -> list[dict]:
 
 @torch.no_grad()
 def predict_emotion(predictor: UnifiedPredictor, texts: list[str]) -> list[dict]:
-    """Run only the emotion head."""
-    enc  = _encode(predictor, texts)
-    out  = predictor.model(task=TASK_EMOTION, **enc)
+    """Run only the emotion head, applying per-class thresholds."""
+    enc   = _encode(predictor, texts)
+    out   = predictor.model(task=TASK_EMOTION, **enc)
     probs = torch.sigmoid(out["emotion_logits"]).cpu().numpy()
-    preds = (probs >= predictor.threshold).astype(int)
+    thrs  = np.array(predictor.emotion_thresholds)  # (11,)
+    preds = (probs >= thrs).astype(int)              # broadcast over batch dim
 
     results = []
     for i in range(len(texts)):
