@@ -103,31 +103,24 @@ def render_epistemic(result: dict) -> Panel:
 
 def render_bias(result: dict) -> Panel:
     prediction = result["prediction"]
-    confidence = result["confidence"]
     color = _BIAS_COLORS.get(prediction, "white")
-
-    rows = []
-    for label, prob in result["probabilities"].items():
-        c = _BIAS_COLORS.get(label, "white")
-        marker = "◀" if label == prediction else " "
-        rows.append((label, prob, c, marker))
 
     table = Table(box=None, show_header=False, padding=(0, 1))
     table.add_column(justify="right", style="dim", no_wrap=True)
     table.add_column()
-    table.add_column()
-    for label, prob, c, marker in rows:
+    table.add_column(no_wrap=True)
+    for label, prob in result["probabilities"].items():
+        c = _BIAS_COLORS.get(label, "white")
+        is_predicted = label == prediction
+        label_style = c if is_predicted else "dim"
+        marker = Text("◀ PREDICTED", style=f"bold {c}") if is_predicted else Text("○", style="dim")
         table.add_row(
-            Text(label.capitalize(), style=c),
-            _bar(prob, c),
-            Text(marker, style="bold white"),
+            Text(label.capitalize(), style=label_style),
+            _bar(prob, c if is_predicted else "grey30"),
+            marker,
         )
 
     content = Text()
-    content.append("Prediction: ", style="dim")
-    content.append(prediction.upper(), style=color)
-    content.append(f"  (confidence {confidence:.0%})", style="dim")
-    content.append("\n\n")
     content.append_text(Text.from_markup("[dim]Class probabilities[/dim]"))
     content.append("\n")
 

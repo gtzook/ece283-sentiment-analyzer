@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import logging
 import sys
@@ -24,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import ConcatDataset, DataLoader, Dataset
 from tqdm import tqdm
 import yaml
 from transformers import RobertaTokenizerFast, get_linear_schedule_with_warmup
@@ -174,23 +175,110 @@ def _load_epistemic_loaders(cfg: dict, tokenizer, batch_size: int, workers: int)
     }
 
 
-def _load_bias_loaders(cfg: dict, tokenizer, batch_size: int, workers: int) -> dict:
-    """Return {'train': DataLoader} for the political bias task."""
-    dataset_id = cfg["model"].get("bias_dataset", "10_BABE")
-    label_col  = cfg["model"].get("bias_label_col", "label")
+def _bias_cache_key(specs: list, cfg: dict) -> str:
+    """16-char hash over everything that determines the combined bias split content."""
+    fingerprint = {
+        "specs":      sorted(specs, key=lambda s: s["dataset_id"]),
+        "model_name": cfg["model"]["name"],
+        "max_len":    cfg["data"]["max_len"],
+        "seed":       cfg["data"]["seed"],
+        "train_frac": cfg["data"].get("train_frac", 0.80),
+        "val_frac":   cfg["data"].get("val_frac",   0.10),
+    }
+    return hashlib.sha256(json.dumps(fingerprint, sort_keys=True).encode()).hexdigest()[:16]
 
-    full_ds = MAGPIEDataset(
-        dataset_id=dataset_id,
-        cache_dir=cfg["data"]["cache_dir"],
-        tokenizer=tokenizer,
-        max_length=cfg["data"]["max_len"],
-        download_if_missing=True,
-        label_col_filter=[label_col],
-    )
-    train_ds, _, _ = stratified_split(full_ds, label_col=label_col, seed=cfg["data"]["seed"])
+
+class _ListDataset(Dataset):
+    """Wraps a list of pre-tokenized dicts as a Dataset."""
+    def __init__(self, items: list) -> None: self._items = items
+    def __len__(self) -> int:               return len(self._items)
+    def __getitem__(self, i: int) -> dict:  return self._items[i]
+
+
+def _make_bias_transform(label_col: str, remap: dict | None):
+    """Return a transform that remaps labels[label_col] in-place, or None."""
+    if not remap:
+        return None
+    remap_int = {int(k): int(v) for k, v in remap.items()}
+    def _transform(item: dict) -> dict:
+        raw = item["labels"][label_col].item()
+        item["labels"][label_col] = torch.tensor(remap_int[raw], dtype=torch.long)
+        return item
+    return _transform
+
+
+def _load_bias_loaders(cfg: dict, tokenizer, batch_size: int, workers: int) -> dict:
+    """Return {'train': DataLoader, 'val': DataLoader} for the political bias task.
+
+    Supports a list of datasets via bias_datasets in config (with optional per-entry
+    label remapping). Falls back to single-dataset behavior when bias_datasets is absent.
+    Pre-tokenized splits are cached to disk keyed by a config hash so subsequent runs
+    skip tokenization entirely.
+    """
+    model_cfg = cfg["model"]
+    data_cfg  = cfg["data"]
+
+    if "bias_datasets" in model_cfg:
+        specs = model_cfg["bias_datasets"]
+    else:
+        specs = [{"dataset_id": model_cfg.get("bias_dataset", "10_BABE"),
+                  "label_col":  model_cfg.get("bias_label_col", "label")}]
+
+    cache_dir  = Path(data_cfg["cache_dir"])
+    cache_key  = _bias_cache_key(specs, cfg)
+    cache_file = cache_dir / f"bias_splits_{cache_key}.pt"
+
+    if cache_file.exists():
+        logger.info("Loading cached bias splits from %s", cache_file)
+        saved = torch.load(cache_file, weights_only=False)
+        combined_train = _ListDataset(saved["train"])
+        combined_val   = _ListDataset(saved["val"])
+    else:
+        train_subsets, val_subsets = [], []
+        for spec in specs:
+            ds_id     = spec["dataset_id"]
+            label_col = spec["label_col"]
+            transform = _make_bias_transform(label_col, spec.get("remap"))
+            full_ds = MAGPIEDataset(
+                dataset_id          = ds_id,
+                cache_dir           = data_cfg["cache_dir"],
+                tokenizer           = tokenizer,
+                max_length          = data_cfg["max_len"],
+                download_if_missing = True,
+                label_col_filter    = [label_col],
+                transform           = transform,
+            )
+            train_ds, val_ds, _ = stratified_split(
+                full_ds,
+                label_col  = label_col,
+                train_frac = data_cfg.get("train_frac", 0.80),
+                val_frac   = data_cfg.get("val_frac",   0.10),
+                seed       = data_cfg["seed"],
+            )
+            train_subsets.append(train_ds)
+            val_subsets.append(val_ds)
+
+        combined_ds_train = ConcatDataset(train_subsets)
+        combined_ds_val   = ConcatDataset(val_subsets)
+
+        logger.info("Materializing %d bias train + %d val samples for cache …",
+                    len(combined_ds_train), len(combined_ds_val))
+        train_items = [combined_ds_train[i] for i in range(len(combined_ds_train))]
+        val_items   = [combined_ds_val[i]   for i in range(len(combined_ds_val))]
+
+        torch.save({"train": train_items, "val": val_items}, cache_file)
+        logger.info("Cached bias splits → %s", cache_file)
+
+        combined_train = _ListDataset(train_items)
+        combined_val   = _ListDataset(val_items)
+
+    label_col = specs[0]["label_col"]
     _col = bias_collate_fn(label_col)
     return {
-        "train": DataLoader(train_ds, batch_size=batch_size, shuffle=True,
+        "train": DataLoader(combined_train, batch_size=batch_size, shuffle=True,
+                            num_workers=workers, collate_fn=_col, pin_memory=True,
+                            persistent_workers=workers > 0),
+        "val":   DataLoader(combined_val, batch_size=64, shuffle=False,
                             num_workers=workers, collate_fn=_col, pin_memory=True,
                             persistent_workers=workers > 0),
     }
@@ -402,17 +490,23 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     iterator = MultiTaskBatchIterator(task_loaders)
 
     # Model
-    bias_meta    = REGISTRY[cfg["model"].get("bias_dataset", "10_BABE")]
-    bias_lc      = next(lc for lc in bias_meta.label_columns
-                        if lc.col == cfg["model"].get("bias_label_col", "label"))
+    if "bias_datasets" in cfg["model"]:
+        bias_task_type   = TaskType.BINARY_CLS
+        bias_num_classes = 2
+    else:
+        bias_meta        = REGISTRY[cfg["model"].get("bias_dataset", "10_BABE")]
+        bias_lc          = next(lc for lc in bias_meta.label_columns
+                                if lc.col == cfg["model"].get("bias_label_col", "label"))
+        bias_task_type   = bias_lc.task_type
+        bias_num_classes = bias_lc.num_classes
     sent_weights = ep_loaders["sent_class_weights"].to(device) if ep_loaders["sent_class_weights"] is not None else None
 
     model = UnifiedModel(
         model_name         = cfg["model"]["name"],
         dropout            = cfg["model"].get("dropout", 0.1),
         lambda_token       = cfg["model"].get("lambda_token", 0.3),
-        bias_task_type     = bias_lc.task_type,
-        bias_num_classes   = bias_lc.num_classes,
+        bias_task_type     = bias_task_type,
+        bias_num_classes   = bias_num_classes,
         emotion_num_labels = cfg["model"].get("emotion_num_labels", 11),
         sent_class_weights = sent_weights,
     ).to(device)
@@ -432,24 +526,7 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     scheduler         = get_linear_schedule_with_warmup(optimizer, warmup_steps, total_steps)
     grad_clip         = cfg["training"].get("grad_clip", 1.0)
 
-    # Bias val loader for validation
-    bias_full = MAGPIEDataset(
-        dataset_id       = cfg["model"].get("bias_dataset", "10_BABE"),
-        cache_dir        = cfg["data"]["cache_dir"],
-        tokenizer        = tokenizer,
-        max_length       = cfg["data"]["max_len"],
-        download_if_missing = True,
-        label_col_filter = [cfg["model"].get("bias_label_col", "label")],
-    )
-    _, bias_val_ds, _ = stratified_split(
-        bias_full,
-        label_col = cfg["model"].get("bias_label_col", "label"),
-        seed      = cfg["data"]["seed"],
-    )
-    bias_val_loader = DataLoader(
-        bias_val_ds, batch_size=64, shuffle=False,
-        collate_fn=bias_collate_fn(cfg["model"].get("bias_label_col", "label")),
-    )
+    bias_val_loader = bias_loaders["val"]
 
     ep_data = load_all_data(cfg)  # needed for val
 

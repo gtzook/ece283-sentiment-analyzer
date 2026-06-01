@@ -84,18 +84,28 @@ def load_unified_predictor(
 
     tokenizer = RobertaTokenizerFast.from_pretrained(cfg["model"]["name"])
 
-    bias_dataset = cfg["model"].get("bias_dataset", "10_BABE")
-    bias_lc      = next(
-        lc for lc in REGISTRY[bias_dataset].label_columns
-        if lc.col == cfg["model"].get("bias_label_col", "label")
-    )
+    # Resolve bias dataset for label-name lookup; prefer explicit key, fall back to
+    # first entry in bias_datasets list, then hard-coded default.
+    bias_dataset = (cfg["model"].get("bias_dataset")
+                    or (cfg["model"].get("bias_datasets") or [{}])[0].get("dataset_id", "10_BABE"))
+    bias_lc_col  = (cfg["model"].get("bias_label_col")
+                    or (cfg["model"].get("bias_datasets") or [{}])[0].get("label_col", "label"))
+
+    if "bias_datasets" in cfg["model"]:
+        bias_task_type   = TaskType.BINARY_CLS
+        bias_num_classes = 2
+    else:
+        bias_lc          = next(lc for lc in REGISTRY[bias_dataset].label_columns
+                                if lc.col == bias_lc_col)
+        bias_task_type   = bias_lc.task_type
+        bias_num_classes = bias_lc.num_classes
 
     model = UnifiedModel(
         model_name         = cfg["model"]["name"],
         dropout            = cfg["model"].get("dropout", 0.1),
         lambda_token       = cfg["model"].get("lambda_token", 0.3),
-        bias_task_type     = bias_lc.task_type,
-        bias_num_classes   = bias_lc.num_classes,
+        bias_task_type     = bias_task_type,
+        bias_num_classes   = bias_num_classes,
         emotion_num_labels = cfg["model"].get("emotion_num_labels", 11),
     ).to(dev)
     model.load_state_dict(
@@ -120,7 +130,7 @@ def load_unified_predictor(
         max_len            = cfg["data"]["max_len"],
         emotion_thresholds = emotion_thresholds,
         bias_dataset       = bias_dataset,
-        bias_task_type     = bias_lc.task_type,
+        bias_task_type     = bias_task_type,
         bias_label_names   = _DEFAULT_BIAS_LABEL_NAMES.get(bias_dataset, {}),
     )
 

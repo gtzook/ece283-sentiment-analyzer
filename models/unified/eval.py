@@ -232,16 +232,22 @@ def main() -> None:
     tokenizer = RobertaTokenizerFast.from_pretrained(cfg["model"]["name"])
 
     # ── Load unified model ────────────────────────────────────────────────────
-    bias_meta = REGISTRY[cfg["model"].get("bias_dataset", "10_BABE")]
-    bias_lc   = next(lc for lc in bias_meta.label_columns
-                     if lc.col == cfg["model"].get("bias_label_col", "label"))
+    if "bias_datasets" in cfg["model"]:
+        bias_task_type   = TaskType.BINARY_CLS
+        bias_num_classes = 2
+    else:
+        bias_meta        = REGISTRY[cfg["model"].get("bias_dataset", "10_BABE")]
+        bias_lc          = next(lc for lc in bias_meta.label_columns
+                                if lc.col == cfg["model"].get("bias_label_col", "label"))
+        bias_task_type   = bias_lc.task_type
+        bias_num_classes = bias_lc.num_classes
 
     unified = UnifiedModel(
         model_name         = cfg["model"]["name"],
         dropout            = cfg["model"].get("dropout", 0.1),
         lambda_token       = cfg["model"].get("lambda_token", 0.3),
-        bias_task_type     = bias_lc.task_type,
-        bias_num_classes   = bias_lc.num_classes,
+        bias_task_type     = bias_task_type,
+        bias_num_classes   = bias_num_classes,
         emotion_num_labels = cfg["model"].get("emotion_num_labels", 11),
     ).to(device)
     unified.load_state_dict(
@@ -274,29 +280,50 @@ def main() -> None:
 
     # ── Bias ──────────────────────────────────────────────────────────────────
     print("Evaluating bias task …")
-    bias_full = MAGPIEDataset(
-        dataset_id       = cfg["model"].get("bias_dataset", "10_BABE"),
-        cache_dir        = cfg["data"]["cache_dir"],
-        tokenizer        = tokenizer,
-        max_length       = cfg["data"]["max_len"],
-        download_if_missing = True,
-        label_col_filter = [cfg["model"].get("bias_label_col", "label")],
-    )
-    _, _, bias_test_ds = stratified_split(
-        bias_full,
-        label_col = cfg["model"].get("bias_label_col", "label"),
-        seed      = cfg["data"]["seed"],
-    )
+    from torch.utils.data import ConcatDataset
+    from models.unified.train import _make_bias_transform
+
+    if "bias_datasets" in cfg["model"]:
+        specs = cfg["model"]["bias_datasets"]
+    else:
+        specs = [{"dataset_id": cfg["model"].get("bias_dataset", "10_BABE"),
+                  "label_col":  cfg["model"].get("bias_label_col", "label")}]
+
+    test_subsets = []
+    for spec in specs:
+        ds_id     = spec["dataset_id"]
+        label_col = spec["label_col"]
+        transform = _make_bias_transform(label_col, spec.get("remap"))
+        full_ds = MAGPIEDataset(
+            dataset_id          = ds_id,
+            cache_dir           = cfg["data"]["cache_dir"],
+            tokenizer           = tokenizer,
+            max_length          = cfg["data"]["max_len"],
+            download_if_missing = True,
+            label_col_filter    = [label_col],
+            transform           = transform,
+        )
+        _, _, test_ds = stratified_split(
+            full_ds,
+            label_col  = label_col,
+            train_frac = cfg["data"].get("train_frac", 0.80),
+            val_frac   = cfg["data"].get("val_frac",   0.10),
+            seed       = cfg["data"]["seed"],
+        )
+        test_subsets.append(test_ds)
+
+    primary_label_col = specs[0]["label_col"]
     bias_test_loader = DataLoader(
-        bias_test_ds, batch_size=args.batch_size, shuffle=False, num_workers=args.workers,
-        collate_fn=bias_collate_fn(cfg["model"].get("bias_label_col", "label")),
+        ConcatDataset(test_subsets), batch_size=args.batch_size, shuffle=False,
+        num_workers=args.workers,
+        collate_fn=bias_collate_fn(primary_label_col),
     )
 
-    bias_unified = _eval_bias_unified(unified, bias_test_loader, bias_lc.num_classes, device)
+    bias_unified = _eval_bias_unified(unified, bias_test_loader, bias_num_classes, device)
 
     if args.bias_checkpoint:
         bias_model = RoBERTaClassifier(
-            task_type=bias_lc.task_type, num_classes=bias_lc.num_classes,
+            task_type=bias_task_type, num_classes=bias_num_classes,
             model_name=cfg["model"]["name"],
         ).to(device)
         bias_model.load_state_dict(
