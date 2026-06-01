@@ -162,8 +162,10 @@ def _load_epistemic_loaders(cfg: dict, tokenizer, batch_size: int, workers: int)
     sent_sampler = _epistemic_sent_sampler(ep_data["sent_train"])
 
     return {
-        "sent": DataLoader(sent_train, batch_size=batch_size, sampler=sent_sampler, num_workers=workers),
-        "tok":  DataLoader(tok_train,  batch_size=batch_size, shuffle=True,         num_workers=workers),
+        "sent": DataLoader(sent_train, batch_size=batch_size, shuffle=True,
+                           num_workers=workers, persistent_workers=workers > 0),
+        "tok":  DataLoader(tok_train,  batch_size=batch_size, shuffle=True,
+                           num_workers=workers, persistent_workers=workers > 0),
         "sent_class_weights": sent_class_weights,
     }
 
@@ -185,7 +187,8 @@ def _load_bias_loaders(cfg: dict, tokenizer, batch_size: int, workers: int) -> d
     _col = bias_collate_fn(label_col)
     return {
         "train": DataLoader(train_ds, batch_size=batch_size, shuffle=True,
-                            num_workers=workers, collate_fn=_col, pin_memory=True),
+                            num_workers=workers, collate_fn=_col, pin_memory=True,
+                            persistent_workers=workers > 0),
     }
 
 
@@ -218,7 +221,8 @@ def _load_emotion_loaders(cfg: dict, tokenizer, batch_size: int, workers: int) -
     train_torch = EmotionTorchDataset(tokenized["train"])
     return {
         "train": DataLoader(train_torch, batch_size=batch_size, shuffle=True,
-                            num_workers=workers, collate_fn=_emotion_collate, pin_memory=True),
+                            num_workers=workers, collate_fn=_emotion_collate, pin_memory=True,
+                            persistent_workers=workers > 0),
         "dev": EmotionTorchDataset(tokenized["dev"]),
         "test": EmotionTorchDataset(tokenized["test"]),
     }
