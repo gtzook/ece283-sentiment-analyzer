@@ -30,6 +30,7 @@ data:
 training:
   seed: 42
   batch_size: 16
+  num_workers: 4
   encoder_lr: 2.0e-5
   head_lr: 1.0e-4
   weight_decay: 0.01

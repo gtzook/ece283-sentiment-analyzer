@@ -19,7 +19,6 @@ import json
 import logging
 import sys
 from datetime import datetime
-from itertools import cycle
 from pathlib import Path
 
 import numpy as np
@@ -85,19 +84,24 @@ class MultiTaskBatchIterator:
     Yields (task_name, batch) tuples by round-robining three DataLoaders.
 
     The loader with the most batches determines one epoch's length; shorter
-    loaders are wrapped with cycle() so no data is wasted.
+    loaders restart from the beginning when exhausted.
     """
 
     def __init__(self, loaders: dict[str, DataLoader]) -> None:
-        self._loaders     = loaders
-        self._iters       = {k: cycle(v) for k, v in loaders.items()}
-        self.epoch_steps  = max(len(v) for v in loaders.values())
-        self.task_keys    = list(loaders.keys())
+        self._loaders    = loaders
+        self.epoch_steps = max(len(v) for v in loaders.values())
+        self.task_keys   = list(loaders.keys())
 
     def __iter__(self):
+        iters = {k: iter(v) for k, v in self._loaders.items()}
         for _ in range(self.epoch_steps):
             for task in self.task_keys:
-                yield task, next(self._iters[task])
+                try:
+                    batch = next(iters[task])
+                except StopIteration:
+                    iters[task] = iter(self._loaders[task])
+                    batch = next(iters[task])
+                yield task, batch
 
 
 # ── Optimiser ─────────────────────────────────────────────────────────────────
@@ -378,7 +382,7 @@ def train(cfg: dict, dry_run: bool = False) -> None:
 
     tokenizer = RobertaTokenizerFast.from_pretrained(cfg["model"]["name"])
     batch_size = cfg["training"]["batch_size"]
-    workers    = 0 if dry_run else 4
+    workers    = 0 if dry_run else cfg["training"].get("num_workers", 2)
 
     logger.info("Loading epistemic data …")
     ep_loaders = _load_epistemic_loaders(cfg, tokenizer, batch_size, workers)
