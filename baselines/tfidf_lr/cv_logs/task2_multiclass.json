@@ -1,0 +1,122 @@
+[
+  {
+    "task": "task2_multiclass",
+    "C": 0.01,
+    "fold": 0,
+    "macro_f1": 0.4947575027068988
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.01,
+    "fold": 1,
+    "macro_f1": 0.5010850557422293
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.01,
+    "fold": 2,
+    "macro_f1": 0.5015450718986659
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.01,
+    "fold": 3,
+    "macro_f1": 0.49579542051886083
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.01,
+    "fold": 4,
+    "macro_f1": 0.5000888324212496
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.1,
+    "fold": 0,
+    "macro_f1": 0.5211520453695475
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.1,
+    "fold": 1,
+    "macro_f1": 0.5268433339756555
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.1,
+    "fold": 2,
+    "macro_f1": 0.5225560225063828
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.1,
+    "fold": 3,
+    "macro_f1": 0.5212230885686898
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 0.1,
+    "fold": 4,
+    "macro_f1": 0.5299169830975781
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 1,
+    "fold": 0,
+    "macro_f1": 0.5358483210319298
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 1,
+    "fold": 1,
+    "macro_f1": 0.5324592820950174
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 1,
+    "fold": 2,
+    "macro_f1": 0.5341936063586143
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 1,
+    "fold": 3,
+    "macro_f1": 0.5309613895036707
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 1,
+    "fold": 4,
+    "macro_f1": 0.5306964945823643
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 10,
+    "fold": 0,
+    "macro_f1": 0.5235114547280316
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 10,
+    "fold": 1,
+    "macro_f1": 0.5161074932039155
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 10,
+    "fold": 2,
+    "macro_f1": 0.5098912728934044
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 10,
+    "fold": 3,
+    "macro_f1": 0.5177329799064642
+  },
+  {
+    "task": "task2_multiclass",
+    "C": 10,
+    "fold": 4,
+    "macro_f1": 0.512800200858534
+  }
+]

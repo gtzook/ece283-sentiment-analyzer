@@ -1,0 +1,255 @@
+{
+  "task1_epistemic": {
+    "sentence": {
+      "macro_f1": 0.6163844611976536,
+      "bootstrap_ci": {
+        "mean": 0.6152776697556688,
+        "ci_lo": 0.5823878323577691,
+        "ci_hi": 0.6504785269752965
+      },
+      "majority_class_f1": 0.3172847094174691,
+      "best_C": 1,
+      "n_test": 2558,
+      "per_class": {
+        "asserted": {
+          "precision": 0.9688090737240076,
+          "recall": 0.8824795523030564,
+          "f1": 0.9236314485244425
+        },
+        "hedged": {
+          "precision": 0.4472049689440994,
+          "recall": 0.7128712871287128,
+          "f1": 0.549618320610687
+        },
+        "speculative": {
+          "precision": 0.2775800711743772,
+          "recall": 0.582089552238806,
+          "f1": 0.3759036144578313
+        }
+      },
+      "confusion_matrix": [
+        [
+          2050,
+          76,
+          197
+        ],
+        [
+          23,
+          72,
+          6
+        ],
+        [
+          43,
+          13,
+          78
+        ]
+      ]
+    },
+    "token": {
+      "token_macro_f1": 0.6918000214676614,
+      "cue_f1": 0.39961759082217974,
+      "span_f1_bioscope": 0.7744748315497424,
+      "best_C_token": 10,
+      "n_test_windows": 40253,
+      "n_test_examples": 1682
+    }
+  },
+  "task2_bias_binary": {
+    "macro_f1": 0.6665478312537136,
+    "auc_roc": 0.7712943540047863,
+    "bootstrap_ci": {
+      "mean": 0.6657715292787734,
+      "ci_lo": 0.6149942958693576,
+      "ci_hi": 0.7173235808582984
+    },
+    "best_C": 1,
+    "majority_class_f1": 0.33693693693693694,
+    "n_test": 368,
+    "per_class": {
+      "neutral": {
+        "precision": 0.7124183006535948,
+        "recall": 0.5828877005347594,
+        "f1": 0.6411764705882353
+      },
+      "biased": {
+        "precision": 0.6372093023255814,
+        "recall": 0.7569060773480663,
+        "f1": 0.6919191919191919
+      }
+    },
+    "confusion_matrix": [
+      [
+        109,
+        78
+      ],
+      [
+        44,
+        137
+      ]
+    ]
+  },
+  "task2_bias_multiclass": {
+    "macro_f1": 0.4264222085906031,
+    "bootstrap_ci": {
+      "mean": 0.4265329230952196,
+      "ci_lo": 0.4117939813696328,
+      "ci_hi": 0.4407740063093112
+    },
+    "best_C": 1,
+    "majority_class_f1": 0.18847209515096067,
+    "n_test": 3405,
+    "class_labels": [
+      "highly_credible",
+      "mostly_credible",
+      "mixed",
+      "mostly_unreliable",
+      "highly_unreliable"
+    ],
+    "label_note": "Classes are a credibility spectrum derived from LIAR truthfulness scores (0.0=true\u2192class 0, 1.0=pants-fire\u2192class 4) and FakeNewsNet (real\u21920, fake\u21924). MAGPIE preprocessed LIAR lacks speaker party affiliation, so strict political orientation (left/right) is not supported.",
+    "per_class": {
+      "highly_credible": {
+        "precision": 0.8790373654211526,
+        "recall": 0.6737864077669903,
+        "f1": 0.7628469359714207
+      },
+      "mostly_credible": {
+        "precision": 0.22061855670103092,
+        "recall": 0.4083969465648855,
+        "f1": 0.28647925033467203
+      },
+      "mixed": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "mostly_unreliable": {
+        "precision": 0.383601756954612,
+        "recall": 0.5720524017467249,
+        "f1": 0.45924627519719546
+      },
+      "highly_unreliable": {
+        "precision": 0.60790273556231,
+        "recall": 0.64,
+        "f1": 0.6235385814497272
+      }
+    },
+    "confusion_matrix": [
+      [
+        1388,
+        212,
+        0,
+        220,
+        240
+      ],
+      [
+        27,
+        107,
+        0,
+        125,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        40,
+        141,
+        0,
+        262,
+        15
+      ],
+      [
+        124,
+        25,
+        0,
+        76,
+        400
+      ]
+    ]
+  },
+  "task3_emotion": {
+    "micro_f1": 0.746964646551873,
+    "macro_f1": 0.6508965180563966,
+    "hamming_loss": 0.05210911936264049,
+    "bootstrap_ci": {
+      "mean": 0.6506414644094741,
+      "ci_lo": 0.642491018111769,
+      "ci_hi": 0.658544719078014
+    },
+    "best_threshold": 0.5,
+    "best_C": 10,
+    "n_test": 25560,
+    "per_emotion": {
+      "anger": {
+        "f1": 0.7508791672527781,
+        "precision": 0.6838329490135793,
+        "recall": 0.8325015595757954,
+        "prevalence": 0.1254303599374022
+      },
+      "anticipation": {
+        "f1": 0.8000567416128803,
+        "precision": 0.7451446690447879,
+        "recall": 0.8637059724349158,
+        "prevalence": 0.2554773082942097
+      },
+      "disgust": {
+        "f1": 0.6829268292682927,
+        "precision": 0.5898876404494382,
+        "recall": 0.8108108108108109,
+        "prevalence": 0.03039906103286385
+      },
+      "fear": {
+        "f1": 0.7262346560091351,
+        "precision": 0.6506393861892583,
+        "recall": 0.8217054263565892,
+        "prevalence": 0.06056338028169014
+      },
+      "joy": {
+        "f1": 0.7673950931760289,
+        "precision": 0.6997555012224939,
+        "recall": 0.8495102404274265,
+        "prevalence": 0.1318075117370892
+      },
+      "love": {
+        "f1": 0.5978330146590185,
+        "precision": 0.5196675900277008,
+        "recall": 0.7036759189797449,
+        "prevalence": 0.052151799687010954
+      },
+      "optimism": {
+        "f1": 0.3567921440261866,
+        "precision": 0.2953929539295393,
+        "recall": 0.45041322314049587,
+        "prevalence": 0.0094679186228482
+      },
+      "pessimism": {
+        "f1": 0.2765957446808511,
+        "precision": 0.25,
+        "recall": 0.30952380952380953,
+        "prevalence": 0.006572769953051643
+      },
+      "sadness": {
+        "f1": 0.7525909176559261,
+        "precision": 0.6972765363128491,
+        "recall": 0.8174375767498977,
+        "prevalence": 0.0955790297339593
+      },
+      "surprise": {
+        "f1": 0.6739978715856687,
+        "precision": 0.585335797905114,
+        "recall": 0.794314381270903,
+        "prevalence": 0.04679186228482003
+      },
+      "trust": {
+        "f1": 0.774559518693597,
+        "precision": 0.7073783359497645,
+        "recall": 0.8558404558404559,
+        "prevalence": 0.20598591549295775
+      }
+    }
+  }
+}

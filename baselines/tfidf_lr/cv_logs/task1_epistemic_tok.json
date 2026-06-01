@@ -1,0 +1,122 @@
+[
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.01,
+    "fold": 0,
+    "macro_f1": 0.6038740523346815
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.01,
+    "fold": 1,
+    "macro_f1": 0.6010782888466953
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.01,
+    "fold": 2,
+    "macro_f1": 0.6052029987524691
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.01,
+    "fold": 3,
+    "macro_f1": 0.6031518974094717
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.01,
+    "fold": 4,
+    "macro_f1": 0.6041583453153107
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.1,
+    "fold": 0,
+    "macro_f1": 0.6459023353834342
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.1,
+    "fold": 1,
+    "macro_f1": 0.6429017830238655
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.1,
+    "fold": 2,
+    "macro_f1": 0.6510861842467015
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.1,
+    "fold": 3,
+    "macro_f1": 0.6484693556522884
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 0.1,
+    "fold": 4,
+    "macro_f1": 0.6508088639673527
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 1,
+    "fold": 0,
+    "macro_f1": 0.664900147653672
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 1,
+    "fold": 1,
+    "macro_f1": 0.6600364639641345
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 1,
+    "fold": 2,
+    "macro_f1": 0.6654192102450931
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 1,
+    "fold": 3,
+    "macro_f1": 0.6648368631598351
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 1,
+    "fold": 4,
+    "macro_f1": 0.6641379182410826
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 10,
+    "fold": 0,
+    "macro_f1": 0.6690054426675845
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 10,
+    "fold": 1,
+    "macro_f1": 0.6598422050738211
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 10,
+    "fold": 2,
+    "macro_f1": 0.6653058768072426
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 10,
+    "fold": 3,
+    "macro_f1": 0.659771313891399
+  },
+  {
+    "task": "task1_epistemic_tok",
+    "C": 10,
+    "fold": 4,
+    "macro_f1": 0.6700784096833814
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "task": "task2_binary",
+    "C": 0.01,
+    "fold": 0,
+    "macro_f1": 0.6706563224822829
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.01,
+    "fold": 1,
+    "macro_f1": 0.6527744307158174
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.01,
+    "fold": 2,
+    "macro_f1": 0.6831287888100265
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.01,
+    "fold": 3,
+    "macro_f1": 0.6651962658753829
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.01,
+    "fold": 4,
+    "macro_f1": 0.6610860759576354
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.1,
+    "fold": 0,
+    "macro_f1": 0.6816127172890818
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.1,
+    "fold": 1,
+    "macro_f1": 0.6667533587407797
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.1,
+    "fold": 2,
+    "macro_f1": 0.689144437005898
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.1,
+    "fold": 3,
+    "macro_f1": 0.6698397612927711
+  },
+  {
+    "task": "task2_binary",
+    "C": 0.1,
+    "fold": 4,
+    "macro_f1": 0.6683447638503819
+  },
+  {
+    "task": "task2_binary",
+    "C": 1,
+    "fold": 0,
+    "macro_f1": 0.6935006808681153
+  },
+  {
+    "task": "task2_binary",
+    "C": 1,
+    "fold": 1,
+    "macro_f1": 0.6828060701800723
+  },
+  {
+    "task": "task2_binary",
+    "C": 1,
+    "fold": 2,
+    "macro_f1": 0.7041654057562801
+  },
+  {
+    "task": "task2_binary",
+    "C": 1,
+    "fold": 3,
+    "macro_f1": 0.6953038648362692
+  },
+  {
+    "task": "task2_binary",
+    "C": 1,
+    "fold": 4,
+    "macro_f1": 0.6941019691458673
+  },
+  {
+    "task": "task2_binary",
+    "C": 10,
+    "fold": 0,
+    "macro_f1": 0.6925133814768752
+  },
+  {
+    "task": "task2_binary",
+    "C": 10,
+    "fold": 1,
+    "macro_f1": 0.6852542158263153
+  },
+  {
+    "task": "task2_binary",
+    "C": 10,
+    "fold": 2,
+    "macro_f1": 0.6984100001702684
+  },
+  {
+    "task": "task2_binary",
+    "C": 10,
+    "fold": 3,
+    "macro_f1": 0.697934285409079
+  },
+  {
+    "task": "task2_binary",
+    "C": 10,
+    "fold": 4,
+    "macro_f1": 0.695496389575337
+  }
+]

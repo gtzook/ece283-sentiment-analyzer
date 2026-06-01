@@ -1,0 +1,74 @@
+[
+  {
+    "task": "task3_emotion",
+    "C": 0.01,
+    "fold": 0,
+    "micro_f1": 0.5194146655231561
+  },
+  {
+    "task": "task3_emotion",
+    "C": 0.01,
+    "fold": 1,
+    "micro_f1": 0.49959254856976765
+  },
+  {
+    "task": "task3_emotion",
+    "C": 0.01,
+    "fold": 2,
+    "micro_f1": 0.5020621761658031
+  },
+  {
+    "task": "task3_emotion",
+    "C": 0.1,
+    "fold": 0,
+    "micro_f1": 0.6296192975764167
+  },
+  {
+    "task": "task3_emotion",
+    "C": 0.1,
+    "fold": 1,
+    "micro_f1": 0.5898618018573126
+  },
+  {
+    "task": "task3_emotion",
+    "C": 0.1,
+    "fold": 2,
+    "micro_f1": 0.5893848301331018
+  },
+  {
+    "task": "task3_emotion",
+    "C": 1,
+    "fold": 0,
+    "micro_f1": 0.7044438071645179
+  },
+  {
+    "task": "task3_emotion",
+    "C": 1,
+    "fold": 1,
+    "micro_f1": 0.6765628241266123
+  },
+  {
+    "task": "task3_emotion",
+    "C": 1,
+    "fold": 2,
+    "micro_f1": 0.675269105582036
+  },
+  {
+    "task": "task3_emotion",
+    "C": 10,
+    "fold": 0,
+    "micro_f1": 0.709169712585136
+  },
+  {
+    "task": "task3_emotion",
+    "C": 10,
+    "fold": 1,
+    "micro_f1": 0.690648057427366
+  },
+  {
+    "task": "task3_emotion",
+    "C": 10,
+    "fold": 2,
+    "micro_f1": 0.6906435478492831
+  }
+]

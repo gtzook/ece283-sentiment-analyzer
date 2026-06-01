@@ -1,0 +1,1656 @@
+{
+  "task1_epistemic": {
+    "asserted": [
+      {
+        "feature": "often",
+        "log_odds": 1.9051421423226251
+      },
+      {
+        "feature": "usually",
+        "log_odds": 1.4173295568344535
+      },
+      {
+        "feature": "many",
+        "log_odds": 1.250325304227232
+      },
+      {
+        "feature": "said to",
+        "log_odds": 1.2024453715824444
+      },
+      {
+        "feature": "is said",
+        "log_odds": 1.171171628974281
+      },
+      {
+        "feature": "generally",
+        "log_odds": 1.1127336859754167
+      },
+      {
+        "feature": "is the",
+        "log_odds": 1.111027720153396
+      },
+      {
+        "feature": "one of",
+        "log_odds": 1.0808436727811626
+      },
+      {
+        "feature": "can be",
+        "log_odds": 1.0568801317955934
+      },
+      {
+        "feature": "popular",
+        "log_odds": 1.052842300601312
+      },
+      {
+        "feature": "used",
+        "log_odds": 0.9412628886936725
+      },
+      {
+        "feature": "began",
+        "log_odds": 0.8940450892937527
+      },
+      {
+        "feature": "river",
+        "log_odds": 0.8935119597030231
+      },
+      {
+        "feature": "series",
+        "log_odds": 0.89290180495152
+      },
+      {
+        "feature": "the other",
+        "log_odds": 0.891942045344337
+      },
+      {
+        "feature": "common",
+        "log_odds": 0.8871881012104924
+      },
+      {
+        "feature": "different",
+        "log_odds": 0.8862279575457164
+      },
+      {
+        "feature": "music",
+        "log_odds": 0.8699584667421009
+      },
+      {
+        "feature": "became",
+        "log_odds": 0.8522340091240472
+      },
+      {
+        "feature": "rose",
+        "log_odds": 0.8486654718161486
+      }
+    ],
+    "hedged": [
+      {
+        "feature": "probably",
+        "log_odds": 9.284551585510027
+      },
+      {
+        "feature": "likely",
+        "log_odds": 8.042488940374557
+      },
+      {
+        "feature": "perhaps",
+        "log_odds": 7.482893691997777
+      },
+      {
+        "feature": "possibly",
+        "log_odds": 6.156393973317306
+      },
+      {
+        "feature": "that",
+        "log_odds": 4.94837807318766
+      },
+      {
+        "feature": "suggested",
+        "log_odds": 4.868193069153656
+      },
+      {
+        "feature": "possible",
+        "log_odds": 4.7408566382501345
+      },
+      {
+        "feature": "seems",
+        "log_odds": 4.379669259629818
+      },
+      {
+        "feature": "suggest",
+        "log_odds": 4.034976840582468
+      },
+      {
+        "feature": "seem",
+        "log_odds": 4.0017962172544195
+      },
+      {
+        "feature": "suggests",
+        "log_odds": 3.916160754430691
+      },
+      {
+        "feature": "appears",
+        "log_odds": 3.4225067910829368
+      },
+      {
+        "feature": "apparently",
+        "log_odds": 3.3155389195765617
+      },
+      {
+        "feature": "seemingly",
+        "log_odds": 3.2848044837136485
+      },
+      {
+        "feature": "is",
+        "log_odds": 2.922788027412844
+      },
+      {
+        "feature": "possibility",
+        "log_odds": 2.9197565935723024
+      },
+      {
+        "feature": "unclear",
+        "log_odds": 2.885233843738744
+      },
+      {
+        "feature": "seem to",
+        "log_odds": 2.864003991781686
+      },
+      {
+        "feature": "seemed",
+        "log_odds": 2.72107310982907
+      },
+      {
+        "feature": "unknown",
+        "log_odds": 2.647288980895971
+      }
+    ],
+    "speculative": [
+      {
+        "feature": "said",
+        "log_odds": 11.276909266027914
+      },
+      {
+        "feature": "would",
+        "log_odds": 6.9297397647045855
+      },
+      {
+        "feature": "says",
+        "log_odds": 4.349479413898863
+      },
+      {
+        "feature": "allegedly",
+        "log_odds": 4.052717477727941
+      },
+      {
+        "feature": "if",
+        "log_odds": 3.6111088730347776
+      },
+      {
+        "feature": "we",
+        "log_odds": 3.322546277681811
+      },
+      {
+        "feature": "would be",
+        "log_odds": 3.182736134473236
+      },
+      {
+        "feature": "supposedly",
+        "log_odds": 3.12124001473737
+      },
+      {
+        "feature": "say",
+        "log_odds": 2.9303491594976245
+      },
+      {
+        "feature": "could",
+        "log_odds": 2.7810800757372136
+      },
+      {
+        "feature": "to",
+        "log_odds": 2.7313568201681133
+      },
+      {
+        "feature": "mr",
+        "log_odds": 2.6722532152277276
+      },
+      {
+        "feature": "said the",
+        "log_odds": 2.565646291271966
+      },
+      {
+        "feature": "iraq",
+        "log_odds": 2.425490328157569
+      },
+      {
+        "feature": "abortion",
+        "log_odds": 2.3351452292725288
+      },
+      {
+        "feature": "president",
+        "log_odds": 2.2411057187427224
+      },
+      {
+        "feature": "slepian",
+        "log_odds": 2.2304190767546856
+      },
+      {
+        "feature": "reported",
+        "log_odds": 2.1204879057229333
+      },
+      {
+        "feature": "kuwait",
+        "log_odds": 2.111033923267057
+      },
+      {
+        "feature": "company",
+        "log_odds": 2.038887637625409
+      }
+    ]
+  },
+  "task2_bias_binary": {
+    "neutral": [
+      {
+        "feature": "said",
+        "log_odds": 3.664425293642891
+      },
+      {
+        "feature": "mr",
+        "log_odds": 2.105400414029922
+      },
+      {
+        "feature": "trump said",
+        "log_odds": 1.842861699220611
+      },
+      {
+        "feature": "both",
+        "log_odds": 1.6743844006869364
+      },
+      {
+        "feature": "case",
+        "log_odds": 1.6558796805513958
+      },
+      {
+        "feature": "he said",
+        "log_odds": 1.5284749073029504
+      },
+      {
+        "feature": "thursday",
+        "log_odds": 1.4166854950401058
+      },
+      {
+        "feature": "we",
+        "log_odds": 1.4163242154618558
+      },
+      {
+        "feature": "general",
+        "log_odds": 1.4053585405151214
+      },
+      {
+        "feature": "asked",
+        "log_odds": 1.4016616401980335
+      },
+      {
+        "feature": "issues",
+        "log_odds": 1.3424688533538616
+      },
+      {
+        "feature": "000",
+        "log_odds": 1.339788582525104
+      },
+      {
+        "feature": "told",
+        "log_odds": 1.3010700740971926
+      },
+      {
+        "feature": "come",
+        "log_odds": 1.2904088772199291
+      },
+      {
+        "feature": "wikileaks",
+        "log_odds": 1.235345769447552
+      },
+      {
+        "feature": "the house",
+        "log_odds": 1.2271714895613903
+      },
+      {
+        "feature": "report",
+        "log_odds": 1.175029218235286
+      },
+      {
+        "feature": "three",
+        "log_odds": 1.1749302834231585
+      },
+      {
+        "feature": "say",
+        "log_odds": 1.1704120259968989
+      },
+      {
+        "feature": "according",
+        "log_odds": 1.162000393578036
+      }
+    ],
+    "biased": [
+      {
+        "feature": "trump",
+        "log_odds": 4.689290450125925
+      },
+      {
+        "feature": "is",
+        "log_odds": 2.8172809617457983
+      },
+      {
+        "feature": "his",
+        "log_odds": 2.750721906809053
+      },
+      {
+        "feature": "and",
+        "log_odds": 2.7422318107010892
+      },
+      {
+        "feature": "of",
+        "log_odds": 2.6567244866314272
+      },
+      {
+        "feature": "even",
+        "log_odds": 2.6300790584760185
+      },
+      {
+        "feature": "like",
+        "log_odds": 2.277039152739254
+      },
+      {
+        "feature": "anti",
+        "log_odds": 2.2319250588074344
+      },
+      {
+        "feature": "media",
+        "log_odds": 2.0445468392094877
+      },
+      {
+        "feature": "our",
+        "log_odds": 1.8429166802418584
+      },
+      {
+        "feature": "as",
+        "log_odds": 1.803893451375116
+      },
+      {
+        "feature": "wing",
+        "log_odds": 1.8003302150817801
+      },
+      {
+        "feature": "are",
+        "log_odds": 1.7828130547885548
+      },
+      {
+        "feature": "left",
+        "log_odds": 1.7670090987837923
+      },
+      {
+        "feature": "has",
+        "log_odds": 1.7096910746071918
+      },
+      {
+        "feature": "how",
+        "log_odds": 1.695489546057046
+      },
+      {
+        "feature": "americans",
+        "log_odds": 1.6598715378821083
+      },
+      {
+        "feature": "into",
+        "log_odds": 1.6171145801924456
+      },
+      {
+        "feature": "who",
+        "log_odds": 1.611225005209512
+      },
+      {
+        "feature": "dangerous",
+        "log_odds": 1.6032044095107063
+      }
+    ]
+  },
+  "task2_bias_multiclass": {
+    "highly_credible": [
+      {
+        "feature": "season",
+        "log_odds": 3.297775625379358
+      },
+      {
+        "feature": "2018",
+        "log_odds": 2.790309761082002
+      },
+      {
+        "feature": "her",
+        "log_odds": 2.742199369991265
+      },
+      {
+        "feature": "how",
+        "log_odds": 2.6411012921530945
+      },
+      {
+        "feature": "star",
+        "log_odds": 2.3851991123655476
+      },
+      {
+        "feature": "awards",
+        "log_odds": 2.376824482222818
+      },
+      {
+        "feature": "reveals",
+        "log_odds": 2.158293613614705
+      },
+      {
+        "feature": "best",
+        "log_odds": 2.0967132028693176
+      },
+      {
+        "feature": "bachelor",
+        "log_odds": 2.0129495128793966
+      },
+      {
+        "feature": "birthday",
+        "log_odds": 1.866537512065568
+      },
+      {
+        "feature": "daughter",
+        "log_odds": 1.7644339396492983
+      },
+      {
+        "feature": "tv",
+        "log_odds": 1.7552913077015144
+      },
+      {
+        "feature": "bachelorette",
+        "log_odds": 1.6925502948884743
+      },
+      {
+        "feature": "and more",
+        "log_odds": 1.6837334245766526
+      },
+      {
+        "feature": "beauty",
+        "log_odds": 1.6707880540844111
+      },
+      {
+        "feature": "watch",
+        "log_odds": 1.6702614373008862
+      },
+      {
+        "feature": "shares",
+        "log_odds": 1.653449125831641
+      },
+      {
+        "feature": "son",
+        "log_odds": 1.6501112165430922
+      },
+      {
+        "feature": "after",
+        "log_odds": 1.6275370680541876
+      },
+      {
+        "feature": "style",
+        "log_odds": 1.587766584096885
+      }
+    ],
+    "mostly_credible": [
+      {
+        "feature": "the",
+        "log_odds": 2.933981023877175
+      },
+      {
+        "feature": "percent",
+        "log_odds": 2.852032107829986
+      },
+      {
+        "feature": "cut",
+        "log_odds": 2.8467838366562956
+      },
+      {
+        "feature": "says",
+        "log_odds": 2.6770028321598365
+      },
+      {
+        "feature": "000",
+        "log_odds": 2.5276635049160667
+      },
+      {
+        "feature": "would",
+        "log_odds": 2.4798690633134686
+      },
+      {
+        "feature": "put",
+        "log_odds": 2.4302260761290353
+      },
+      {
+        "feature": "of",
+        "log_odds": 2.297738766321194
+      },
+      {
+        "feature": "billion",
+        "log_odds": 2.285107913820582
+      },
+      {
+        "feature": "jobs",
+        "log_odds": 2.2803228117652146
+      },
+      {
+        "feature": "in",
+        "log_odds": 2.1606023802334273
+      },
+      {
+        "feature": "on",
+        "log_odds": 2.134419637076915
+      },
+      {
+        "feature": "republican",
+        "log_odds": 2.1331116447564717
+      },
+      {
+        "feature": "has",
+        "log_odds": 2.1293182384717904
+      },
+      {
+        "feature": "opposed",
+        "log_odds": 2.0649497034488697
+      },
+      {
+        "feature": "than",
+        "log_odds": 2.0209715894831612
+      },
+      {
+        "feature": "countries",
+        "log_odds": 2.01052734714975
+      },
+      {
+        "feature": "and",
+        "log_odds": 1.991336877709976
+      },
+      {
+        "feature": "that",
+        "log_odds": 1.9482501392345095
+      },
+      {
+        "feature": "money from",
+        "log_odds": 1.9393417189682827
+      }
+    ],
+    "mixed": [
+      {
+        "feature": "(class not in training data)",
+        "log_odds": 0.0
+      }
+    ],
+    "mostly_unreliable": [
+      {
+        "feature": "says",
+        "log_odds": 3.6793340792413973
+      },
+      {
+        "feature": "the",
+        "log_odds": 3.2612067592925795
+      },
+      {
+        "feature": "no",
+        "log_odds": 2.013980132855959
+      },
+      {
+        "feature": "we",
+        "log_odds": 1.967989738686933
+      },
+      {
+        "feature": "government",
+        "log_odds": 1.8644501903763182
+      },
+      {
+        "feature": "in",
+        "log_odds": 1.8464912511115315
+      },
+      {
+        "feature": "tax",
+        "log_odds": 1.7987851579200609
+      },
+      {
+        "feature": "is",
+        "log_odds": 1.7948846008686261
+      },
+      {
+        "feature": "obamacare",
+        "log_odds": 1.762697108536319
+      },
+      {
+        "feature": "voted",
+        "log_odds": 1.758374524199947
+      },
+      {
+        "feature": "wisconsin",
+        "log_odds": 1.746270321104548
+      },
+      {
+        "feature": "abortion",
+        "log_odds": 1.7458492878869982
+      },
+      {
+        "feature": "doctors",
+        "log_odds": 1.7420434761638415
+      },
+      {
+        "feature": "benghazi",
+        "log_odds": 1.7277712577869453
+      },
+      {
+        "feature": "ive",
+        "log_odds": 1.6941595876704911
+      },
+      {
+        "feature": "scheme",
+        "log_odds": 1.6790235131570814
+      },
+      {
+        "feature": "of those",
+        "log_odds": 1.6682548406396112
+      },
+      {
+        "feature": "500 billion",
+        "log_odds": 1.629166764139751
+      },
+      {
+        "feature": "budget",
+        "log_odds": 1.6115819290650644
+      },
+      {
+        "feature": "president",
+        "log_odds": 1.6098242235023135
+      }
+    ],
+    "highly_unreliable": [
+      {
+        "feature": "breaking",
+        "log_odds": 3.736401477669896
+      },
+      {
+        "feature": "trump",
+        "log_odds": 3.6988779966347107
+      },
+      {
+        "feature": "report",
+        "log_odds": 3.4637274033067555
+      },
+      {
+        "feature": "jenner",
+        "log_odds": 3.411827352345058
+      },
+      {
+        "feature": "kardashian",
+        "log_odds": 3.083607526338025
+      },
+      {
+        "feature": "brad",
+        "log_odds": 3.08097092451611
+      },
+      {
+        "feature": "jennifer",
+        "log_odds": 2.7741084906635765
+      },
+      {
+        "feature": "kanye",
+        "log_odds": 2.7150468904330416
+      },
+      {
+        "feature": "pitt",
+        "log_odds": 2.693654328183192
+      },
+      {
+        "feature": "celebrities",
+        "log_odds": 2.6459239572608744
+      },
+      {
+        "feature": "brad pitt",
+        "log_odds": 2.6380494772597882
+      },
+      {
+        "feature": "caitlyn",
+        "log_odds": 2.5635696883993995
+      },
+      {
+        "feature": "justin",
+        "log_odds": 2.5226418907009047
+      },
+      {
+        "feature": "beyonce",
+        "log_odds": 2.45738099258069
+      },
+      {
+        "feature": "rihanna",
+        "log_odds": 2.409998109760226
+      },
+      {
+        "feature": "pattinson",
+        "log_odds": 2.3550004202738006
+      },
+      {
+        "feature": "dating",
+        "log_odds": 2.3396294395842228
+      },
+      {
+        "feature": "angelina",
+        "log_odds": 2.337506992465336
+      },
+      {
+        "feature": "meghan",
+        "log_odds": 2.289036665131683
+      },
+      {
+        "feature": "rumors",
+        "log_odds": 2.258329836424138
+      }
+    ]
+  },
+  "task3_emotion": {
+    "anger": [
+      {
+        "feature": "hate",
+        "log_odds": 34.23242443664704
+      },
+      {
+        "feature": "hit",
+        "log_odds": 29.532178322005723
+      },
+      {
+        "feature": "words",
+        "log_odds": 24.989492353956063
+      },
+      {
+        "feature": "bout",
+        "log_odds": 23.347762870875417
+      },
+      {
+        "feature": "hot",
+        "log_odds": 23.14300388399715
+      },
+      {
+        "feature": "shot",
+        "log_odds": 22.239423186876966
+      },
+      {
+        "feature": "distracted",
+        "log_odds": 21.905077936837337
+      },
+      {
+        "feature": "fighting",
+        "log_odds": 21.21464318501662
+      },
+      {
+        "feature": "cranky",
+        "log_odds": 21.19092669021319
+      },
+      {
+        "feature": "rebellious",
+        "log_odds": 20.983664349527068
+      },
+      {
+        "feature": "chaotic",
+        "log_odds": 20.78447708236669
+      },
+      {
+        "feature": "hell",
+        "log_odds": 20.630707244078966
+      },
+      {
+        "feature": "politics",
+        "log_odds": 20.622687407680562
+      },
+      {
+        "feature": "annoying",
+        "log_odds": 20.40829706120206
+      },
+      {
+        "feature": "resentful",
+        "log_odds": 20.1013065202741
+      },
+      {
+        "feature": "rushed",
+        "log_odds": 20.060150477097217
+      },
+      {
+        "feature": "irritable",
+        "log_odds": 19.866784210090138
+      },
+      {
+        "feature": "dissatisfied",
+        "log_odds": 19.691114517633327
+      },
+      {
+        "feature": "controversial",
+        "log_odds": 19.665943744864972
+      },
+      {
+        "feature": "evil",
+        "log_odds": 19.637118699140167
+      }
+    ],
+    "anticipation": [
+      {
+        "feature": "time",
+        "log_odds": 27.46697981106039
+      },
+      {
+        "feature": "hope",
+        "log_odds": 25.1851179985209
+      },
+      {
+        "feature": "thought",
+        "log_odds": 25.16758842767777
+      },
+      {
+        "feature": "start",
+        "log_odds": 24.723321812997042
+      },
+      {
+        "feature": "finally",
+        "log_odds": 23.536641113020593
+      },
+      {
+        "feature": "long",
+        "log_odds": 22.721621610610104
+      },
+      {
+        "feature": "young",
+        "log_odds": 22.303096227481213
+      },
+      {
+        "feature": "coming",
+        "log_odds": 21.43841607269723
+      },
+      {
+        "feature": "wait",
+        "log_odds": 20.834687428868477
+      },
+      {
+        "feature": "public",
+        "log_odds": 20.46794174151644
+      },
+      {
+        "feature": "expect",
+        "log_odds": 20.238179093572892
+      },
+      {
+        "feature": "happy",
+        "log_odds": 19.360710202554298
+      },
+      {
+        "feature": "sing",
+        "log_odds": 18.564181820213847
+      },
+      {
+        "feature": "ready",
+        "log_odds": 18.11013376518493
+      },
+      {
+        "feature": "inaugural",
+        "log_odds": 18.091679526745963
+      },
+      {
+        "feature": "daily",
+        "log_odds": 17.91509490665891
+      },
+      {
+        "feature": "ship",
+        "log_odds": 17.757576436291938
+      },
+      {
+        "feature": "letter",
+        "log_odds": 17.71334945097962
+      },
+      {
+        "feature": "birthday",
+        "log_odds": 17.388762585221016
+      },
+      {
+        "feature": "career",
+        "log_odds": 17.13621351296222
+      }
+    ],
+    "disgust": [
+      {
+        "feature": "weird",
+        "log_odds": 41.234615409505466
+      },
+      {
+        "feature": "boy",
+        "log_odds": 39.37056718086532
+      },
+      {
+        "feature": "toxic",
+        "log_odds": 33.71811102438391
+      },
+      {
+        "feature": "mess",
+        "log_odds": 32.971687437698314
+      },
+      {
+        "feature": "ugly",
+        "log_odds": 32.869742847025755
+      },
+      {
+        "feature": "waste",
+        "log_odds": 32.326736706974955
+      },
+      {
+        "feature": "dirty",
+        "log_odds": 29.433786384215626
+      },
+      {
+        "feature": "nose",
+        "log_odds": 29.18301628255092
+      },
+      {
+        "feature": "fool",
+        "log_odds": 28.587042440763515
+      },
+      {
+        "feature": "porn",
+        "log_odds": 26.800663069303287
+      },
+      {
+        "feature": "garbage",
+        "log_odds": 26.631293967241387
+      },
+      {
+        "feature": "stomach",
+        "log_odds": 25.54875066480003
+      },
+      {
+        "feature": "gross",
+        "log_odds": 25.50267150735233
+      },
+      {
+        "feature": "pregnancy",
+        "log_odds": 24.81134842695869
+      },
+      {
+        "feature": "burnt",
+        "log_odds": 24.70916930684915
+      },
+      {
+        "feature": "backwards",
+        "log_odds": 24.60106776206211
+      },
+      {
+        "feature": "idiot",
+        "log_odds": 24.253043618741213
+      },
+      {
+        "feature": "gut",
+        "log_odds": 24.208610884080993
+      },
+      {
+        "feature": "ignorant",
+        "log_odds": 24.093263992072576
+      },
+      {
+        "feature": "spoil",
+        "log_odds": 23.921008420916067
+      }
+    ],
+    "fear": [
+      {
+        "feature": "change",
+        "log_odds": 35.30503515452454
+      },
+      {
+        "feature": "hearing",
+        "log_odds": 32.03398272888106
+      },
+      {
+        "feature": "government",
+        "log_odds": 31.794111309809182
+      },
+      {
+        "feature": "difficult",
+        "log_odds": 31.44466459986377
+      },
+      {
+        "feature": "fire",
+        "log_odds": 28.91235331440967
+      },
+      {
+        "feature": "afraid",
+        "log_odds": 28.11965808471061
+      },
+      {
+        "feature": "war",
+        "log_odds": 27.51458684600443
+      },
+      {
+        "feature": "military",
+        "log_odds": 27.398078236344073
+      },
+      {
+        "feature": "giant",
+        "log_odds": 27.326821679841533
+      },
+      {
+        "feature": "lines",
+        "log_odds": 27.151778137042207
+      },
+      {
+        "feature": "flying",
+        "log_odds": 26.92864867914939
+      },
+      {
+        "feature": "surprise",
+        "log_odds": 26.764040852882633
+      },
+      {
+        "feature": "chicken",
+        "log_odds": 25.352974521439045
+      },
+      {
+        "feature": "forced",
+        "log_odds": 25.109611709002024
+      },
+      {
+        "feature": "doubt",
+        "log_odds": 24.90877826043437
+      },
+      {
+        "feature": "hide",
+        "log_odds": 24.75682308536544
+      },
+      {
+        "feature": "quarantine",
+        "log_odds": 24.36127430059591
+      },
+      {
+        "feature": "dangerous",
+        "log_odds": 24.03962136127181
+      },
+      {
+        "feature": "avoid",
+        "log_odds": 23.808285612807175
+      },
+      {
+        "feature": "homework",
+        "log_odds": 23.511324933059992
+      }
+    ],
+    "joy": [
+      {
+        "feature": "love",
+        "log_odds": 35.37886341745422
+      },
+      {
+        "feature": "special",
+        "log_odds": 28.358793036065247
+      },
+      {
+        "feature": "create",
+        "log_odds": 26.9543933289533
+      },
+      {
+        "feature": "beautiful",
+        "log_odds": 24.586161564717848
+      },
+      {
+        "feature": "baby",
+        "log_odds": 24.227659274539256
+      },
+      {
+        "feature": "lol",
+        "log_odds": 22.98611133929197
+      },
+      {
+        "feature": "pleased",
+        "log_odds": 22.04069857890275
+      },
+      {
+        "feature": "welcomed",
+        "log_odds": 21.385215941772877
+      },
+      {
+        "feature": "daughter",
+        "log_odds": 20.628397819518415
+      },
+      {
+        "feature": "laughing",
+        "log_odds": 20.490079131241075
+      },
+      {
+        "feature": "smile",
+        "log_odds": 20.18334285257933
+      },
+      {
+        "feature": "smiling",
+        "log_odds": 19.99517975180781
+      },
+      {
+        "feature": "jump",
+        "log_odds": 19.924948016879746
+      },
+      {
+        "feature": "nap",
+        "log_odds": 19.885240972592047
+      },
+      {
+        "feature": "established",
+        "log_odds": 19.407765634605507
+      },
+      {
+        "feature": "joy",
+        "log_odds": 19.40630323437129
+      },
+      {
+        "feature": "haha",
+        "log_odds": 19.360899095226173
+      },
+      {
+        "feature": "cheering",
+        "log_odds": 19.063362197576247
+      },
+      {
+        "feature": "garden",
+        "log_odds": 18.118807926347447
+      },
+      {
+        "feature": "gorgeous",
+        "log_odds": 17.98537968656189
+      }
+    ],
+    "love": [
+      {
+        "feature": "thanks",
+        "log_odds": 30.71874486285672
+      },
+      {
+        "feature": "sympathetic",
+        "log_odds": 25.471760756781137
+      },
+      {
+        "feature": "tender",
+        "log_odds": 24.65124302051343
+      },
+      {
+        "feature": "delicate",
+        "log_odds": 21.759560833133275
+      },
+      {
+        "feature": "longing",
+        "log_odds": 21.593683597927743
+      },
+      {
+        "feature": "naughty",
+        "log_odds": 19.763128384792942
+      },
+      {
+        "feature": "nostalgic",
+        "log_odds": 19.622804319225395
+      },
+      {
+        "feature": "gentle",
+        "log_odds": 19.404103621251494
+      },
+      {
+        "feature": "supportive",
+        "log_odds": 19.151171106913846
+      },
+      {
+        "feature": "caring",
+        "log_odds": 18.78567607479685
+      },
+      {
+        "feature": "awesome",
+        "log_odds": 18.471819555072027
+      },
+      {
+        "feature": "romantic",
+        "log_odds": 18.133752591601507
+      },
+      {
+        "feature": "devoted",
+        "log_odds": 17.887863815321786
+      },
+      {
+        "feature": "great",
+        "log_odds": 17.39645990799984
+      },
+      {
+        "feature": "fond",
+        "log_odds": 16.766851135574186
+      },
+      {
+        "feature": "loved",
+        "log_odds": 16.543855648573423
+      },
+      {
+        "feature": "lovely",
+        "log_odds": 16.026569487920728
+      },
+      {
+        "feature": "loving",
+        "log_odds": 15.929970437624453
+      },
+      {
+        "feature": "loyal",
+        "log_odds": 15.906325108576489
+      },
+      {
+        "feature": "thank",
+        "log_odds": 15.837806473013334
+      }
+    ],
+    "optimism": [
+      {
+        "feature": "hopefully",
+        "log_odds": 27.720032836550004
+      },
+      {
+        "feature": "hope",
+        "log_odds": 23.956206175739897
+      },
+      {
+        "feature": "hoping",
+        "log_odds": 21.748982091047726
+      },
+      {
+        "feature": "optimism",
+        "log_odds": 20.95483931360607
+      },
+      {
+        "feature": "fear",
+        "log_odds": 14.903395970498687
+      },
+      {
+        "feature": "probably",
+        "log_odds": 13.251763050655798
+      },
+      {
+        "feature": "luck",
+        "log_odds": 12.489833669320227
+      },
+      {
+        "feature": "terrorism",
+        "log_odds": 11.10680187556
+      },
+      {
+        "feature": "you feel",
+        "log_odds": 11.03087874787418
+      },
+      {
+        "feature": "hope so",
+        "log_odds": 10.763384975273521
+      },
+      {
+        "feature": "good luck",
+        "log_odds": 10.386739370982053
+      },
+      {
+        "feature": "in name",
+        "log_odds": 10.297539469387702
+      },
+      {
+        "feature": "would",
+        "log_odds": 10.261951573740026
+      },
+      {
+        "feature": "hope name",
+        "log_odds": 10.230396068237487
+      },
+      {
+        "feature": "relentless",
+        "log_odds": 9.92802493132055
+      },
+      {
+        "feature": "travels",
+        "log_odds": 9.912577108115103
+      },
+      {
+        "feature": "worry",
+        "log_odds": 9.749174204391409
+      },
+      {
+        "feature": "hope your",
+        "log_odds": 9.730214622931756
+      },
+      {
+        "feature": "tuesday",
+        "log_odds": 9.691450388910972
+      },
+      {
+        "feature": "love that",
+        "log_odds": 9.547647047725548
+      }
+    ],
+    "pessimism": [
+      {
+        "feature": "disappointed",
+        "log_odds": 20.694172401852725
+      },
+      {
+        "feature": "unfortunately",
+        "log_odds": 19.539109797657545
+      },
+      {
+        "feature": "disappointing",
+        "log_odds": 18.66562682069135
+      },
+      {
+        "feature": "disappointment",
+        "log_odds": 17.000496005121896
+      },
+      {
+        "feature": "upset",
+        "log_odds": 14.971594254070048
+      },
+      {
+        "feature": "bad",
+        "log_odds": 14.090860227191168
+      },
+      {
+        "feature": "loss",
+        "log_odds": 14.027727671789822
+      },
+      {
+        "feature": "died",
+        "log_odds": 13.938576412610535
+      },
+      {
+        "feature": "missed",
+        "log_odds": 13.327414407543655
+      },
+      {
+        "feature": "disaster",
+        "log_odds": 13.244440525052717
+      },
+      {
+        "feature": "rip",
+        "log_odds": 12.260829699661787
+      },
+      {
+        "feature": "upsetting",
+        "log_odds": 11.681291361847183
+      },
+      {
+        "feature": "welp",
+        "log_odds": 10.900126358279143
+      },
+      {
+        "feature": "dishonest",
+        "log_odds": 10.87325959673734
+      },
+      {
+        "feature": "as fuck",
+        "log_odds": 10.650075464936723
+      },
+      {
+        "feature": "failing",
+        "log_odds": 10.552129369198818
+      },
+      {
+        "feature": "worse",
+        "log_odds": 10.388750362977856
+      },
+      {
+        "feature": "sucks",
+        "log_odds": 10.041644142322598
+      },
+      {
+        "feature": "ruins",
+        "log_odds": 9.990915414890829
+      },
+      {
+        "feature": "my bad",
+        "log_odds": 9.98257374534241
+      }
+    ],
+    "sadness": [
+      {
+        "feature": "black",
+        "log_odds": 30.42648584008539
+      },
+      {
+        "feature": "lost",
+        "log_odds": 30.28957067157448
+      },
+      {
+        "feature": "late",
+        "log_odds": 28.246112596717264
+      },
+      {
+        "feature": "crying",
+        "log_odds": 27.70156917177568
+      },
+      {
+        "feature": "cry",
+        "log_odds": 26.167828905381548
+      },
+      {
+        "feature": "regret",
+        "log_odds": 25.8291191712422
+      },
+      {
+        "feature": "dark",
+        "log_odds": 25.545684454022577
+      },
+      {
+        "feature": "tax",
+        "log_odds": 25.54195318893817
+      },
+      {
+        "feature": "fell",
+        "log_odds": 24.812819093167693
+      },
+      {
+        "feature": "fall",
+        "log_odds": 24.74695936595649
+      },
+      {
+        "feature": "older",
+        "log_odds": 24.233655482803503
+      },
+      {
+        "feature": "lower",
+        "log_odds": 23.934107600647952
+      },
+      {
+        "feature": "sadly",
+        "log_odds": 23.862309506922525
+      },
+      {
+        "feature": "blue",
+        "log_odds": 23.844915821866447
+      },
+      {
+        "feature": "cancel",
+        "log_odds": 23.732362079947436
+      },
+      {
+        "feature": "tough",
+        "log_odds": 23.418726617977057
+      },
+      {
+        "feature": "wanting",
+        "log_odds": 23.121411204037976
+      },
+      {
+        "feature": "sorry",
+        "log_odds": 22.701596545188767
+      },
+      {
+        "feature": "quiet",
+        "log_odds": 22.61204796502451
+      },
+      {
+        "feature": "falling",
+        "log_odds": 22.237529511802556
+      }
+    ],
+    "surprise": [
+      {
+        "feature": "surprised",
+        "log_odds": 42.38819157599438
+      },
+      {
+        "feature": "unique",
+        "log_odds": 37.57592674819403
+      },
+      {
+        "feature": "break",
+        "log_odds": 35.85702949507023
+      },
+      {
+        "feature": "chance",
+        "log_odds": 33.37685919351159
+      },
+      {
+        "feature": "guess",
+        "log_odds": 33.215557492039345
+      },
+      {
+        "feature": "suddenly",
+        "log_odds": 33.201347112271485
+      },
+      {
+        "feature": "wild",
+        "log_odds": 33.06318253167139
+      },
+      {
+        "feature": "accidentally",
+        "log_odds": 32.97426467981738
+      },
+      {
+        "feature": "catch",
+        "log_odds": 31.614141843518354
+      },
+      {
+        "feature": "randomly",
+        "log_odds": 30.93154028854778
+      },
+      {
+        "feature": "pop",
+        "log_odds": 30.75901485666836
+      },
+      {
+        "feature": "trump",
+        "log_odds": 30.222009584056263
+      },
+      {
+        "feature": "trip",
+        "log_odds": 29.296082107747893
+      },
+      {
+        "feature": "mouth",
+        "log_odds": 26.75370568904191
+      },
+      {
+        "feature": "sudden",
+        "log_odds": 25.863253796168635
+      },
+      {
+        "feature": "cable",
+        "log_odds": 25.54327652961591
+      },
+      {
+        "feature": "amazed",
+        "log_odds": 25.41477123795526
+      },
+      {
+        "feature": "rapid",
+        "log_odds": 24.444968889940565
+      },
+      {
+        "feature": "greeting",
+        "log_odds": 24.055635032919582
+      },
+      {
+        "feature": "dynamic",
+        "log_odds": 23.649928560716386
+      }
+    ],
+    "trust": [
+      {
+        "feature": "show",
+        "log_odds": 25.491390045900612
+      },
+      {
+        "feature": "real",
+        "log_odds": 24.31598802357719
+      },
+      {
+        "feature": "swear",
+        "log_odds": 24.232053074287055
+      },
+      {
+        "feature": "team",
+        "log_odds": 23.78435714757953
+      },
+      {
+        "feature": "school",
+        "log_odds": 22.463923662080926
+      },
+      {
+        "feature": "wear",
+        "log_odds": 21.908968817776167
+      },
+      {
+        "feature": "important",
+        "log_odds": 21.45154503018401
+      },
+      {
+        "feature": "fully",
+        "log_odds": 21.299545268881
+      },
+      {
+        "feature": "president",
+        "log_odds": 20.653906261637857
+      },
+      {
+        "feature": "constantly",
+        "log_odds": 20.59440982161557
+      },
+      {
+        "feature": "account",
+        "log_odds": 20.394376026406356
+      },
+      {
+        "feature": "series",
+        "log_odds": 20.15503223452524
+      },
+      {
+        "feature": "personal",
+        "log_odds": 19.754627344653183
+      },
+      {
+        "feature": "word",
+        "log_odds": 19.690959122503873
+      },
+      {
+        "feature": "cover",
+        "log_odds": 19.525530294828155
+      },
+      {
+        "feature": "provide",
+        "log_odds": 19.48669324658981
+      },
+      {
+        "feature": "teacher",
+        "log_odds": 19.186353618074783
+      },
+      {
+        "feature": "official",
+        "log_odds": 19.120288877414392
+      },
+      {
+        "feature": "secret",
+        "log_odds": 18.569213276242785
+      },
+      {
+        "feature": "accounts",
+        "log_odds": 18.5263720054633
+      }
+    ]
+  }
+}

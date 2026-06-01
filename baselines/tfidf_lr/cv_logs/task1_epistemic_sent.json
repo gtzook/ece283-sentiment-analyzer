@@ -1,0 +1,122 @@
+[
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.01,
+    "fold": 0,
+    "macro_f1": 0.540780269741287
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.01,
+    "fold": 1,
+    "macro_f1": 0.5313813368330567
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.01,
+    "fold": 2,
+    "macro_f1": 0.5388836286770807
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.01,
+    "fold": 3,
+    "macro_f1": 0.5323187462918159
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.01,
+    "fold": 4,
+    "macro_f1": 0.5445778432535824
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.1,
+    "fold": 0,
+    "macro_f1": 0.5833147665136466
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.1,
+    "fold": 1,
+    "macro_f1": 0.5740201022747653
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.1,
+    "fold": 2,
+    "macro_f1": 0.578029537399158
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.1,
+    "fold": 3,
+    "macro_f1": 0.578240252515716
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 0.1,
+    "fold": 4,
+    "macro_f1": 0.5871160760585973
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 1,
+    "fold": 0,
+    "macro_f1": 0.6299451539804163
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 1,
+    "fold": 1,
+    "macro_f1": 0.619910028543172
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 1,
+    "fold": 2,
+    "macro_f1": 0.6407165388966399
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 1,
+    "fold": 3,
+    "macro_f1": 0.6356147310527542
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 1,
+    "fold": 4,
+    "macro_f1": 0.6472525122168306
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 10,
+    "fold": 0,
+    "macro_f1": 0.6002194195068907
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 10,
+    "fold": 1,
+    "macro_f1": 0.5732230796799803
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 10,
+    "fold": 2,
+    "macro_f1": 0.6136017228615654
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 10,
+    "fold": 3,
+    "macro_f1": 0.6041549591227043
+  },
+  {
+    "task": "task1_epistemic_sent",
+    "C": 10,
+    "fold": 4,
+    "macro_f1": 0.5938691711951923
+  }
+]

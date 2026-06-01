@@ -1,0 +1,6 @@
+true\pred,highly_credible,mostly_credible,mixed,mostly_unreliable,highly_unreliable
+highly_credible,1388,212,0,220,240
+mostly_credible,27,107,0,125,3
+mixed,0,0,0,0,0
+mostly_unreliable,40,141,0,262,15
+highly_unreliable,124,25,0,76,400
