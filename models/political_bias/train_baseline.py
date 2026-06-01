@@ -26,13 +26,15 @@ Political-bias relevant dataset IDs
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
+import yaml
+from torch.utils.data import ConcatDataset, DataLoader
 from transformers import RobertaTokenizerFast, get_linear_schedule_with_warmup
 
 sys.path.insert(0, str(Path(__file__).parents[2]))
@@ -190,6 +192,72 @@ def train(model, train_loader, val_loader, device, args, run_dir):
         json.dump(history, f, indent=2)
 
 
+# ── multi-dataset helpers ─────────────────────────────────────────────────────
+
+def _make_bias_transform(label_col: str, remap: dict | None):
+    if not remap:
+        return None
+    remap_int = {int(k): int(v) for k, v in remap.items()}
+    def _transform(item):
+        raw = item["labels"][label_col].item()
+        item["labels"][label_col] = torch.tensor(remap_int[raw], dtype=torch.long)
+        return item
+    return _transform
+
+
+def _multi_cache_key(specs: list, model_name: str, max_length: int, seed: int) -> str:
+    fingerprint = {"specs": sorted(specs, key=lambda s: s["dataset_id"]),
+                   "model_name": model_name, "max_len": max_length, "seed": seed}
+    return hashlib.sha256(json.dumps(fingerprint, sort_keys=True).encode()).hexdigest()[:16]
+
+
+class _ListDataset(torch.utils.data.Dataset):
+    def __init__(self, items): self._items = items
+    def __len__(self):         return len(self._items)
+    def __getitem__(self, i):  return self._items[i]
+
+
+def _load_multi_bias_splits(specs, tokenizer, cache_dir, max_length, seed):
+    """Build or load cached train/val/test splits for multiple bias datasets."""
+    cache_dir  = Path(cache_dir)
+    cache_key  = _multi_cache_key(specs, tokenizer.name_or_path, max_length, seed)
+    cache_file = cache_dir / f"bias_baseline_splits_{cache_key}.pt"
+
+    if cache_file.exists():
+        print(f"Loading cached splits from {cache_file}")
+        saved = torch.load(cache_file, weights_only=False)
+        return (_ListDataset(saved["train"]),
+                _ListDataset(saved["val"]),
+                _ListDataset(saved["test"]))
+
+    train_ss, val_ss, test_ss = [], [], []
+    for spec in specs:
+        ds_id, label_col = spec["dataset_id"], spec["label_col"]
+        transform = _make_bias_transform(label_col, spec.get("remap"))
+        full_ds = MAGPIEDataset(
+            dataset_id=ds_id, cache_dir=str(cache_dir),
+            tokenizer=tokenizer, max_length=max_length,
+            download_if_missing=True, label_col_filter=[label_col],
+            transform=transform,
+        )
+        tr, va, te = stratified_split(full_ds, label_col=label_col, seed=seed)
+        print(f"  {ds_id}: {len(tr)} train / {len(va)} val / {len(te)} test")
+        train_ss.append(tr); val_ss.append(va); test_ss.append(te)
+
+    def _materialize(subsets):
+        ds = ConcatDataset(subsets)
+        return [ds[i] for i in range(len(ds))]
+
+    print("Materializing splits for cache …")
+    train_items = _materialize(train_ss)
+    val_items   = _materialize(val_ss)
+    test_items  = _materialize(test_ss)
+    torch.save({"train": train_items, "val": val_items, "test": test_items}, cache_file)
+    print(f"Cached → {cache_file}")
+
+    return _ListDataset(train_items), _ListDataset(val_items), _ListDataset(test_items)
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -210,6 +278,9 @@ def main():
     parser.add_argument("--checkpoint", default=None)
     parser.add_argument("--workers",    type=int,   default=4)
     parser.add_argument("--list-datasets", action="store_true")
+    parser.add_argument("--config",     default=None,
+                        help="Path to unified config.yaml; uses its bias_datasets list "
+                             "for multi-dataset training (binary biased/not-biased output).")
     args = parser.parse_args()
 
     if args.list_datasets:
@@ -224,32 +295,55 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
 
-    if args.dataset not in REGISTRY:
-        print(f"ERROR: '{args.dataset}' not in registry."); sys.exit(1)
-
-    meta      = REGISTRY[args.dataset]
-    label_col = args.label_col or meta.label_columns[0].col
-    lc_meta   = next((lc for lc in meta.label_columns if lc.col == label_col), None)
-    if lc_meta is None:
-        print(f"ERROR: label column '{label_col}' not found."); sys.exit(1)
-
-    print(f"\nDataset : {args.dataset} — {meta.name}")
-    print(f"Task    : {lc_meta.task_type.value}  label='{label_col}'")
-
     tokenizer = RobertaTokenizerFast.from_pretrained(args.model_name)
 
-    full_ds = MAGPIEDataset(
-        dataset_id=args.dataset,
-        cache_dir=args.cache_dir,
-        tokenizer=tokenizer,
-        max_length=args.max_length,
-        download_if_missing=True,
-        label_col_filter=[label_col],
-    )
-    print(f"  {len(full_ds):,} samples")
+    # ── Multi-dataset path ────────────────────────────────────────────────────
+    if args.config:
+        with open(args.config) as f:
+            cfg = yaml.safe_load(f)
+        specs     = cfg["model"]["bias_datasets"]
+        label_col = specs[0]["label_col"]   # all entries use "label"
+        cache_dir = cfg["data"].get("cache_dir", args.cache_dir)
 
-    train_ds, val_ds, test_ds = stratified_split(full_ds, label_col=label_col, seed=args.seed)
-    print(f"  train={len(train_ds)}  val={len(val_ds)}  test={len(test_ds)}")
+        print(f"\nMulti-dataset bias training ({len(specs)} datasets):")
+        for s in specs:
+            print(f"  {s['dataset_id']}" + (f"  [remap]" if s.get("remap") else ""))
+
+        train_ds, val_ds, test_ds = _load_multi_bias_splits(
+            specs, tokenizer, cache_dir, args.max_length, args.seed,
+        )
+        print(f"\nCombined: train={len(train_ds)}  val={len(val_ds)}  test={len(test_ds)}")
+
+        task_type   = TaskType.BINARY_CLS
+        num_classes = 2
+        run_dir     = Path(args.run_dir or "runs/bias_multi/label")
+
+    # ── Single-dataset path (original behaviour) ──────────────────────────────
+    else:
+        if args.dataset not in REGISTRY:
+            print(f"ERROR: '{args.dataset}' not in registry."); sys.exit(1)
+
+        meta      = REGISTRY[args.dataset]
+        label_col = args.label_col or meta.label_columns[0].col
+        lc_meta   = next((lc for lc in meta.label_columns if lc.col == label_col), None)
+        if lc_meta is None:
+            print(f"ERROR: label column '{label_col}' not found."); sys.exit(1)
+
+        print(f"\nDataset : {args.dataset} — {meta.name}")
+        print(f"Task    : {lc_meta.task_type.value}  label='{label_col}'")
+
+        full_ds = MAGPIEDataset(
+            dataset_id=args.dataset, cache_dir=args.cache_dir,
+            tokenizer=tokenizer, max_length=args.max_length,
+            download_if_missing=True, label_col_filter=[label_col],
+        )
+        print(f"  {len(full_ds):,} samples")
+        train_ds, val_ds, test_ds = stratified_split(full_ds, label_col=label_col, seed=args.seed)
+        print(f"  train={len(train_ds)}  val={len(val_ds)}  test={len(test_ds)}")
+
+        task_type   = lc_meta.task_type
+        num_classes = lc_meta.num_classes
+        run_dir     = Path(args.run_dir or f"runs/{args.dataset}/{label_col}")
 
     _col = collate_fn(label_col)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
@@ -261,13 +355,11 @@ def main():
 
     print(f"\nBuilding RoBERTa classifier ({args.model_name})")
     model = RoBERTaClassifier(
-        task_type=lc_meta.task_type,
-        num_classes=lc_meta.num_classes,
+        task_type=task_type,
+        num_classes=num_classes,
         model_name=args.model_name,
         dropout=args.dropout,
     ).to(device)
-
-    run_dir = Path(args.run_dir or f"runs/{args.dataset}/{label_col}")
     run_dir.mkdir(parents=True, exist_ok=True)
 
     if args.eval_only:
@@ -291,7 +383,8 @@ def main():
 
     out_path = run_dir / "test_metrics.json"
     with open(out_path, "w") as f:
-        json.dump({"dataset": args.dataset, "label_col": label_col, **test_metrics}, f, indent=2)
+        dataset_name = "multi" if args.config else args.dataset
+        json.dump({"dataset": dataset_name, "label_col": label_col, **test_metrics}, f, indent=2)
     print(f"\nResults saved → {out_path}")
 
 
