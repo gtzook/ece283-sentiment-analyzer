@@ -5,11 +5,10 @@ model:
   bias_task_type: binary_classification
   bias_num_classes: 2
   bias_datasets:
-    - {dataset_id: 10_BABE,              label_col: label}
-    - {dataset_id: 75_RedditBias,         label_col: label}
-    - {dataset_id: 9_BASIL,              label_col: label, remap: {0: 1, 1: 1, 2: 0}}
-    - {dataset_id: 03_CW_HARD,           label_col: label}
-    - {dataset_id: 26_neutralizing-bias, label_col: label}
+    - {dataset_id: 10_BABE,      label_col: label}
+    - {dataset_id: 75_RedditBias, label_col: label}
+    - {dataset_id: 9_BASIL,      label_col: label, remap: {0: 1, 1: 1, 2: 0}}
+    - {dataset_id: 03_CW_HARD,   label_col: label}
   # Kept for backward compat (predict.py label-name lookup, single-dataset fallback):
   bias_dataset:   10_BABE
   bias_label_col: label
