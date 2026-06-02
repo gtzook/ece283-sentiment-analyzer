@@ -24,18 +24,28 @@ STYLE = {
     "font_size_tick": 9,
     "font_size_legend": 9,
     "model_colors": {
-        "epistemic":    "#2E86AB",
-        "political":    "#E84855",
-        "emotion":      "#3BB273",
-        "unified_warm": "#F7B731",
-        "unified_cold": "#9B59B6",
+        "epistemic":         "#2E86AB",
+        "political":         "#E84855",
+        "emotion":           "#3BB273",
+        "unified_warm":      "#F7B731",
+        "unified_cold":      "#9B59B6",
+        "unified_largebatch": "#E67E22",
+        "unified_reg":       "#1ABC9C",
+        "unified_difflr":    "#C0392B",
+        "unified_weights":   "#7F8C8D",
+        "tfidf_lr":          "#555555",
     },
     "model_linestyles": {
-        "epistemic":    "-",
-        "political":    "-",
-        "emotion":      "-",
-        "unified_warm": "--",
-        "unified_cold": "-.",
+        "epistemic":         "-",
+        "political":         "-",
+        "emotion":           "-",
+        "unified_warm":      "--",
+        "unified_cold":      "-.",
+        "unified_largebatch": "--",
+        "unified_reg":       "-.",
+        "unified_difflr":    "--",
+        "unified_weights":   "-.",
+        "tfidf_lr":          ":",
     },
     "in_progress_hatch": "//",
     "baseline_color": "#888888",
@@ -44,11 +54,16 @@ STYLE = {
 }
 
 MODEL_DISPLAY = {
-    "epistemic":    "Epistemic specialist",
-    "political":    "Political specialist",
-    "emotion":      "Emotion specialist",
-    "unified_warm": "Unified (warm-start)",
-    "unified_cold": "Unified (cold-start)",
+    "epistemic":          "Epistemic specialist",
+    "political":          "Political specialist",
+    "emotion":            "Emotion specialist",
+    "unified_warm":       "Unified (warm-start)",
+    "unified_cold":       "Unified (cold-start)",
+    "unified_largebatch": "Unified (large batch)",
+    "unified_reg":        "Unified (regularized)",
+    "unified_difflr":     "Unified (diff. LR)",
+    "unified_weights":    "Unified (task weights)",
+    "tfidf_lr":           "TF-IDF + LR baseline",
 }
 
 TASK_DISPLAY = {
@@ -57,10 +72,14 @@ TASK_DISPLAY = {
     "emotion":    "Emotion",
 }
 
-SUBTASK_MODELS = ["epistemic", "political", "emotion"]
-UNIFIED_MODELS = ["unified_warm", "unified_cold"]
-ALL_MODELS     = SUBTASK_MODELS + UNIFIED_MODELS
-ALL_TASKS      = ["epistemic", "political", "emotion"]
+SUBTASK_MODELS  = ["epistemic", "political", "emotion"]
+UNIFIED_MODELS  = [
+    "unified_warm", "unified_cold",
+    "unified_largebatch", "unified_reg", "unified_difflr", "unified_weights",
+]
+BASELINE_MODELS = ["tfidf_lr"]
+ALL_MODELS      = SUBTASK_MODELS + UNIFIED_MODELS + BASELINE_MODELS
+ALL_TASKS       = ["epistemic", "political", "emotion"]
 
 # ---------------------------------------------------------------------------
 # Data loading & normalization
@@ -109,6 +128,10 @@ def normalize_to_relative(df: pd.DataFrame) -> pd.DataFrame:
     def relative(row):
         key = (row["task"], row["metric"], row["split"])
         base = baselines.get(key)
+        if base is None:
+            # tfidf_lr and others evaluated on test split when specialists
+            # only have val data — fall back to the val-split baseline.
+            base = baselines.get((row["task"], row["metric"], "val"))
         if base is None or base == 0:
             return np.nan
         if row["metric"] in lower_is_better:
@@ -127,12 +150,32 @@ def get_latest_checkpoint(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def is_in_progress(df: pd.DataFrame, model_id: str) -> bool:
-    """True when a unified model has fewer checkpoint steps than the sub-task specialists."""
+    """True when a unified model has fewer checkpoint steps than the sub-task specialists,
+    or has no rows at all (training hasn't produced a validation checkpoint yet)."""
     if model_id not in UNIFIED_MODELS:
         return False
+    model_rows = df[df["model_id"] == model_id]
+    if model_rows.empty:
+        return True
     specialist_max = df[df["model_id"].isin(SUBTASK_MODELS)]["checkpoint_step"].max()
-    model_max      = df[df["model_id"] == model_id]["checkpoint_step"].max()
+    model_max      = model_rows["checkpoint_step"].max()
     return model_max < specialist_max
+
+
+def _get_display_df(df: pd.DataFrame, models: list, tasks: list) -> pd.DataFrame:
+    """
+    Return latest-checkpoint rows for each model, using val split where available
+    and falling back to test split for models (e.g. tfidf_lr) that were only
+    evaluated on the test set.
+    """
+    parts = []
+    for mid in models:
+        mdf = df[(df["model_id"] == mid) & (df["task"].isin(tasks))]
+        val_df = mdf[mdf["split"] == "val"]
+        parts.append(val_df if not val_df.empty else mdf[mdf["split"] == "test"])
+    if not parts:
+        return pd.DataFrame(columns=df.columns)
+    return get_latest_checkpoint(pd.concat(parts, ignore_index=True))
 
 
 # ---------------------------------------------------------------------------
@@ -168,7 +211,7 @@ def plot_radar(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
     tasks  = tasks  or ALL_TASKS
     models = models or ALL_MODELS
 
-    latest = get_latest_checkpoint(df[df["split"] == "val"])
+    latest = _get_display_df(df, models, tasks)
     # Average across metrics for each model × task
     avg = (
         latest[latest["model_id"].isin(models) & latest["task"].isin(tasks)]
@@ -243,47 +286,67 @@ def plot_bar_latest(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
     tasks  = tasks  or ALL_TASKS
     models = models or ALL_MODELS
 
-    latest = get_latest_checkpoint(df[df["split"] == "val"])
+    # Specialists are always 1.0 by definition — omit them to reduce clutter.
+    bar_models = [m for m in models if m not in SUBTASK_MODELS]
+
+    latest = _get_display_df(df, bar_models, tasks)
     avg = (
-        latest[latest["model_id"].isin(models) & latest["task"].isin(tasks)]
+        latest[latest["model_id"].isin(bar_models) & latest["task"].isin(tasks)]
         .groupby(["model_id", "task"])["relative"]
         .mean()
         .reset_index()
     )
 
-    n_tasks  = len(tasks)
-    n_models = len(models)
-    width    = 0.8 / n_models
-    x        = np.arange(n_tasks)
+    # Only count models that have data — in-progress models with no rows yet
+    # would otherwise leave phantom gaps inside each task group.
+    bar_models = [m for m in bar_models
+                  if not avg[avg["model_id"] == m].empty]
 
-    fig, ax = plt.subplots(figsize=(9, 5))
+    n_tasks  = len(tasks)
+    n_models = len(bar_models)
+    # 0.8 total group width keeps inter-group separation; drawn width = slot
+    # width (no * 0.9 multiplier) so bars within a group are fully adjacent.
+    width = 0.8 / n_models
+    x     = np.arange(n_tasks)
+
+    fig, ax = plt.subplots(figsize=(10, 5))
     _apply_base_style(ax,
                       title="Relative performance at latest checkpoint",
                       xlabel="Task",
                       ylabel="Relative performance (1.0 = specialist baseline)")
 
-    for i, model_id in enumerate(models):
+    for i, model_id in enumerate(bar_models):
         offset = (i - n_models / 2 + 0.5) * width
         sub    = avg[avg["model_id"] == model_id]
         vals   = [sub[sub["task"] == t]["relative"].values[0]
                   if not sub[sub["task"] == t].empty else np.nan
                   for t in tasks]
 
-        color   = STYLE["model_colors"][model_id]
-        hatch   = STYLE["in_progress_hatch"] if is_in_progress(df, model_id) else ""
-        label   = MODEL_DISPLAY[model_id]
-        if is_in_progress(df, model_id):
+        color = STYLE["model_colors"][model_id]
+        label = MODEL_DISPLAY[model_id]
+        if model_id in BASELINE_MODELS:
+            hatch = "xx"
+            edgecolor = "gray"
+        elif is_in_progress(df, model_id):
+            hatch = STYLE["in_progress_hatch"]
+            edgecolor = "gray"
             label += " (partial)"
+        else:
+            hatch = ""
+            edgecolor = "white"
 
-        ax.bar(x + offset, vals, width=width * 0.9,
-               color=color, hatch=hatch, edgecolor="white" if not hatch else "gray",
+        ax.bar(x + offset, vals, width=width,  # no *0.9 — bars touch within group
+               color=color, hatch=hatch, edgecolor=edgecolor,
                alpha=0.85, label=label)
 
     ax.axhline(1.0, color=STYLE["baseline_color"], ls="--", lw=1.5,
-               label="Sub-task baseline")
+               label="Specialist baseline (1.0)")
     ax.set_xticks(x)
     ax.set_xticklabels([TASK_DISPLAY[t] for t in tasks], fontsize=STYLE["font_size_label"])
-    ax.legend(fontsize=STYLE["font_size_legend"], loc="lower right")
+
+    # Legend outside the axes to the right so it never overlaps bars
+    ax.legend(fontsize=STYLE["font_size_legend"],
+              loc="upper left", bbox_to_anchor=(1.01, 1), borderaxespad=0)
     fig.tight_layout()
     save_figure(fig, "bar_latest_checkpoint", output_dir)
     plt.close(fig)
@@ -297,10 +360,25 @@ def plot_training_curves(df: pd.DataFrame, output_dir: str, tasks=None, models=N
     tasks  = tasks  or ALL_TASKS
     models = models or ALL_MODELS
 
+    # Training curves use val split for neural models.
+    # Baseline models (tfidf_lr) have no val data, so fetch their test metrics
+    # separately for use as horizontal reference lines.
+    neural_models   = [m for m in models if m not in BASELINE_MODELS]
+    baseline_models = [m for m in models if m in BASELINE_MODELS]
+
     val_df = df[df["split"] == "val"]
     curves = (
-        val_df[val_df["model_id"].isin(models) & val_df["task"].isin(tasks)]
+        val_df[val_df["model_id"].isin(neural_models) & val_df["task"].isin(tasks)]
         .groupby(["model_id", "task", "checkpoint_step"])["relative"]
+        .mean()
+        .reset_index()
+    )
+
+    # One averaged relative value per baseline model × task (across metrics)
+    baseline_display = _get_display_df(df, baseline_models, tasks)
+    baseline_avg = (
+        baseline_display[baseline_display["model_id"].isin(baseline_models)]
+        .groupby(["model_id", "task"])["relative"]
         .mean()
         .reset_index()
     )
@@ -316,7 +394,19 @@ def plot_training_curves(df: pd.DataFrame, output_dir: str, tasks=None, models=N
 
         ax.axhline(1.0, color=STYLE["baseline_color"], ls=":", lw=1.2, alpha=0.8)
 
-        for model_id in models:
+        # Baseline models: draw as horizontal reference lines spanning the full x range
+        for model_id in baseline_models:
+            row = baseline_avg[
+                (baseline_avg["model_id"] == model_id) & (baseline_avg["task"] == task)
+            ]
+            if row.empty:
+                continue
+            y = float(row["relative"].values[0])
+            color = STYLE["model_colors"][model_id]
+            ax.axhline(y, color=color, ls=STYLE["model_linestyles"][model_id],
+                       lw=1.5, alpha=0.85, label=MODEL_DISPLAY[model_id])
+
+        for model_id in neural_models:
             sub = curves[(curves["model_id"] == model_id) & (curves["task"] == task)]
             if sub.empty:
                 continue
@@ -370,7 +460,7 @@ def plot_heatmap(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
     tasks  = tasks  or ALL_TASKS
     models = models or ALL_MODELS
 
-    latest = get_latest_checkpoint(df[df["split"] == "val"])
+    latest = _get_display_df(df, models, tasks)
     avg = (
         latest[latest["model_id"].isin(models) & latest["task"].isin(tasks)]
         .groupby(["model_id", "task"])["relative"]
@@ -517,15 +607,23 @@ def main():
     df = normalize_to_relative(df)
 
     # Warn about in-progress unified models
+    specialist_max = df[df["model_id"].isin(SUBTASK_MODELS)]["checkpoint_step"].max()
     for m in UNIFIED_MODELS:
         if m in models and is_in_progress(df, m):
-            specialist_max = df[df["model_id"].isin(SUBTASK_MODELS)]["checkpoint_step"].max()
-            model_max      = df[df["model_id"] == m]["checkpoint_step"].max()
-            warnings.warn(
-                f"[in-progress] {MODEL_DISPLAY[m]} has only reached checkpoint "
-                f"{model_max} (specialists are at {specialist_max}). "
-                "Figures will use available data."
-            )
+            model_rows = df[df["model_id"] == m]
+            if model_rows.empty:
+                warnings.warn(
+                    f"[in-progress] {MODEL_DISPLAY[m]} has no validation checkpoints yet "
+                    f"(specialists are at step {specialist_max}). "
+                    "Model will appear as in-progress but has no data to plot."
+                )
+            else:
+                model_max = model_rows["checkpoint_step"].max()
+                warnings.warn(
+                    f"[in-progress] {MODEL_DISPLAY[m]} has only reached checkpoint "
+                    f"{model_max} (specialists are at {specialist_max}). "
+                    "Figures will use available data."
+                )
 
     print(f"\nGenerating figures → {args.output}")
     plot_radar(df, args.output, tasks=tasks, models=models)

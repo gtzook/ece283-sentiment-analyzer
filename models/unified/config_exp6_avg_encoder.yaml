@@ -1,0 +1,68 @@
+model:
+  name: roberta-base
+  dropout: 0.1
+  lambda_token: 0.3
+  bias_task_type: binary_classification
+  bias_num_classes: 2
+  bias_datasets:
+    - {dataset_id: 10_BABE,      label_col: label}
+    - {dataset_id: 75_RedditBias, label_col: label}
+    - {dataset_id: 9_BASIL,      label_col: label, remap: {0: 1, 1: 1, 2: 0}}
+    - {dataset_id: 03_CW_HARD,   label_col: label}
+  bias_dataset:   10_BABE
+  bias_label_col: label
+  emotion_num_labels: 11
+
+data:
+  wiki_xml:            /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/wiki.xml
+  szeged_factbank_xml: /mldata/ece283-sentiment-analyzer/epistemic/raw/uncertainty/factbank.xml
+  factbank_ldc_ann:    /mldata/ece283-sentiment-analyzer/epistemic/raw/factbank_ldc/data/annotation
+  bio_xmls:      []
+  bioscope_xmls: []
+  bio_token_weight: 0.0
+
+  magpie_data_dir: /mldata/ece283-sentiment-analyzer
+  cache_dir: /mldata/ece283-sentiment-analyzer
+  hf_cache_dir: /mldata/ece283-sentiment-analyzer/hf_cache
+  max_len: 128
+  seed: 42
+  train_frac: 0.80
+  val_frac: 0.10
+
+training:
+  seed: 42
+  batch_size: 16
+  num_workers: 4
+  encoder_lr: 2.0e-5
+  head_lr: 1.0e-4
+  weight_decay: 0.01
+  epochs: 20
+  early_stopping:
+    patience: 3
+    min_delta: 0.001
+  warmup_frac: 0.10
+  fp16: true
+  grad_clip: 1.0
+  grad_accum_steps: 4
+
+  task_weights:
+    epistemic: 1.0
+    bias:      1.0
+    emotion:   0.5
+
+  checkpoint_dir: /mldata/ece283-sentiment-analyzer/runs/unified_exp6_avgencoder/
+
+  warm_start:
+    epistemic: /mldata/ece283-sentiment-analyzer/runs/epistemic/best.pt
+    bias:      /mldata/ece283-sentiment-analyzer/runs/bias/best.pt
+    emotion:   /mldata/ece283-sentiment-analyzer/runs/emotion/
+    # Average the encoder backbone (embeddings + transformer layers) across all
+    # three task checkpoints instead of using the epistemic encoder alone.
+    # Head weights (emotion_head, bias_head, sent_head, token_head) are still
+    # loaded from their individual checkpoints as in the standard warm start.
+    average_encoder: true
+
+logging:
+  wandb_project: ece283-unified
+  wandb_entity: ece283-sentiment-analyzer
+  log_every_n_steps: 50

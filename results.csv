@@ -107,3 +107,17 @@ unified_cold,emotion,f1,0.5339012841455105,268463,val
 unified_cold,political,f1,0.64,306815,val
 unified_cold,epistemic,f1,0.6311487330910883,306815,val
 unified_cold,emotion,f1,0.5568410225317032,306815,val
+unified_warm,political,f1,0.6708,38351,val
+unified_warm,epistemic,f1,0.5771132078174008,38351,val
+unified_warm,emotion,f1,0.035755399318136726,38351,val
+unified_difflr,political,f1,0.6749,38351,val
+unified_difflr,epistemic,f1,0.5773118581639979,38351,val
+unified_difflr,emotion,f1,0.05260790059068647,38351,val
+unified_weights,political,f1,0.6664,38351,val
+unified_weights,epistemic,f1,0.5370363203094383,38351,val
+unified_weights,emotion,f1,0.050973916202856254,38351,val
+tfidf_lr,epistemic,f1,0.6163844611976536,0,test
+tfidf_lr,political,f1,0.6665478312537136,0,test
+tfidf_lr,political,accuracy,0.6684782608695652,0,test
+tfidf_lr,emotion,f1,0.6508965180563966,0,test
+tfidf_lr,emotion,calibration_error,0.05210911936264049,0,test

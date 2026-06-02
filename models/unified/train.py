@@ -454,13 +454,101 @@ def _init_wandb(cfg: dict, run_dir: Path, dry_run: bool):
 
 # ── Warm-start weight loading ─────────────────────────────────────────────────
 
+def _average_encoder_patches(
+    patches: dict,
+    unified_sd: dict,
+    ws_cfg: dict,
+    device: torch.device,
+) -> None:
+    """Override encoder backbone patches with the element-wise average of all
+    three task checkpoints.
+
+    Only embeddings and transformer layer weights are averaged (pooler is
+    excluded — it is unused in the forward pass and already covered by the
+    per-task head poolers).
+
+    Key mappings:
+      epistemic  encoder.roberta.*              → encoder.roberta.* (direct)
+      bias       _cls_model.roberta.*           → encoder.roberta.*
+      emotion    roberta.{embeddings,encoder}.* → encoder.roberta.*
+    """
+    import os
+
+    backbone_keys = [
+        k for k in unified_sd
+        if k.startswith("encoder.roberta.") and "pooler" not in k
+    ]
+
+    per_source: list[dict] = []
+
+    ep_path = ws_cfg.get("epistemic")
+    if ep_path and os.path.exists(ep_path):
+        ep_sd = torch.load(ep_path, map_location=device, weights_only=True)
+        src = {k: ep_sd[k].float() for k in backbone_keys
+               if k in ep_sd and ep_sd[k].shape == unified_sd[k].shape}
+        if src:
+            per_source.append(src)
+            logger.info("Avg encoder: epistemic  — %d tensors", len(src))
+
+    bias_path = ws_cfg.get("bias")
+    if bias_path and os.path.exists(bias_path):
+        bias_sd = torch.load(bias_path, map_location=device, weights_only=True)
+        src = {}
+        for k in backbone_keys:
+            ck = k.replace("encoder.roberta.", "_cls_model.roberta.")
+            if ck in bias_sd and bias_sd[ck].shape == unified_sd[k].shape:
+                src[k] = bias_sd[ck].float()
+        if src:
+            per_source.append(src)
+            logger.info("Avg encoder: bias       — %d tensors", len(src))
+
+    em_path = ws_cfg.get("emotion")
+    if em_path:
+        sfp = os.path.join(em_path, "model.safetensors")
+        lgp = os.path.join(em_path, "pytorch_model.bin")
+        if os.path.exists(sfp):
+            from safetensors.torch import load_file as _st_load
+            em_sd = _st_load(sfp, device=str(device))
+        elif os.path.exists(lgp):
+            em_sd = torch.load(lgp, map_location=device, weights_only=True)
+        else:
+            em_sd = {}
+        src = {}
+        for k in backbone_keys:
+            ck = k.replace("encoder.roberta.", "roberta.")
+            if ck in em_sd and em_sd[ck].shape == unified_sd[k].shape:
+                src[k] = em_sd[ck].float()
+        if src:
+            per_source.append(src)
+            logger.info("Avg encoder: emotion    — %d tensors", len(src))
+
+    if not per_source:
+        logger.warning("Avg encoder: no checkpoint sources found — skipping average.")
+        return
+
+    n = 0
+    for k in backbone_keys:
+        available = [s[k] for s in per_source if k in s]
+        if available:
+            avg = torch.stack(available).mean(dim=0).to(unified_sd[k].dtype)
+            patches[k] = avg
+            n += 1
+
+    logger.info("Avg encoder: averaged %d backbone tensors from %d checkpoints.", n, len(per_source))
+
+
 def _load_warm_start(model: UnifiedModel, ws_cfg: dict, device: torch.device) -> None:
     """Load pretrained weights from individual task checkpoints into unified model.
 
     Key remapping per model.py docstrings:
       epistemic  — direct key match (same Encoder/SentenceHead/TokenHead classes)
-      bias       — _cls_model.classifier.* → bias_head.*, _cls_model.roberta.* → encoder.model.*
-      emotion    — HF roberta.* → encoder.model.* + emotion_head.*, classifier.* → emotion_head.proj.*
+      bias       — _cls_model.classifier.* → bias_head.*
+      emotion    — roberta.pooler.dense.* → emotion_head.pooler.dense.*,
+                   classifier.*           → emotion_head.proj.*
+
+    When ws_cfg["average_encoder"] is true, the encoder backbone
+    (embeddings + transformer layers) is replaced with the element-wise
+    average of all three task checkpoints via _average_encoder_patches().
     """
     import os
 
@@ -514,6 +602,9 @@ def _load_warm_start(model: UnifiedModel, ws_cfg: dict, device: torch.device) ->
                         patches[uk] = v
                     break
         logger.info("Warm-start emotion: %d tensors loaded from %s", len(patches) - before, em_path)
+
+    if ws_cfg.get("average_encoder"):
+        _average_encoder_patches(patches, unified_sd, ws_cfg, device)
 
     if patches:
         unified_sd.update(patches)
@@ -589,6 +680,13 @@ def train(cfg: dict, dry_run: bool = False) -> None:
     if any(ws_cfg.values()):
         _load_warm_start(model, ws_cfg, device)
 
+    freeze_steps = 0 if dry_run else cfg["training"].get("freeze_encoder_steps", 0)
+    encoder_frozen = False
+    if freeze_steps > 0:
+        model.encoder.requires_grad_(False)
+        encoder_frozen = True
+        logger.info("Encoder frozen for first %d steps (heads-only phase).", freeze_steps)
+
     task_weights = cfg["training"].get("task_weights", {TASK_EPISTEMIC: 1.0, TASK_BIAS: 1.0, TASK_EMOTION: 0.5})
     optimizer    = build_optimizer(
         model,
@@ -647,6 +745,13 @@ def train(cfg: dict, dry_run: bool = False) -> None:
                 logger.info("Dry-run: stopping early after %d steps", step_in_epoch)
                 bar.close()
                 break
+
+            if encoder_frozen and global_step >= freeze_steps:
+                model.encoder.requires_grad_(True)
+                encoder_frozen = False
+                logger.info("Step %d: encoder unfrozen — joint training begins.", global_step)
+                if wb_run is not None:
+                    wb_run.log({"train/encoder_unfrozen": global_step}, step=global_step)
 
             kwargs = _batch_to_kwargs(task, batch, device)
             out    = model(**kwargs)
