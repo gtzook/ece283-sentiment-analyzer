@@ -55,7 +55,7 @@ training:
     bias:      1.0
     emotion:   0.5
 
-  checkpoint_dir: runs/unified/
+  checkpoint_dir: /mldata/ece283-sentiment-analyzer/runs/unified/
 
   # Warm-start from pretrained individual-task checkpoints.
   # Set each path to enable; leave null to train that component from scratch.
