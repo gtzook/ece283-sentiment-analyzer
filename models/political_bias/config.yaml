@@ -3,7 +3,7 @@ model:
   dropout: 0.1
 
 data:
-  cache_dir: /mldata/ece283-sentiment-analyzer
+  cache_dir: /mldata/ece283-sentiment-analyzer/runs/bias/cache
   max_len: 128
   train_frac: 0.80
   val_frac: 0.10
@@ -18,7 +18,7 @@ training:
   patience: 4
   fp16: true
   grad_clip: 1.0
-  checkpoint_dir: runs/
+  checkpoint_dir: /mldata/ece283-sentiment-analyzer/runs/bias/
 
 logging:
   wandb_project: ece283-political-bias

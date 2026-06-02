@@ -452,6 +452,78 @@ def _init_wandb(cfg: dict, run_dir: Path, dry_run: bool):
         return None
 
 
+# ── Warm-start weight loading ─────────────────────────────────────────────────
+
+def _load_warm_start(model: UnifiedModel, ws_cfg: dict, device: torch.device) -> None:
+    """Load pretrained weights from individual task checkpoints into unified model.
+
+    Key remapping per model.py docstrings:
+      epistemic  — direct key match (same Encoder/SentenceHead/TokenHead classes)
+      bias       — _cls_model.classifier.* → bias_head.*, _cls_model.roberta.* → encoder.model.*
+      emotion    — HF roberta.* → encoder.model.* + emotion_head.*, classifier.* → emotion_head.proj.*
+    """
+    import os
+
+    unified_sd = model.state_dict()
+    patches: dict[str, torch.Tensor] = {}
+
+    ep_path = ws_cfg.get("epistemic")
+    if ep_path:
+        ep_sd = torch.load(ep_path, map_location=device, weights_only=True)
+        for k, v in ep_sd.items():
+            if k in unified_sd and unified_sd[k].shape == v.shape:
+                patches[k] = v
+        logger.info("Warm-start epistemic: %d tensors loaded from %s", len(patches), ep_path)
+
+    bias_path = ws_cfg.get("bias")
+    if bias_path:
+        before = len(patches)
+        bias_sd = torch.load(bias_path, map_location=device, weights_only=True)
+        _BIAS_MAP = [
+            ("_cls_model.roberta.",              "encoder.model."),
+            ("_cls_model.classifier.dense.",     "bias_head.pooler.dense."),
+            ("_cls_model.classifier.out_proj.",  "bias_head.proj."),
+        ]
+        for ck, v in bias_sd.items():
+            for src_prefix, dst_prefix in _BIAS_MAP:
+                if ck.startswith(src_prefix):
+                    uk = dst_prefix + ck[len(src_prefix):]
+                    if uk in unified_sd and unified_sd[uk].shape == v.shape:
+                        patches[uk] = v
+                    break
+        logger.info("Warm-start bias: %d tensors loaded from %s", len(patches) - before, bias_path)
+
+    em_path = ws_cfg.get("emotion")
+    if em_path:
+        before = len(patches)
+        safetensors_path = os.path.join(em_path, "model.safetensors")
+        legacy_path      = os.path.join(em_path, "pytorch_model.bin")
+        if os.path.exists(safetensors_path):
+            from safetensors.torch import load_file as _st_load
+            em_sd = _st_load(safetensors_path, device=str(device))
+        else:
+            em_sd = torch.load(legacy_path, map_location=device, weights_only=True)
+        _EM_MAP = [
+            ("roberta.embeddings.",  "encoder.model.embeddings."),
+            ("roberta.encoder.",     "encoder.model.encoder."),
+            ("roberta.pooler.dense.", "emotion_head.pooler.dense."),
+            ("classifier.",          "emotion_head.proj."),
+        ]
+        for ck, v in em_sd.items():
+            for src_prefix, dst_prefix in _EM_MAP:
+                if ck.startswith(src_prefix):
+                    uk = dst_prefix + ck[len(src_prefix):]
+                    if uk in unified_sd and unified_sd[uk].shape == v.shape:
+                        patches[uk] = v
+                    break
+        logger.info("Warm-start emotion: %d tensors loaded from %s", len(patches) - before, em_path)
+
+    if patches:
+        unified_sd.update(patches)
+        model.load_state_dict(unified_sd, strict=True)
+        logger.info("Warm-start complete: %d/%d parameters patched.", len(patches), len(unified_sd))
+
+
 # ── Training loop ─────────────────────────────────────────────────────────────
 
 def train(cfg: dict, dry_run: bool = False) -> None:
@@ -510,6 +582,10 @@ def train(cfg: dict, dry_run: bool = False) -> None:
         emotion_num_labels = cfg["model"].get("emotion_num_labels", 11),
         sent_class_weights = sent_weights,
     ).to(device)
+
+    ws_cfg = cfg["training"].get("warm_start", {}) or {}
+    if any(ws_cfg.values()):
+        _load_warm_start(model, ws_cfg, device)
 
     task_weights = cfg["training"].get("task_weights", {TASK_EPISTEMIC: 1.0, TASK_BIAS: 1.0, TASK_EMOTION: 0.5})
     optimizer    = build_optimizer(

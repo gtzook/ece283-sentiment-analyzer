@@ -57,6 +57,13 @@ training:
 
   checkpoint_dir: runs/unified/
 
+  # Warm-start from pretrained individual-task checkpoints.
+  # Set each path to enable; leave null to train that component from scratch.
+  warm_start:
+    epistemic: /mldata/ece283-sentiment-analyzer/runs/epistemic/best.pt   # path to epistemic best.pt
+    bias:      /mldata/ece283-sentiment-analyzer/runs/bias/best.pt   # path to bias best.pt
+    emotion:   /mldata/ece283-sentiment-analyzer/runs/emotion/   # path to emotion HF checkpoint directory
+
 logging:
   wandb_project: ece283-unified
   wandb_entity: ece283-sentiment-analyzer # set to your W&B username or team name
