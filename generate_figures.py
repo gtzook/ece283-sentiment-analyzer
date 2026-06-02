@@ -24,28 +24,34 @@ STYLE = {
     "font_size_tick": 9,
     "font_size_legend": 9,
     "model_colors": {
-        "epistemic":         "#2E86AB",
-        "political":         "#E84855",
-        "emotion":           "#3BB273",
-        "unified_warm":      "#F7B731",
-        "unified_cold":      "#9B59B6",
-        "unified_largebatch": "#E67E22",
-        "unified_reg":       "#1ABC9C",
-        "unified_difflr":    "#C0392B",
-        "unified_weights":   "#7F8C8D",
-        "tfidf_lr":          "#555555",
+        "epistemic":           "#2E86AB",
+        "political":           "#E84855",
+        "emotion":             "#3BB273",
+        "unified_warm":        "#F7B731",
+        "unified_cold":        "#9B59B6",
+        "unified_largebatch":  "#E67E22",
+        "unified_reg":         "#1ABC9C",
+        "unified_difflr":      "#C0392B",
+        "unified_weights":     "#7F8C8D",
+        "unified_avgencoder":  "#2980B9",
+        "unified_staged":      "#8E44AD",
+        "unified_avgstaged":   "#27AE60",
+        "tfidf_lr":            "#555555",
     },
     "model_linestyles": {
-        "epistemic":         "-",
-        "political":         "-",
-        "emotion":           "-",
-        "unified_warm":      "--",
-        "unified_cold":      "-.",
-        "unified_largebatch": "--",
-        "unified_reg":       "-.",
-        "unified_difflr":    "--",
-        "unified_weights":   "-.",
-        "tfidf_lr":          ":",
+        "epistemic":           "-",
+        "political":           "-",
+        "emotion":             "-",
+        "unified_warm":        "--",
+        "unified_cold":        "-.",
+        "unified_largebatch":  "--",
+        "unified_reg":         "-.",
+        "unified_difflr":      "--",
+        "unified_weights":     "-.",
+        "unified_avgencoder":  "--",
+        "unified_staged":      "-.",
+        "unified_avgstaged":   ":",
+        "tfidf_lr":            ":",
     },
     "in_progress_hatch": "//",
     "baseline_color": "#888888",
@@ -54,16 +60,19 @@ STYLE = {
 }
 
 MODEL_DISPLAY = {
-    "epistemic":          "Epistemic specialist",
-    "political":          "Political specialist",
-    "emotion":            "Emotion specialist",
-    "unified_warm":       "Unified (warm-start)",
-    "unified_cold":       "Unified (cold-start)",
-    "unified_largebatch": "Unified (large batch)",
-    "unified_reg":        "Unified (regularized)",
-    "unified_difflr":     "Unified (diff. LR)",
-    "unified_weights":    "Unified (task weights)",
-    "tfidf_lr":           "TF-IDF + LR baseline",
+    "epistemic":           "Epistemic specialist",
+    "political":           "Political specialist",
+    "emotion":             "Emotion specialist",
+    "unified_warm":        "Unified (warm-start)",
+    "unified_cold":        "Unified (cold-start)",
+    "unified_largebatch":  "Unified (large batch)",
+    "unified_reg":         "Unified (regularized)",
+    "unified_difflr":      "Unified (diff. LR)",
+    "unified_weights":     "Unified (task weights)",
+    "unified_avgencoder":  "Average Encoder",
+    "unified_staged":      "Frozen",
+    "unified_avgstaged":   "Frozen Average",
+    "tfidf_lr":            "TF-IDF + LR baseline",
 }
 
 TASK_DISPLAY = {
@@ -76,6 +85,7 @@ SUBTASK_MODELS  = ["epistemic", "political", "emotion"]
 UNIFIED_MODELS  = [
     "unified_warm", "unified_cold",
     "unified_largebatch", "unified_reg", "unified_difflr", "unified_weights",
+    "unified_avgencoder", "unified_staged", "unified_avgstaged",
 ]
 BASELINE_MODELS = ["tfidf_lr"]
 ALL_MODELS      = SUBTASK_MODELS + UNIFIED_MODELS + BASELINE_MODELS
@@ -271,7 +281,7 @@ def plot_radar(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
         fig.text(0.5, 0.01, note, ha="center", fontsize=STYLE["font_size_legend"],
                  color=STYLE["baseline_color"])
 
-    ax.legend(loc="upper right", bbox_to_anchor=(1.35, 1.15),
+    ax.legend(loc="upper left", bbox_to_anchor=(1.15, 1.05),
               fontsize=STYLE["font_size_legend"])
     fig.tight_layout()
     save_figure(fig, "radar_per_task", output_dir)

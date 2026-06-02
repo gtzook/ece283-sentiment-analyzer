@@ -14,10 +14,10 @@ import sys
 from pathlib import Path
 
 RUNS_BASE = Path("/mldata/ece283-sentiment-analyzer/runs")
-MODEL_TYPE = "unified"
-DEFAULT_RUN = "seed42-5ep"
+MODEL_TYPE = "unified_exp4_weights"
+DEFAULT_RUN = "20260602_010857"
 DEFAULT_CKPT = "best.pt"
-CONFIG_PATH = "models/unified/config.yaml"
+CONFIG_PATH = "models/unified/config_exp4_task_weights.yaml"
 
 sys.path.insert(0, str(Path(__file__).parent))
 
