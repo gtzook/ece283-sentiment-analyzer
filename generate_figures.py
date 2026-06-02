@@ -249,7 +249,7 @@ def plot_bar_latest(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
     avg = (
         latest[latest["model_id"].isin(models) & latest["task"].isin(tasks)]
         .groupby(["model_id", "task"])["relative"]
-        .agg(["mean", "std"])
+        .mean()
         .reset_index()
     )
 
@@ -267,11 +267,8 @@ def plot_bar_latest(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
     for i, model_id in enumerate(models):
         offset = (i - n_models / 2 + 0.5) * width
         sub    = avg[avg["model_id"] == model_id]
-        vals   = [sub[sub["task"] == t]["mean"].values[0]
+        vals   = [sub[sub["task"] == t]["relative"].values[0]
                   if not sub[sub["task"] == t].empty else np.nan
-                  for t in tasks]
-        errs   = [sub[sub["task"] == t]["std"].values[0]
-                  if not sub[sub["task"] == t].empty else 0.0
                   for t in tasks]
 
         color   = STYLE["model_colors"][model_id]
@@ -282,9 +279,7 @@ def plot_bar_latest(df: pd.DataFrame, output_dir: str, tasks=None, models=None):
 
         ax.bar(x + offset, vals, width=width * 0.9,
                color=color, hatch=hatch, edgecolor="white" if not hatch else "gray",
-               alpha=0.85, label=label,
-               yerr=[e if not np.isnan(e) else 0 for e in errs],
-               capsize=3, error_kw={"elinewidth": 1.2})
+               alpha=0.85, label=label)
 
     ax.axhline(1.0, color=STYLE["baseline_color"], ls="--", lw=1.5,
                label="Sub-task baseline")
