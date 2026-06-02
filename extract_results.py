@@ -44,6 +44,7 @@ MODEL_ID_MAP = {
     "unified_exp4_weights":    "unified_weights",
     "unified_exp6_avgencoder": "unified_avgencoder",
     "unified_exp7_staged":     "unified_staged",
+    "unified_exp8_avgstaged":  "unified_avgstaged",
 }
 
 # Internal task names in source files → canonical CSV task name
@@ -374,6 +375,7 @@ EXTRACTORS = {
     "unified_exp4_weights":    _unified("unified_weights"),
     "unified_exp6_avgencoder": _unified("unified_avgencoder"),
     "unified_exp7_staged":     _unified("unified_staged"),
+    "unified_exp8_avgstaged":  _unified("unified_avgstaged"),
 }
 
 # ---------------------------------------------------------------------------
