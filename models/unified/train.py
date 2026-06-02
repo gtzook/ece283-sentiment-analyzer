@@ -480,7 +480,6 @@ def _load_warm_start(model: UnifiedModel, ws_cfg: dict, device: torch.device) ->
         before = len(patches)
         bias_sd = torch.load(bias_path, map_location=device, weights_only=True)
         _BIAS_MAP = [
-            ("_cls_model.roberta.",              "encoder.model."),
             ("_cls_model.classifier.dense.",     "bias_head.pooler.dense."),
             ("_cls_model.classifier.out_proj.",  "bias_head.proj."),
         ]
@@ -504,8 +503,6 @@ def _load_warm_start(model: UnifiedModel, ws_cfg: dict, device: torch.device) ->
         else:
             em_sd = torch.load(legacy_path, map_location=device, weights_only=True)
         _EM_MAP = [
-            ("roberta.embeddings.",  "encoder.model.embeddings."),
-            ("roberta.encoder.",     "encoder.model.encoder."),
             ("roberta.pooler.dense.", "emotion_head.pooler.dense."),
             ("classifier.",          "emotion_head.proj."),
         ]
@@ -532,6 +529,11 @@ def train(cfg: dict, dry_run: bool = False) -> None:
         format="%(asctime)s | %(levelname)s | %(message)s",
         datefmt="%H:%M:%S",
     )
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("datasets").setLevel(logging.WARNING)
+    logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+    import warnings
+    warnings.filterwarnings("ignore", message=".*unauthenticated.*HF Hub.*")
 
     seed = cfg["training"]["seed"]
     torch.manual_seed(seed)
