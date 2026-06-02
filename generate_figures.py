@@ -93,23 +93,21 @@ def normalize_to_relative(df: pd.DataFrame) -> pd.DataFrame:
     # the specialist to appear > 1.0 relative to itself.
     # Prefer test split; fall back to val when no test data exists.
     baselines = {}
-    for split_pref in ("test", "val"):
+    for split in df["split"].unique():
         candidate_rows = df[
             df["model_id"].isin(SUBTASK_MODELS) &
-            (df["split"] == split_pref)
+            (df["split"] == split)
         ]
         for (task, metric), grp in candidate_rows.groupby(["task", "metric"]):
-            if (task, metric) in baselines:
-                continue  # already filled by a preferred split
             specialist_rows = grp[grp["model_id"] == task]
             if specialist_rows.empty:
                 continue
             # Use the latest checkpoint only, not the mean across all checkpoints.
             latest_idx = specialist_rows["checkpoint_step"].idxmax()
-            baselines[(task, metric)] = specialist_rows.loc[latest_idx, "value"]
+            baselines[(task, metric, split)] = specialist_rows.loc[latest_idx, "value"]
 
     def relative(row):
-        key = (row["task"], row["metric"])
+        key = (row["task"], row["metric"], row["split"])
         base = baselines.get(key)
         if base is None or base == 0:
             return np.nan
