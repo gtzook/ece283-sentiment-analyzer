@@ -62,17 +62,23 @@ BIAS_LABELS = ["neutral", "biased"]
 OUT_ROOT = PROJECT_ROOT / "figures" / "confusion_matrices"
 
 RUNS = [
+    # {
+    #     "model_id": "unified_staged",
+    #     "display":  "Frozen",
+    #     "config":   "models/unified/config_exp7_staged.yaml",
+    #     "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp7_staged/20260602_043318/best.pt",
+    # },
+    # {
+    #     "model_id": "unified_weights",
+    #     "display":  "Task weights",
+    #     "config":   "models/unified/config_exp4_task_weights.yaml",
+    #     "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp4_weights/20260602_010857/best.pt",
+    # },
     {
-        "model_id": "unified_staged",
-        "display":  "Frozen",
-        "config":   "models/unified/config_exp7_staged.yaml",
-        "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp7_staged/20260602_043318/best.pt",
-    },
-    {
-        "model_id": "unified_weights",
-        "display":  "Task weights",
-        "config":   "models/unified/config_exp4_task_weights.yaml",
-        "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp4_weights/20260602_010857/best.pt",
+        "model_id": "unified_regularization",
+        "display":  "Regularized",
+        "config":   "models/unified/config_exp2regularization.yaml",
+        "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp2_reg/20260602_011413/best.pt",
     },
 ]
 
