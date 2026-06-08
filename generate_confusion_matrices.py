@@ -77,7 +77,7 @@ RUNS = [
     {
         "model_id": "unified_regularization",
         "display":  "Regularized",
-        "config":   "models/unified/config_exp2regularization.yaml",
+        "config":   "models/unified/config_exp2_regularization.yaml",
         "checkpoint": "/mldata/ece283-sentiment-analyzer/runs/unified_exp2_reg/20260602_011413/best.pt",
     },
 ]
